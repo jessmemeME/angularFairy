@@ -5,12 +5,17 @@
 6- ir a la ubicacion del proyecto angular, en este caso es el siguiente:
      C:\Users\Jess\Documents\PROYECTO_HADA_MADRINA\angularFairy\FairyAngular
 4- instalar el angular CLI (entorno GLOBAL : -g) = npm install -g @angular/cli
-7- una vez alli ejecutar = npm install
+7- una vez alli ejecutar = npm install (la primera vez que se va levantar el proyecto)
 8- Levantar el proyecto = ng serve
 //------------------------------------------------------------
-Para crear aplicaciones nuevas = ng generate component nombre_componente
-
-ng generate component user
+Para crear aplicaciones nuevas (posicionarse desde el proyecto FAIRYANGULAR)= ng generate component nombre_componente
 
 para crear el service de las aplicaciones ejecutar = 
-     ir a la dirección de la nueva aplicacion y desde alli ejecutar = ng generate service nombre_servicio
+     ir a la dirección de la nueva aplicacion (FAIRYANGULAR/src/app/NUEVAAPP)y desde alli ejecutar = ng generate service nombre_servicio
+
+para crear el archivo de modelo de la nueva aplicacion se debe ubicar en la carpeta "models" y desde alli ejecutar = ng generate interface nombre_de_la_interface --type=model
+
+//------------------------------------------------------------
+ng generate component accounts
+ng generate service accounts
+ng generate interface accounts --type=model

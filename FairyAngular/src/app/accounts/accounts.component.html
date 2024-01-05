@@ -14,9 +14,9 @@
         </div>
         <div class="card-body">
             <ul class="list-group">
-                <li  class="list-group-item" *ngFor="let auth of authGroup">
+                <li  class="list-group-item" *ngFor="let account of accounts">
                    <div class="row">
-                        <div class="col-10">{{auth.name}}</div>
+                        <div class="col-10">{{account.email}}</div>
                         <div class="col-2">
                             <Button type="button" class="btn btn-primary" (click)="cambiarTemplate('Edit')"> <i class="bi bi-pencil"></i></Button>
                             <Button type="button" class="btn btn-danger" > <i class="bi bi-trash2"></i></Button>
@@ -38,7 +38,7 @@
                 <form>
                     <div class="form-group">
                       <label for="rolId">Email address</label>
-                      <input [(ngModel)]="nombre" name="nombre" type="text" class="form-control" id="rolId" aria-describedby="rolHelp" placeholder="Ingrese el nombre del rol">
+                      <input [(ngModel)]="email" name="email" type="text" class="form-control" id="rolId" aria-describedby="rolHelp" placeholder="Ingrese su correo electronico">
                     </div>
                     <button type="button" class="btn btn-primary" (click)="enviarDatos()">Submit</button>
                   </form>
