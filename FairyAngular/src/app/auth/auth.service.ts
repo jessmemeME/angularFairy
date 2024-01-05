@@ -39,4 +39,6 @@ export class AuthService {
     // Realizar una solicitud POST con datos en el cuerpo
     return this.http.post<any>(`${this.apiUrl}/Auth/RegisterAuthGroup`, data, { headers: headers}).pipe(tap((data => console.log(data))));
   }
+
+  
 }
