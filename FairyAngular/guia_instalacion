@@ -1,0 +1,16 @@
+1- Se debe instalar node.js : (descargar de la pagina de node)
+2- Se debe configurar el path para apuntar al node (normalmente hace solo, pero si hay error se debe hacer manual)
+3- abrir una nueva terminal
+5- Clonar el repositorio del git (angularFairy)
+6- ir a la ubicacion del proyecto angular, en este caso es el siguiente:
+     C:\Users\Jess\Documents\PROYECTO_HADA_MADRINA\angularFairy\FairyAngular
+4- instalar el angular CLI (entorno GLOBAL : -g) = npm install -g @angular/cli
+7- una vez alli ejecutar = npm install
+8- Levantar el proyecto = ng serve
+//------------------------------------------------------------
+Para crear aplicaciones nuevas = ng generate component nombre_componente
+
+ng generate component user
+
+para crear el service de las aplicaciones ejecutar = 
+     ir a la dirección de la nueva aplicacion y desde alli ejecutar = ng generate service nombre_servicio

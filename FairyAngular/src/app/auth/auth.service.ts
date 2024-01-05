@@ -22,7 +22,7 @@ export class AuthService {
       // Agrega otros encabezados según sea necesario
     });
 
-    // Realizar la solicitud GET con el encabezado
+    // Realizar la solicitud GET con el encabezado llamando al ENDPOINT del backend
     return this.http.get<AuthGroup[]>(`${this.apiUrl}/Auth/ListAllAuthGroups`, { headers: headers }).pipe(tap((data) => console.log("All: "+ JSON.stringify(data))));
   }
 
