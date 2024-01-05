@@ -2,15 +2,11 @@
 <div class="row" style="max-width: 100%;">
     <div class="col-2">
         <app-side-menu></app-side-menu>
+        <router-outlet></router-outlet>
     </div>
-    <div class="col-10">
+    <div class="col-6">
         <main class="container mt-3">
-            <app-auth></app-auth>
+            <router-outlet></router-outlet>
         </main>
     </div>
 </div>
-
-
-
-
-<router-outlet></router-outlet>
