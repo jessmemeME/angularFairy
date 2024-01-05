@@ -1,3 +1,5 @@
+
+//COMPOMENTE PRINCIPAL DEL PROYECTO
 import { Component } from '@angular/core';
 
 @Component({

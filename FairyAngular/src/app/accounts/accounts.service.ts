@@ -1,18 +1,19 @@
 import { Injectable } from '@angular/core';
+//importamos
 import { HttpClient, HttpHeaders  } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { catchError, tap, map } from "rxjs/operators";
-import {AuthGroup} from "../../models/auth-group.model"
+import { Accounts } from '../../models/accounts.model'//llamamos a nuestra interface
 
 @Injectable({
   providedIn: 'root'
 })
-export class AuthService {
+export class AccountsService {
   private apiUrl = 'http://localhost:5229';
 
   constructor(private http: HttpClient) { }
 
-  getDataWithHeader(): Observable<AuthGroup[]> {
+  getDataWithHeader(): Observable<Accounts[]> {
     // Definir el encabezado que deseas agregar
     const headers = new HttpHeaders({
       'Access-Control-Allow-Origin': 'http://localhost:4200',
@@ -23,10 +24,10 @@ export class AuthService {
     });
 
     // Realizar la solicitud GET con el encabezado llamando al ENDPOINT del backend
-    return this.http.get<AuthGroup[]>(`${this.apiUrl}/Auth/ListAllAuthGroups`, { headers: headers }).pipe(tap((data) => console.log("All: "+ JSON.stringify(data))));
+    return this.http.get<Accounts[]>(`${this.apiUrl}/Accounts/ListAllAccounts`, { headers: headers }).pipe(tap((data) => console.log("All: "+ JSON.stringify(data))));
   }
 
-  postData(data:AuthGroup ): Observable<any> {
+  postData(data:Accounts ): Observable<any> {
     const headers = new HttpHeaders({
       'content-type': 'application/json',
       'Access-Control-Allow-Origin': 'http://localhost:4200',
@@ -37,6 +38,6 @@ export class AuthService {
     const body=JSON.stringify(data);
     console.log(body)
     // Realizar una solicitud POST con datos en el cuerpo
-    return this.http.post<any>(`${this.apiUrl}/Auth/RegisterAuthGroup`, data, { headers: headers}).pipe(tap((data => console.log(data))));
+    return this.http.post<any>(`${this.apiUrl}/Accounts/RegisterAccounts`, data, { headers: headers}).pipe(tap((data => console.log(data))));
   }
 }
