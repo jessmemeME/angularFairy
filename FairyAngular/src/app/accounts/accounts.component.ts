@@ -25,14 +25,14 @@ export class AccountsComponent implements OnInit{
   counter:number=3;
   //CAMPOS DE LA BD
   id:number = 0;
-  password:string = "";
-  last_login:string= new Date().toISOString();  // Usar una fecha actual
-  is_superuser:boolean= true;
   email:string = "";
+  password:string = "";
+  is_superuser:boolean= true;
   is_staff:boolean= true;
   is_active:boolean= true;
   date_joined:string= new Date().toISOString();  // Usar una fecha actual
   last_updated:string= new Date().toISOString();  // Usar una fecha actual
+  last_login:string= new Date().toISOString();  // Usar una fecha actual
   //-----------------------------------------------------------------------------------
 
 
@@ -40,12 +40,20 @@ export class AccountsComponent implements OnInit{
   agregarAccount(){
     this.titulo= "AGREGAR NUEVA CUENTA DE USUARIO";
     this.email="";
+    this.password="";
+    this.is_staff = true;
+    this.is_active = true;
+    this.is_superuser = true;
     this.mostrarTemplate1=false;  
   }
 //------------------------------------------------------------------------------------  
   editarAccount(accounts:Accounts){
-    this.titulo = "EDITAR CUENTA DE USUARIO: "+accounts.email;
+    this.titulo = "EDITAR CUENTA DE USUARIO: "+ accounts.email;
     this.email  = accounts.email;
+    this.password  = accounts.password;
+    this.is_staff = accounts.is_staff; // Utilizar el valor de la base de datos
+    this.is_active = accounts.is_active; // Utilizar el valor de la base de datos
+    this.is_superuser = accounts.is_superuser; // Utilizar el valor de la base de datos
     this.mostrarTemplate1=false;
   }
 //------------------------------------------------------------------------------------
@@ -65,7 +73,7 @@ export class AccountsComponent implements OnInit{
   }
   //------------------------------------------------------------------------------------
   //Funcion a la que se llama cuando se quiere desactivar o activar el template desde el html
-  /*
+  
   cambiarTemplate(Condicion:String): void {
     if(Condicion=='Add' || Condicion=='Edit' ){
       this.mostrarTemplate1=false;  
@@ -73,10 +81,8 @@ export class AccountsComponent implements OnInit{
       this.mostrarTemplate1=true;  
     }
   }
-  */
-  cambiarTemplate(condicion: string): void {
-    this.mostrarTemplate1 = condicion === 'Add' || condicion === 'Edit' ? false : true;
-  }
+ 
+ 
   //------------------------------------------------------------------------------------
   obtenerLista ():void{
     this.servicio.getDataWithHeader().subscribe({
