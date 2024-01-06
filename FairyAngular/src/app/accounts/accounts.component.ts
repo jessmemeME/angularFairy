@@ -17,6 +17,8 @@ export class AccountsComponent implements OnInit{
   accounts:Accounts[] = [];
   mostrarTemplate1 = true;
   titulo:string = "LISTA DE CUENTAS DE USUARIO";
+  //BOTONES
+  tipoBotonGuardar:string="Nuevo";
   //DATOS DE LA ALERTA
   mostrarAlerta:boolean=false;
   tituloAlerta:string="";
@@ -39,6 +41,7 @@ export class AccountsComponent implements OnInit{
   //------------------------------------------------------------------------------------
   agregarAccount(){
     this.titulo= "AGREGAR NUEVA CUENTA DE USUARIO";
+    this.tipoBotonGuardar="Nuevo";
     this.email="";
     this.password="";
     this.is_staff = true;
@@ -49,6 +52,7 @@ export class AccountsComponent implements OnInit{
 //------------------------------------------------------------------------------------  
   editarAccount(accounts:Accounts){
     this.titulo = "EDITAR CUENTA DE USUARIO: "+ accounts.email;
+    this.tipoBotonGuardar="Editar";
     this.email  = accounts.email;
     this.password  = accounts.password;
     this.is_staff = accounts.is_staff; // Utilizar el valor de la base de datos
@@ -92,7 +96,7 @@ export class AccountsComponent implements OnInit{
     });
   }
   //------------------------------------------------------------------------------------
-  //Funcion para Editar
+  //Funcion para INSERTAR NUEVO REGISTRO
   enviarDatos ():void{
     const postData = { id: 0, 
                       password:this.password,
@@ -114,6 +118,77 @@ export class AccountsComponent implements OnInit{
       }
     );
   }
+  //------------------------------------------------------------------------------------
+  actualizarDatos():void{
+    const postData = { 
+      id: 0, 
+      password:this.password,
+      last_login:this.last_login,
+      is_superuser:this.is_superuser,
+      email:this.email,
+      is_staff:this.is_staff,
+      is_active:this.is_active,
+      date_joined:this.date_joined,
+      last_updated:this.last_updated 
+    };
+    this.servicio.updateData(postData).subscribe(
+      (result) => {
+        this.obtenerLista();
+        this.activarAlerta("Exito","Actualización de datos exitosa!","success");
+        let intervalId = setInterval(() => {
+          this.counter = this.counter - 1;
+          if(this.counter === 0){
+            this.cerrarAlerta();
+            this.cerrarVentana();            
+            clearInterval(intervalId);
+          } 
+          
+      }, 1000)
+      },
+      (error) => {
+        this.activarAlerta("Error","No se actualizó el registro","danger");
+        let intervalId = setInterval(() => {
+          this.counter = this.counter - 1;
+          if(this.counter === 0){
+            this.cerrarAlerta();
+            this.cerrarVentana();            
+            clearInterval(intervalId);
+          } 
+          
+      }, 1000)
+      }
+    );
+  }
+  //------------------------------------------------------------------------------------
+  eliminarDatos(accounts:Accounts):void{
+    const postData = accounts;
+    this.servicio.deleteData(postData).subscribe(
+      (result) => {
+        this.obtenerLista();
+        this.activarAlerta("Exito","Eliminación exitosa!","success");
+        let intervalId = setInterval(() => {
+          this.counter = this.counter - 1;
+          if(this.counter === 0){
+            this.cerrarAlerta();       
+            clearInterval(intervalId);
+          } 
+          
+      }, 1000)
+      },
+      (error) => {
+        this.activarAlerta("Error","No se pudo eliminar el registro!","danger");
+        let intervalId = setInterval(() => {
+          this.counter = this.counter - 1;
+          if(this.counter === 0){
+            this.cerrarAlerta();         
+            clearInterval(intervalId);
+          } 
+          
+      }, 1000)
+      }
+    );
+  }
+
   //------------------------------------------------------------------------------------
   //Funcion para iniciar
   ngOnInit(): void { 

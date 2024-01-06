@@ -1,9 +1,8 @@
 import { Injectable } from '@angular/core';
-//importamos
 import { HttpClient, HttpHeaders  } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { catchError, tap, map } from "rxjs/operators";
-import { Accounts } from '../../models/accounts.model'//llamamos a nuestra interface
+import {Accounts} from "../../models/accounts.model"
 
 @Injectable({
   providedIn: 'root'
@@ -36,8 +35,39 @@ export class AccountsService {
     });
 
     const body=JSON.stringify(data);
-    console.log(body)
+
     // Realizar una solicitud POST con datos en el cuerpo
     return this.http.post<any>(`${this.apiUrl}/Accounts/RegisterAccounts`, data, { headers: headers}).pipe(tap((data => console.log(data))));
   }
+
+  updateData(data:Accounts ): Observable<any> {
+    const headers = new HttpHeaders({
+      'content-type': 'application/json',
+      'Access-Control-Allow-Origin': 'http://localhost:4200',
+      'Access-Control-Allow-Methods': 'POST, GET, OPTIONS, PUT, DELETE',
+      'Access-Control-Allow-Headers': 'Content-Type, Access-Control-Allow-Headers, Authorization, X-Requested-With'
+    });
+
+    const body=JSON.stringify(data);
+
+    // Realizar una solicitud POST con datos en el cuerpo
+    return this.http.post<any>(`${this.apiUrl}/Accounts/UpdateAccounts`, data, { headers: headers}).pipe(tap((data => console.log(data))));
+  }
+
+
+  deleteData(data:Accounts ): Observable<any> {
+    const headers = new HttpHeaders({
+      'content-type': 'application/json',
+      'Access-Control-Allow-Origin': 'http://localhost:4200',
+      'Access-Control-Allow-Methods': 'POST, GET, OPTIONS, PUT, DELETE',
+      'Access-Control-Allow-Headers': 'Content-Type, Access-Control-Allow-Headers, Authorization, X-Requested-With'
+    });
+
+    const body=JSON.stringify(data);
+
+    // Realizar una solicitud POST con datos en el cuerpo
+    return this.http.post<any>(`${this.apiUrl}/Accounts/DeleteAccounts`, data, { headers: headers}).pipe(tap((data => console.log(data))));
+  }
+
+  
 }

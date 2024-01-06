@@ -33,13 +33,13 @@
                             <td>{{account.email}}</td>
                             <td>{{account.password}}</td>
                             <td>
-                                <input (click)="enviarDatos()" type="checkbox"  [(ngModel)]="account.is_staff" name="is_staff" placeholder="Es parte del staff">
+                                <input (click)="actualizarDatos()" type="checkbox"  [(ngModel)]="account.is_staff" name="is_staff" placeholder="Es parte del staff">
                             </td>
                             <td>
-                                <input (click)="enviarDatos()" type="checkbox"  [(ngModel)]="account.is_superuser" name="is_superuser" placeholder="Es SuperUsuario">
+                                <input (click)="actualizarDatos()" type="checkbox"  [(ngModel)]="account.is_superuser" name="is_superuser" placeholder="Es SuperUsuario">
                             </td>
                             <td>
-                                <input (click)="enviarDatos()" type="checkbox"  [(ngModel)]="account.is_active" name="is_active" placeholder="Es un usuario ACTIVO">
+                                <input (click)="actualizarDatos()" type="checkbox"  [(ngModel)]="account.is_active" name="is_active" placeholder="Es un usuario ACTIVO">
                             </td>
                             <td>{{account.date_joined}}</td>
                             <td>{{account.last_updated}}</td>
@@ -99,7 +99,8 @@
                     </div>
                     <!--BOTON GUARDAR-->
                     <div class="d-flex justify-content-center">
-                        <button type="button" class="btn btn-primary mt-3" (click)="enviarDatos()">GUARDAR</button>
+                        <button *ngIf="tipoBotonGuardar =='Nuevo'" type="button" class="btn btn-primary mt-3" (click)="enviarDatos()">GUARDAR</button>
+                        <button *ngIf="tipoBotonGuardar=='Editar'" type="button" class="btn btn-primary mt-3" (click)="actualizarDatos()">GUARDAR</button>
                     </div>
                 </form>
             </div>
