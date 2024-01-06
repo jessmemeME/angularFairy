@@ -96,8 +96,32 @@ export class AccountsComponent implements OnInit{
     });
   }
   //------------------------------------------------------------------------------------
+  validarFormatoPassword(contrasena: string): boolean {
+      // Requiere al menos una letra mayúscula
+      const tieneMayuscula = /[A-Z]/.test(contrasena);
+
+      // Requiere al menos una letra minúscula
+      const tieneMinuscula = /[a-z]/.test(contrasena);
+
+      // Requiere al menos un número
+      const tieneNumero = /\d/.test(contrasena);
+
+      // Requiere que la contraseña tenga al menos 8 caracteres
+      const longitudValida = contrasena.length >= 8;
+
+      // Devuelve true si todas las condiciones se cumplen
+      return tieneMayuscula && tieneMinuscula && tieneNumero && longitudValida;
+  }
+
+  //------------------------------------------------------------------------------------
   //Funcion para INSERTAR NUEVO REGISTRO
   enviarDatos ():void{
+    if (!this.validarFormatoPassword(this.password)) {
+      // Muestra un mensaje de error o realiza alguna acción si la contraseña no cumple con el formato
+      console.error('El formato de la contraseña no es válido.');
+      return;
+    }
+
     const postData = { id: 0, 
                       password:this.password,
                       last_login:this.last_login,
@@ -188,6 +212,7 @@ export class AccountsComponent implements OnInit{
       }
     );
   }
+
 
   //------------------------------------------------------------------------------------
   //Funcion para iniciar
