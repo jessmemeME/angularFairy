@@ -13,27 +13,49 @@
             </div>
         </div>
         <div class="card-body">
-            <ul class="list-group">
-                <li  class="list-group-item" *ngFor="let account of accounts">
-                   <div class="row">
-                        <div class="col-1">{{account.id}}</div>
-                        <div class="col-1">{{account.email}}</div>
-                        <div class="col-1">{{account.password}}</div>
-                        <div class="col-1">
-                            <input type="checkbox" ng-model="account.is_staff"> Staff
-                        </div>
-                        <div class="col-1">{{account.is_superuser}}</div>
-                        <div class="col-1">{{account.is_active}}</div>
-                        <div class="col-1">{{account.date_joined}}</div>
-                        <div class="col-1">{{account.last_updated}}</div>
-                        <div class="col-1">{{account.last_login}}</div>
-                        <div class="col-2">
-                            <Button type="button" class="btn btn-primary me-1" (click)="editarAccount(account)"> <i class="bi bi-pencil"></i></Button>
-                            <Button type="button" class="btn btn-danger" > <i class="bi bi-trash2"></i></Button>
-                        </div>
-                   </div> 
-                </li>
-            </ul>
+            <div class="table-container data-section">
+                <table class="table table-striped table-hover">
+                    <thead>
+                        <tr>
+                            <th>Email</th>
+                            <th>Password</th>
+                            <th>Staff</th>
+                            <th>SuperUsuario</th>
+                            <th>Activo</th>
+                            <th>Fecha Creación</th>
+                            <th>Fecha Edición</th>
+                            <th>Ultimo inicio de sesión</th>
+                            <th>Acciones</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr *ngFor="let account of accounts">
+                            <td>{{account.email}}</td>
+                            <td>{{account.password}}</td>
+                            <td>
+                                <input (click)="enviarDatos()" type="checkbox"  [(ngModel)]="account.is_staff" name="is_staff" placeholder="Es parte del staff">
+                            </td>
+                            <td>
+                                <input (click)="enviarDatos()" type="checkbox"  [(ngModel)]="account.is_superuser" name="is_superuser" placeholder="Es SuperUsuario">
+                            </td>
+                            <td>
+                                <input (click)="enviarDatos()" type="checkbox"  [(ngModel)]="account.is_active" name="is_active" placeholder="Es un usuario ACTIVO">
+                            </td>
+                            <td>{{account.date_joined}}</td>
+                            <td>{{account.last_updated}}</td>
+                            <td>{{account.last_login}}</td>
+                            <td>
+                                <Button type="button" class="btn btn-primary me-1" (click)="editarAccount(account)">
+                                    <i class="bi bi-pencil"></i>
+                                </Button>
+                                <Button type="button" class="btn btn-danger">
+                                    <i class="bi bi-trash2"></i>
+                                </Button>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
         </div>
     </div>
 </section>
@@ -55,14 +77,31 @@
             </div>
             <div class="card-body">
                 <form>
+                    <!--CORREO-->
                     <div class="form-group">
-                      <label for="rolId">Correo del usuario</label>
-                      <input [(ngModel)]="email" name="email" type="text" class="form-control" id="accountId" aria-describedby="accountHelp" placeholder="Ingrese el correo de usuario">
+                        <label for="accountId">Correo del usuario</label>
+                        <input [(ngModel)]="email" name="email" type="text" class="form-control" id="accountId" aria-describedby="accountHelp" placeholder="Ingrese el correo de usuario">
                     </div>
+                    <!--PASSWORD-->
+                    <div class="form-group">
+                        <label for="accountId">Contraseña</label>
+                        <input [(ngModel)]="password" name="password" type="text" class="form-control" id="accountId" aria-describedby="accountHelp" placeholder="Ingrese la contraseña de usuario">
+                    </div>
+                    <!--ESTADO-->
+                    <div class="form-group">
+                        <label for="accountId">Estado del usuario Activo</label>
+                        <input type="checkbox" [(ngModel)]="is_active" name="is_active" placeholder="Es un usuario activo" class="form-control" id="accountId" aria-describedby="accountHelp">
+                    </div>
+                    <!--STAFF-->
+                    <div class="form-group">
+                        <label for="accountId">Es parte del STAFF</label>
+                        <input type="checkbox" [(ngModel)]="is_staff" name="is_staff" placeholder="Es parte del staff" class="form-control" id="accountId" aria-describedby="accountHelp">
+                    </div>
+                    <!--BOTON GUARDAR-->
                     <div class="d-flex justify-content-center">
                         <button type="button" class="btn btn-primary mt-3" (click)="enviarDatos()">GUARDAR</button>
                     </div>
-                  </form>
+                </form>
             </div>
         </div>
     </section>   
