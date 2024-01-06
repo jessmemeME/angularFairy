@@ -16,21 +16,26 @@ export class AuthComponent implements OnInit{
   mostrarTemplate1 = true;
   titulo:string = "LISTA DE ROLES";
   nombre:string = "";
+  id:number=0;
   mostrarAlerta:boolean=false;
   tituloAlerta:string="";
   contenidoAlerta:string="";
   tipoAlertaClase:string="Success";
-  counter:number=3;
+  counter:number=1;
+  tipoBotonGuardar:string="Nuevo";
   
   agregarRol(){
+    this.tipoBotonGuardar="Nuevo";
     this.titulo= "AGREGAR NUEVO ROL";
     this.nombre="";
     this.mostrarTemplate1=false;  
   }
   
   editarRol(auth:AuthGroup){
+    this.tipoBotonGuardar="Editar";
     this.titulo = "EDITAR ROL: "+auth.name;
     this.nombre = auth.name;
+    this.id = auth.id;
     this.mostrarTemplate1=false;
   }
 
@@ -83,10 +88,68 @@ export class AuthComponent implements OnInit{
           } 
           
       }, 1000)
-        console.error('Error al enviar datos:', error);
       }
     );
   }
+  actualizarDatos():void{
+    const postData = {id:this.id ,name:this.nombre };
+    this.servicio.updateData(postData).subscribe(
+      (result) => {
+        this.obtenerLista();
+        this.activarAlerta("Exito","Se actualizo correctamente el rol","success");
+        let intervalId = setInterval(() => {
+          this.counter = this.counter - 1;
+          if(this.counter === 0){
+            this.cerrarAlerta();
+            this.cerrarVentana();            
+            clearInterval(intervalId);
+          } 
+          
+      }, 1000)
+      },
+      (error) => {
+        this.activarAlerta("Error","No se actualizo el rol","danger");
+        let intervalId = setInterval(() => {
+          this.counter = this.counter - 1;
+          if(this.counter === 0){
+            this.cerrarAlerta();
+            this.cerrarVentana();            
+            clearInterval(intervalId);
+          } 
+          
+      }, 1000)
+      }
+    );
+  }
+  eliminarDatos(auth:AuthGroup):void{
+    const postData = auth;
+    this.servicio.deleteData(postData).subscribe(
+      (result) => {
+        this.obtenerLista();
+        this.activarAlerta("Exito","Se elimino correctamente el rol","success");
+        let intervalId = setInterval(() => {
+          this.counter = this.counter - 1;
+          if(this.counter === 0){
+            this.cerrarAlerta();       
+            clearInterval(intervalId);
+          } 
+          
+      }, 1000)
+      },
+      (error) => {
+        this.activarAlerta("Error","No se elimino el rol","danger");
+        let intervalId = setInterval(() => {
+          this.counter = this.counter - 1;
+          if(this.counter === 0){
+            this.cerrarAlerta();         
+            clearInterval(intervalId);
+          } 
+          
+      }, 1000)
+      }
+    );
+  }
+
   ngOnInit(): void { 
     this.obtenerLista();
   }

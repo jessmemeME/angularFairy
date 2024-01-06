@@ -19,7 +19,7 @@
                         <div class="col-10">{{auth.name}}</div>
                         <div class="col-2">
                             <Button type="button" class="btn btn-primary me-1" (click)="editarRol(auth)"> <i class="bi bi-pencil"></i></Button>
-                            <Button type="button" class="btn btn-danger" > <i class="bi bi-trash2"></i></Button>
+                            <Button type="button" class="btn btn-danger" (click)="eliminarDatos(auth)"> <i class="bi bi-trash2"></i></Button>
                         </div>
                    </div> 
                 </li>
@@ -50,7 +50,9 @@
                       <input [(ngModel)]="nombre" name="nombre" type="text" class="form-control" id="rolId" aria-describedby="rolHelp" placeholder="Ingrese el nombre del rol">
                     </div>
                     <div class="d-flex justify-content-center">
-                        <button type="button" class="btn btn-primary mt-3" (click)="enviarDatos()">GUARDAR</button>
+                        
+                        <button *ngIf="tipoBotonGuardar =='Nuevo'" type="button" class="btn btn-primary mt-3" (click)="enviarDatos()">GUARDAR</button>
+                        <button *ngIf="tipoBotonGuardar=='Editar'" type="button" class="btn btn-primary mt-3" (click)="actualizarDatos()">GUARDAR</button>
                     </div>
                   </form>
             </div>
