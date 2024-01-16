@@ -1,0 +1,27 @@
+<section>
+    <div class="card">
+        <div class="card-header bg-dark text-white">
+            <div class="row">
+                <div class="col-10">
+                    <h3 class="card-text">{{titulo}}</h3>        
+                </div>
+                <div class="col-2">
+                    <a type="button" class="btn btn-danger" href="auth/list-rol">
+                        <i class="bi bi-x-circle"></i>
+                    </a>
+                </div>
+            </div>
+        </div>
+        <div class="card-body">
+            <form>
+                <div class="form-group">
+                  <label for="rolId">Nombre del Rol</label>
+                  <input  [(ngModel)]="nombre" name="nombre" type="text" class="form-control" id="rolId" aria-describedby="rolHelp" placeholder="Ingrese el nombre del rol">
+                </div>
+                <div class="d-flex justify-content-center">
+                    <button type="button" class="btn btn-primary mt-3" (click)="enviarDatos()">GUARDAR</button>
+                </div>
+              </form>
+        </div>
+    </div>
+</section>   

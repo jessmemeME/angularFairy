@@ -1,0 +1,30 @@
+<section class="container">
+    <div class="card">
+        <div class="card-header bg-dark text-white">
+            <div class="row">
+                <div class="col-10">
+                    <h3 class="card-text">Lista de Roles</h3>
+                </div>
+                <div class="col-2">
+                     <a href="auth/add-rol" type="button" class="btn btn-success"> 
+                        <i class="bi bi-plus-circle"></i>
+                     </a>
+                </div>
+            </div>
+        </div>
+        <div class="card-body">
+            <ul class="list-group">
+                <li  class="list-group-item" *ngFor="let auth of authGroup">
+                   <div class="row">
+                        <div class="col-10">{{auth.name}}</div>
+                        <div class="col-2">
+                            <a [routerLink]="['/auth/update-rol']" routerLinkActive="active" [state]="auth" type="button" class="btn btn-primary me-1" > <i class="bi bi-pencil"></i></a>
+                            <button  type="button" class="btn btn-danger" (click)="eliminarDatos(auth)"> <i class="bi bi-trash2"></i></button>
+                        </div>
+                   </div> 
+                </li>
+            </ul>
+        </div>
+    </div>
+</section>
+

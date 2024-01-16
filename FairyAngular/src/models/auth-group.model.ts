@@ -1,6 +1,6 @@
 export interface AuthGroup {
-    id: number;
-  name: string;
+    id?: number;
+  name?: string;
 }
 
 export interface AuthGRoupResult {
