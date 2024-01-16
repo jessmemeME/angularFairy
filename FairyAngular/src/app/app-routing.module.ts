@@ -4,12 +4,14 @@ import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 //Aqui llama a los componentes y servicios de las aplicaciones
 import { AccountsComponent } from './accounts/accounts.component';
-import { AuthComponent } from './auth/auth.component';
+
+
 
 const routes: Routes = [
-  { path:'accounts',component: AccountsComponent},
-  { path:'role',component: AuthComponent},
-  { path:'customer',component: AuthComponent},
+  {path:'accounts',component: AccountsComponent},
+  {path:'auth', 
+  loadChildren:()=>
+  import('./auth/auth.module').then((m)=> m.AuthModule), }
 ];
 
 @NgModule({
