@@ -7,7 +7,7 @@
 4- instalar el angular CLI (entorno GLOBAL : -g) = npm install -g @angular/cli
 7- una vez alli ejecutar = npm install (la primera vez que se va levantar el proyecto)
 8- Levantar el proyecto = ng serve
-//------------------------------------------------------------
+//-----------------------------------------------------------------------------------------
 Para crear aplicaciones nuevas (posicionarse desde el proyecto FAIRYANGULAR)= ng generate component nombre_componente
 
 para crear el service de las aplicaciones ejecutar = 
@@ -15,7 +15,41 @@ para crear el service de las aplicaciones ejecutar =
 
 para crear el archivo de modelo de la nueva aplicacion se debe ubicar en la carpeta "models" y desde alli ejecutar = ng generate interface nombre_de_la_interface --type=model
 
-//------------------------------------------------------------
+//-----------------------------------------------------------------------------------------
 ng generate component accounts
 ng generate service accounts
 ng generate interface accounts --type=model
+
+//-----------------------------------------------------------------------------------------
+Para empezar una nueva parte del proyecto seguir estos pasos:
+1- Ubicarse en la carpeta app y alli aplicar los siguientes comandos
+     ng generate module clients
+     ng generate component clients
+
+2- Ubicarse en la carpeta src/models y alli aplicar los siguientes comandos
+     ng generate interface clients --type=model
+
+//-----------------------------------------------------------------------------------------
+C#
+Para iniciar otra sección del proyecto se sigue los pasos
+se crea el controlador de forma manual, ubicada en la carpeta controllers y click derecho crear controlador.
+se crea el modelo tambien de forma manual, es una clase del tipo modelo que se hace desde la carpeta models y click derecho.
+
+ctrl+f5 ejecuta el proyecto
+ctrl+b compila el proyecto 
+
+
+//-----------------------------------------------------------------------------------------
+Para el ingreso a la base de datos alojada en el servidor gratuito de postgres Elephantsql se debe de seguir 
+los siguientes pasos, cabe mencionar estos son para la utilizacion de pgAdmin4 puede que estoos pasos varien segun
+el dba utilizado.
+     
+     1)	Se da click derecho al icono de Servers
+     2)	Seleccionamos la opcion de Register-Server
+     3)	Se completa en el tab de "General" la opcion de "Name" = HadaMadrinaElephant
+     4)	Luego nos dirigimos a la tab de Conection y los completamos con los sig. datos
+               * Host name/address: babar.db.elephantsql.com
+               * Username: hdzoacnc
+               * Maintenance database: hdzoacnc
+               * Puerto: 5423
+               * Password: qBHkfmkyZf0a-KZ9G_i2GPS4ULBGtHIB
