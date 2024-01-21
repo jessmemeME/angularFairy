@@ -96,6 +96,7 @@ export class AccountsComponent implements OnInit{
     });
   }
   //------------------------------------------------------------------------------------
+  //REGLA PARA VALIDAR CONTRASEÑA
   validarFormatoPassword(contrasena: string): boolean {
       // Requiere al menos una letra mayúscula
       const tieneMayuscula = /[A-Z]/.test(contrasena);
