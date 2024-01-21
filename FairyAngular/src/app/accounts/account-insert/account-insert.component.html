@@ -1,0 +1,46 @@
+<section>
+    <div class="card">
+        <div class="card-header bg-dark text-white">
+            <div class="row">
+                <div class="col-10">
+                    <h3 class="card-text">AGREGAR NUEVA CUENTA</h3>        
+                </div>
+                <div class="col-2">
+                    <button type="button" class="btn btn-danger"  > <!--AGREGAR AQUI REDIRECCION A LA UBICACION ANTERIOR-->
+                        <i class="bi bi-x-circle"></i>
+                    </button>
+                </div>
+            </div>
+            
+        </div>
+        <div class="card-body">
+            <form>
+                <!--CORREO-->
+                <div class="form-group mt-2">
+                    <label for="accountId">Correo del usuario</label>
+                    <input [(ngModel)]="account.email" name="email" type="text" class="form-control" id="accountId" aria-describedby="accountHelp" placeholder="Ingrese el correo de usuario">
+                </div>
+                <!--PASSWORD-->
+                <div class="form-group mt-2">
+                    <label for="accountId">Contraseña</label>
+                    <input [(ngModel)]="account.password" name="password" type="text" class="form-control" id="accountId" aria-describedby="accountHelp" placeholder="Ingrese la contraseña de usuario">
+                </div>
+                <!--ESTADO-->
+                <div class="form-check mt-2">
+                    <input type="checkbox" class="form-check-input" [(ngModel)]="account.is_active" name="is_active" placeholder="Es un usuario activo"id="accountId" aria-describedby="accountHelp">
+                    <label class="ml-2" for="accountId">Estado del usuario Activo</label>
+                </div>
+                <!--STAFF-->
+                <div class="form-check mt-2">
+                    <input type="checkbox"class="form-check-input"[(ngModel)]="account.is_staff" name="is_staff" placeholder="Es parte del staff" id="accountId" aria-describedby="accountHelp">
+                    <label class="ml-2" for="accountId">Es parte del STAFF</label>
+                </div>
+
+                <!--BOTON GUARDAR-->
+                <div class="d-flex justify-content-center">
+                    <button type="button" class="btn btn-primary mt-3" (click)="insertarAccount()">GUARDAR</button> <!--AGREGAR AQIU LA LLAMADA AL INSERT-->
+                </div>
+            </form>
+        </div>
+    </div>
+</section>   

@@ -1,0 +1,60 @@
+<section class="container">
+    <div class="card">
+        <div class="card-header bg-dark text-white">
+            <div class="row">
+                <div class="col-10">
+                    <h3 class="card-text">LISTA DE CUENTAS</h3>
+                </div>
+                <div class="col-2">
+                    <a href="account/add-account" type="button" class="btn btn-success">  <!--AGREGAR AQUI LA REDIRECCION AL COMPONENTE DE INSERT ACCOUNT-->
+                        <i class="bi bi-plus-circle"></i>
+                    </a>
+                </div>
+            </div>
+        </div>
+        <div class="card-body">
+                <table class="table table-responsive table-striped table-hover">
+                    <thead>
+                        <tr>
+                            <th>Email</th>
+                            <th>Password</th>
+                            <th>Staff</th>
+                            <th>SuperUsuario</th>
+                            <th>Activo</th>
+                            <th>Fecha Creación</th>
+                            <th>Fecha Edición</th>
+                            <th>Ultimo inicio de sesión</th>
+                            <th>Acciones</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr *ngFor="let account of accounts">
+                            <td>{{account.email}}</td>
+                            <td>{{account.password}}</td>
+                            <td>
+                                <input  type="checkbox"  [(ngModel)]="account.is_staff" name="is_staff" placeholder="Es parte del staff">
+                            </td>
+                            <td>
+                                <input  type="checkbox"  [(ngModel)]="account.is_superuser" name="is_superuser" placeholder="Es SuperUsuario">
+                            </td>
+                            <td>
+                                <input  type="checkbox"  [(ngModel)]="account.is_active" name="is_active" placeholder="Es un usuario ACTIVO">
+                            </td>
+                            <td>{{account.date_joined}}</td>
+                            <td>{{account.last_updated}}</td>
+                            <td>{{account.last_login}}</td>
+                            <td>
+                                <Button type="button" class="btn btn-primary me-1" >
+                                    <i class="bi bi-pencil"></i>
+                                </Button>
+                                <Button type="button" class="btn btn-danger">
+                                    <i class="bi bi-trash2"></i>
+                                </Button>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+
+        </div>
+    </div>
+</section>

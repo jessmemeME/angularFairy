@@ -2,14 +2,17 @@
 //CONFIGURAMOS EL MODULO QUE NOS PERMITIRA ENRUTAR LAS APLICACIONES
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-//Aqui llama a los componentes y servicios de las aplicaciones
-import { AccountsComponent } from './accounts/accounts.component';
-import { AuthComponent } from './auth/auth.component';
+import { NotFoundComponent } from './not-found/not-found.component';
+
 
 const routes: Routes = [
-  { path:'accounts',component: AccountsComponent},
-  { path:'role',component: AuthComponent},
-  { path:'customer',component: AuthComponent},
+  {path:'auth', 
+  loadChildren:()=>
+  import('./auth/auth.module').then((m)=> m.AuthModule), },
+  {path:'account', 
+  loadChildren:()=>
+  import('./accounts/account.module').then((m)=> m.AccountModule), },
+  {path: '**', component: NotFoundComponent},
 ];
 
 @NgModule({

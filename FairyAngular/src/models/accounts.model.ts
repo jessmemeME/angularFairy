@@ -3,15 +3,15 @@
 //ESTA SECCION ES DE TODO LO REFERENTE A CUENTAS DE USUARIOS
 //tabla accounts_user
 export interface Accounts {
-    id:number;
-    password:string;
-    last_login:string;
-    is_superuser:boolean;
-    email:string;
-    is_staff:boolean;
-    is_active:boolean;
-    date_joined:string;
-    last_updated:string;
+    id?:number;
+    password?:string;
+    last_login?:string;
+    is_superuser?:boolean;
+    email?:string;
+    is_staff?:boolean;
+    is_active?:boolean;
+    date_joined?:string;
+    last_updated?:string;
 }
 
 export interface AccountsResult {

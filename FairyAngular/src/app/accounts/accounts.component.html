@@ -1,4 +1,4 @@
-<section class="container" *ngIf="mostrarTemplate1; else template2">
+<!--<section class="container" *ngIf="mostrarTemplate1; else template2">
     <div class="card">
         <div class="card-header bg-dark text-white">
             <div class="row">
@@ -77,27 +77,27 @@
             </div>
             <div class="card-body">
                 <form>
-                    <!--CORREO-->
+                    
                     <div class="form-group">
                         <label for="accountId">Correo del usuario</label>
                         <input [(ngModel)]="email" name="email" type="text" class="form-control" id="accountId" aria-describedby="accountHelp" placeholder="Ingrese el correo de usuario">
                     </div>
-                    <!--PASSWORD-->
+                    
                     <div class="form-group">
                         <label for="accountId">Contraseña</label>
                         <input [(ngModel)]="password" name="password" type="text" class="form-control" id="accountId" aria-describedby="accountHelp" placeholder="Ingrese la contraseña de usuario">
                     </div>
-                    <!--ESTADO-->
+                    
                     <div class="form-group">
                         <label for="accountId">Estado del usuario Activo</label>
                         <input type="checkbox" [(ngModel)]="is_active" name="is_active" placeholder="Es un usuario activo" class="form-control" id="accountId" aria-describedby="accountHelp">
                     </div>
-                    <!--STAFF-->
+                    
                     <div class="form-group">
                         <label for="accountId">Es parte del STAFF</label>
                         <input type="checkbox" [(ngModel)]="is_staff" name="is_staff" placeholder="Es parte del staff" class="form-control" id="accountId" aria-describedby="accountHelp">
                     </div>
-                    <!--BOTON GUARDAR-->
+                    
                     <div class="d-flex justify-content-center">
                         <button *ngIf="tipoBotonGuardar =='Nuevo'" type="button" class="btn btn-primary mt-3" (click)="enviarDatos()">GUARDAR</button>
                         <button *ngIf="tipoBotonGuardar=='Editar'" type="button" class="btn btn-primary mt-3" (click)="actualizarDatos()">GUARDAR</button>
@@ -114,4 +114,5 @@
         <p>{{contenidoAlerta}}</p>
         <hr>
       </div>
-</section> 
+</section> -->
+<router-outlet></router-outlet>
