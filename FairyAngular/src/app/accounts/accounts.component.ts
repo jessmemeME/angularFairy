@@ -47,7 +47,7 @@ export class AccountsComponent implements OnInit{
     this.mostrarTemplate1=false;  
   }
 //------------------------------------------------------------------------------------  
-  editarAccount(accounts:Accounts){
+/*  editarAccount(accounts:Accounts){
     this.titulo = "EDITAR CUENTA DE USUARIO: "+ accounts.email;
     this.email  = accounts.email;
     this.password  = accounts.password;
@@ -55,7 +55,7 @@ export class AccountsComponent implements OnInit{
     this.is_active = accounts.is_active; // Utilizar el valor de la base de datos
     this.is_superuser = accounts.is_superuser; // Utilizar el valor de la base de datos
     this.mostrarTemplate1=false;
-  }
+  }*/
 //------------------------------------------------------------------------------------
   activarAlerta(titulo:string, contenido:string, tipo:string){
         this.mostrarAlerta = true;
