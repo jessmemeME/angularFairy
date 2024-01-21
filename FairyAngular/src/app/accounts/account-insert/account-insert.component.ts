@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import {AccountsService} from './../accounts.service';
 import { Accounts } from '../../../models/accounts.model'//llamamos a nuestra interface
+import { Router } from '@angular/router';
 
 
 
@@ -10,7 +11,7 @@ import { Accounts } from '../../../models/accounts.model'//llamamos a nuestra in
   styleUrl: './account-insert.component.css'
 })
 export class AccountInsertComponent {
-  constructor(private servicio:AccountsService){}
+  constructor(private servicio:AccountsService, private router:Router){}
   account:Accounts = {};
   insertarAccount ():void{
     const postData = { id: 0, 
@@ -24,7 +25,7 @@ export class AccountInsertComponent {
                       last_updated:this.account.last_updated };
     this.servicio.postData(postData).subscribe(
       (result) => {
-        //this.postDataResult = result;
+        this.router.navigateByUrl("account/list-account");
         console.log(result);
       },
       (error) => {
