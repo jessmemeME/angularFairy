@@ -13,11 +13,28 @@ export class AccountListComponent implements OnInit{
   accounts:Accounts[] = [];
   //Funcion para iniciar
   ngOnInit(): void { 
+    this.obtenerLista();  
+  }
+  
+
+  obtenerLista():void{
     this.servicio.getDataWithHeader().subscribe({
       next:(data) =>{
         this.accounts = data;
       }
     });
+  }
+
+  eliminarDatos(account:Accounts):void{
+    const postData = account;
+    this.servicio.deleteData(postData).subscribe(
+      (result) => {
+        this.obtenerLista();
+
+      },
+      (error) => {
+      }
+    );
   }
 
 }

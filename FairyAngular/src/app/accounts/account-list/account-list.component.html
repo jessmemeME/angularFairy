@@ -32,22 +32,22 @@
                             <td>{{account.email}}</td>
                             <td>{{account.password}}</td>
                             <td>
-                                <input  type="checkbox"  [(ngModel)]="account.is_staff" name="is_staff" placeholder="Es parte del staff">
+                                <input  type="checkbox"  [(ngModel)]="account.is_staff" [checked]="account.is_staff" name="is_staff" placeholder="Es parte del staff">
                             </td>
                             <td>
-                                <input  type="checkbox"  [(ngModel)]="account.is_superuser" name="is_superuser" placeholder="Es SuperUsuario">
+                                <input  type="checkbox"  [(ngModel)]="account.is_superuser" [checked]="account.is_superuser"name="is_superuser" placeholder="Es SuperUsuario">
                             </td>
                             <td>
-                                <input  type="checkbox"  [(ngModel)]="account.is_active" name="is_active" placeholder="Es un usuario ACTIVO">
+                                <input  type="checkbox"  [(ngModel)]="account.is_active" [checked]="account.is_active"name="is_active" placeholder="Es un usuario ACTIVO">
                             </td>
                             <td>{{account.date_joined}}</td>
                             <td>{{account.last_updated}}</td>
                             <td>{{account.last_login}}</td>
                             <td>
-                                <Button type="button" class="btn btn-primary me-1" >
+                                <a type="button" class="btn btn-primary me-1"  [routerLink]="['/account/update-account']" routerLinkActive="active" [state]="account">
                                     <i class="bi bi-pencil"></i>
-                                </Button>
-                                <Button type="button" class="btn btn-danger">
+                                </a>
+                                <Button type="button" class="btn btn-danger" (click)="eliminarDatos(account)">
                                     <i class="bi bi-trash2"></i>
                                 </Button>
                             </td>
