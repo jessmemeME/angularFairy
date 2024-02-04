@@ -23,7 +23,8 @@ export class AuthService {
     });
 
     // Realizar la solicitud GET con el encabezado llamando al ENDPOINT del backend
-    return this.http.get<AuthGroup[]>(`${this.apiUrl}/Auth/ListAllAuthGroups`, { headers: headers }).pipe(tap((data) => console.log("All: "+ JSON.stringify(data))));
+    return this.http.get<AuthGroup[]>(`${this.apiUrl}/Auth/ListAllAuthGroups`, { headers: headers }).pipe(tap((data) => {}))
+    ;
   }
 
   postData(data:AuthGroup ): Observable<any> {
@@ -37,7 +38,7 @@ export class AuthService {
     const body=JSON.stringify(data);
 
     // Realizar una solicitud POST con datos en el cuerpo
-    return this.http.post<any>(`${this.apiUrl}/Auth/RegisterAuthGroup`, data, { headers: headers}).pipe(tap((data => console.log(data))));
+    return this.http.post<any>(`${this.apiUrl}/Auth/RegisterAuthGroup`, data, { headers: headers}).pipe(tap((data => {})));
   }
 
   updateData(data:AuthGroup ): Observable<any> {
@@ -51,7 +52,7 @@ export class AuthService {
     const body=JSON.stringify(data);
 
     // Realizar una solicitud POST con datos en el cuerpo
-    return this.http.post<any>(`${this.apiUrl}/Auth/UpdateAuthGroup`, data, { headers: headers}).pipe(tap((data => console.log(data))));
+    return this.http.post<any>(`${this.apiUrl}/Auth/UpdateAuthGroup`, data, { headers: headers}).pipe(tap((data => {})));
   }
 
 
@@ -66,7 +67,7 @@ export class AuthService {
     const body=JSON.stringify(data);
 
     // Realizar una solicitud POST con datos en el cuerpo
-    return this.http.post<any>(`${this.apiUrl}/Auth/DeleteAuthGroup`, data, { headers: headers}).pipe(tap((data => console.log(data))));
+    return this.http.post<any>(`${this.apiUrl}/Auth/DeleteAuthGroup`, data, { headers: headers}).pipe(tap((data => {})));
   }
 
   
