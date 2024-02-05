@@ -8,13 +8,14 @@ import { AuthInsertComponent } from './auth-insert/auth-insert.component';
 import { AuthUpdateComponent } from './auth-update/auth-update.component';
 import { AuthRoutingModule } from './auth-routing/auth-routing.module';
 import {AuthComponent} from '../auth/auth.component';
+import { AuthPermissionsComponent } from './auth-permissions/auth-permissions.component';
  
 
 
 
 @NgModule({
   
-  declarations: [AuthComponent, AuthListComponent, AuthInsertComponent, AuthUpdateComponent],
+  declarations: [AuthComponent, AuthListComponent, AuthInsertComponent, AuthUpdateComponent, AuthPermissionsComponent],
   imports: [CommonModule,AuthRoutingModule,FormsModule,RouterModule],
   providers:[AuthService]
 })

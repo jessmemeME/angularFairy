@@ -15,3 +15,12 @@ export interface AuthGRoupResult {
     asyncState:string;
     isFaulted:boolean;
 }
+
+export interface AuthGroupPermissions {
+  id:number;
+  name:string;
+  content_type_id:number;
+  content_type:string;
+  checqueado:boolean;
+  codename:string
+}
