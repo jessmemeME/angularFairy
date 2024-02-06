@@ -1,30 +1,18 @@
 <section>
-    <div class="card">
-        <div class="card-header bg-dark text-white">
-            <div class="row">
-                <div class="col-10">
-                   <h3 class="card-text">Modificar {{auth.name}}</h3>
-                </div>
-                <div class="col-2">
-                 <a type="button" class="btn btn-danger" [routerLink]="['/auth/list-rol']">
-                     <i class="bi bi-x-circle"></i>
-                 </a>
-                </div>
+     <!-- Page Heading -->
+     <h1 class="h3 mb-2 color-primario">Crear nuevo rol</h1>
+                  
+     <h5 class="mt-4 color-primario ">Datos del rol</h5>
+     <div class="borde-d w-100 mt-1"></div>
+
+     <div class="mt-4">
+        <div class="row">
+            <div class="col-md-6">
+                <label class="titulo-campo">Nombre del Rol</label>
+                <input [(ngModel)]="auth.name" class="form-control campo" name="nombre" type="text" id="rolId" aria-describedby="rolHelp" placeholder="Ingrese el nombre del rol">
             </div>
-            
+            <div class="borde-d w-100 mt-5"></div>
+            <button type="button" style="max-width: 10%; margin-left: 10px;" class="btn boton-primario btn-lg mt-3 mb-3 float-right"  (click)="actualizarDatos()">Guardar</button>
         </div>
-        <div class="card-body">
-            <form>
-                <div class="form-group">
-                  <label for="rolId">Nombre del Rol</label>
-                  <input [(ngModel)]="auth.name" name="nombre" type="text" class="form-control" id="rolId" aria-describedby="rolHelp" placeholder="Ingrese el nombre del rol">
-                </div>
-                <div class="d-flex justify-content-center">
-                    
-                    <!--<button *ngIf="tipoBotonGuardar =='Nuevo'" type="button" class="btn btn-primary mt-3" (click)="enviarDatos()">GUARDAR</button>-->
-                    <button type="button" class="btn btn-primary mt-3" (click)="actualizarDatos()">GUARDAR</button>
-                </div>
-              </form>
-        </div>
-    </div>
+     </div>
 </section>   

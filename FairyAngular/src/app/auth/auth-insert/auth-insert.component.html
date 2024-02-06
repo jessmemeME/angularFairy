@@ -1,5 +1,27 @@
-<section>
-    <div class="card">
+<section class="container"> 
+     <!-- Page Heading -->
+    <h1 class="h3 mb-2 color-primario">Crear nuevo rol</h1>
+                  
+     <h5 class="mt-4 color-primario ">Datos del rol</h5>
+     <div class="borde-d w-100 mt-1"></div>
+
+     <div class="mt-4">
+        <div class="row">
+            <div class="col-md-6">
+                <label class="titulo-campo">Nombre del Rol</label>
+                <input [(ngModel)]="nombre" class="form-control campo" name="nombre" type="text" id="rolId" aria-describedby="rolHelp" placeholder="Ingrese el nombre del rol">
+            </div>
+            <div class="borde-d w-100 mt-5"></div>
+            <button type="button" style="max-width: 10%; margin-left: 10px;" class="btn boton-primario btn-lg mt-3 mb-3 float-right" (click)="enviarDatos()">Guardar</button>
+        </div>
+     </div>
+    
+
+
+
+
+
+  <!--   <div class="card">
         <div class="card-header bg-dark text-white">
             <div class="row">
                 <div class="col-10">
@@ -23,5 +45,5 @@
                 </div>
               </form>
         </div>
-    </div>
+    </div>-->
 </section>   

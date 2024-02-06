@@ -24,3 +24,8 @@ export interface AuthGroupPermissions {
   checqueado:boolean;
   codename:string
 }
+
+export interface AuthGroupPermissionsUpdate {
+  id:number;
+  listaPermisos:string;
+}

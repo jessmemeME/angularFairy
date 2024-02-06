@@ -1,19 +1,22 @@
-<div class="card" *ngIf="mostrar=='NO'"> 
-    <div class="card-header">
-        <h3 class="card-title">
-            CONFIGURACIONES DE ROL
-        </h3>
+<div class="container" *ngIf="mostrar=='NO'">
+    <div class="card shadow mb-4" > 
+        <div class="card-header py-3">
+            <h6 class="m-0 font-weight-bold text-primary">
+                CONFIGURACIONES DE ROL
+            </h6>
+        </div>
+        <div class="card-body">
+            <ul class="list-group">
+                <li class="list-group-item" (click)="mostrarHijos('list-rol')" style="cursor: pointer;">
+                    ROLES
+                </li>
+                <li class="list-group-item" (click)="mostrarHijos('list-permission')" style="cursor: pointer;">
+                    PERMISOS
+                </li>
+            </ul>
+        </div>
     </div>
-    <div class="card-body">
-        <ul class="list-group">
-            <li class="list-group-item" (click)="mostrarHijos('list-rol')">
-                ROLES
-            </li>
-            <li class="list-group-item" (click)="mostrarHijos('list-permission')">
-                PERMISOS
-            </li>
-        </ul>
-    </div>
+    
 </div>
 <div *ngIf="mostrar=='SI'">
     <router-outlet></router-outlet>
