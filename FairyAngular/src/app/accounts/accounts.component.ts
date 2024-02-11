@@ -2,6 +2,7 @@ import { Component,OnInit } from '@angular/core';
 import { Observable } from 'rxjs';
 import {AccountsService} from './accounts.service' //llamamos a nuestro servicio de la app
 import { Accounts } from '../../models/accounts.model'//llamamos a nuestra interface
+import {Router, NavigationEnd} from "@angular/router"
 
 @Component({
   selector: 'app-accounts',
@@ -10,219 +11,20 @@ import { Accounts } from '../../models/accounts.model'//llamamos a nuestra inter
 })
 
 //--------------------------------------------------------------------------------------
-export class AccountsComponent implements OnInit{
-  constructor(private servicio: AccountsService) {}
-  //------------------------------------------------------------------------------------
-  //INICIALIZAMOS NUESTROS CAMPOS DEL HTML
-  accounts:Accounts[] = [];
-  mostrarTemplate1 = true;
-  titulo:string = "LISTA DE CUENTAS DE USUARIO";
-  //BOTONES
-  tipoBotonGuardar:string="Nuevo";
-  //DATOS DE LA ALERTA
-  mostrarAlerta:boolean=false;
-  tituloAlerta:string="";
-  contenidoAlerta:string="";
-  tipoAlertaClase:string="Success";
-  counter:number=3;
-  //CAMPOS DE LA BD
-  id:number = 0;
-  email:string = "";
-  password:string = "";
-  is_superuser:boolean= true;
-  is_staff:boolean= true;
-  is_active:boolean= true;
-  date_joined:string= new Date().toISOString();  // Usar una fecha actual
-  last_updated:string= new Date().toISOString();  // Usar una fecha actual
-  last_login:string= new Date().toISOString();  // Usar una fecha actual
-  //-----------------------------------------------------------------------------------
-
-
-  //------------------------------------------------------------------------------------
-  agregarAccount(){
-    this.titulo= "AGREGAR NUEVA CUENTA DE USUARIO";
-    this.tipoBotonGuardar="Nuevo";
-    this.email="";
-    this.password="";
-    this.is_staff = true;
-    this.is_active = true;
-    this.is_superuser = true;
-    this.mostrarTemplate1=false;  
+export class AccountsComponent {
+  mostrar:string = "NO";  
+  constructor(private route:Router) {
+    route.events.subscribe((event)=>{
+      if(event instanceof NavigationEnd ){
+          this.mostrar=event.url=='/account'?this.mostrar="NO":this.mostrar="SI";
+      }
+     }
+    ) 
   }
-//------------------------------------------------------------------------------------  
-/*  editarAccount(accounts:Accounts){
-    this.titulo = "EDITAR CUENTA DE USUARIO: "+ accounts.email;
-    this.tipoBotonGuardar="Editar";
-    this.email  = accounts.email;
-    this.password  = accounts.password;
-    this.is_staff = accounts.is_staff; // Utilizar el valor de la base de datos
-    this.is_active = accounts.is_active; // Utilizar el valor de la base de datos
-    this.is_superuser = accounts.is_superuser; // Utilizar el valor de la base de datos
-    this.mostrarTemplate1=false;
-  }*/
-//------------------------------------------------------------------------------------
-  activarAlerta(titulo:string, contenido:string, tipo:string){
-        this.mostrarAlerta = true;
-        this.tipoAlertaClase = tipo;
-        this.tituloAlerta = titulo;
-        this.contenidoAlerta = contenido;
-  }
-//------------------------------------------------------------------------------------
-  cerrarAlerta(){
-    this.mostrarAlerta=false;
-  }
-//------------------------------------------------------------------------------------
-  cerrarVentana(){
-    this.mostrarTemplate1=true; 
-  }
-  //------------------------------------------------------------------------------------
-  //Funcion a la que se llama cuando se quiere desactivar o activar el template desde el html
   
-  cambiarTemplate(Condicion:String): void {
-    if(Condicion=='Add' || Condicion=='Edit' ){
-      this.mostrarTemplate1=false;  
-    }else{
-      this.mostrarTemplate1=true;  
-    }
-  }
- 
- 
-  //------------------------------------------------------------------------------------
-  obtenerLista ():void{
-    this.servicio.getDataWithHeader().subscribe({
-      next:(data) =>{
-        this.accounts = data;
-      }
-    });
-  }
-  //------------------------------------------------------------------------------------
-  //REGLA PARA VALIDAR CONTRASEÑA
-  validarFormatoPassword(contrasena: string): boolean {
-      // Requiere al menos una letra mayúscula
-      const tieneMayuscula = /[A-Z]/.test(contrasena);
 
-      // Requiere al menos una letra minúscula
-      const tieneMinuscula = /[a-z]/.test(contrasena);
-
-      // Requiere al menos un número
-      const tieneNumero = /\d/.test(contrasena);
-
-      // Requiere que la contraseña tenga al menos 8 caracteres
-      const longitudValida = contrasena.length >= 8;
-
-      // Devuelve true si todas las condiciones se cumplen
-      return tieneMayuscula && tieneMinuscula && tieneNumero && longitudValida;
-  }
-
-  //------------------------------------------------------------------------------------
-  //Funcion para INSERTAR NUEVO REGISTRO
-  enviarDatos ():void{
-    if (!this.validarFormatoPassword(this.password)) {
-      // Muestra un mensaje de error o realiza alguna acción si la contraseña no cumple con el formato
-      console.error('El formato de la contraseña no es válido.');
-      return;
-    }
-
-    const postData = { id: 0, 
-                      password:this.password,
-                      last_login:this.last_login,
-                      is_superuser:this.is_superuser,
-                      email:this.email,
-                      is_staff:this.is_staff,
-                      is_active:this.is_active,
-                      date_joined:this.date_joined,
-                      last_updated:this.last_updated };
-    this.servicio.postData(postData).subscribe(
-      (result) => {
-        //this.postDataResult = result;
-        console.log(result);
-        this.cambiarTemplate("List");
-      },
-      (error) => {
-        console.error('Error al enviar datos:', error);
-      }
-    );
-  }
-  //------------------------------------------------------------------------------------
-  actualizarDatos():void{
-    const postData = { 
-      id: 0, 
-      password:this.password,
-      last_login:this.last_login,
-      is_superuser:this.is_superuser,
-      email:this.email,
-      is_staff:this.is_staff,
-      is_active:this.is_active,
-      date_joined:this.date_joined,
-      last_updated:this.last_updated 
-    };
-    this.servicio.updateData(postData).subscribe(
-      (result) => {
-        this.obtenerLista();
-        this.activarAlerta("Exito","Actualización de datos exitosa!","success");
-        let intervalId = setInterval(() => {
-          this.counter = this.counter - 1;
-          if(this.counter === 0){
-            this.cerrarAlerta();
-            this.cerrarVentana();            
-            clearInterval(intervalId);
-          } 
-          
-      }, 1000)
-      },
-      (error) => {
-        this.activarAlerta("Error","No se actualizó el registro","danger");
-        let intervalId = setInterval(() => {
-          this.counter = this.counter - 1;
-          if(this.counter === 0){
-            this.cerrarAlerta();
-            this.cerrarVentana();            
-            clearInterval(intervalId);
-          } 
-          
-      }, 1000)
-      }
-    );
-  }
-  //------------------------------------------------------------------------------------
-  eliminarDatos(accounts:Accounts):void{
-    const postData = accounts;
-    this.servicio.deleteData(postData).subscribe(
-      (result) => {
-        this.obtenerLista();
-        this.activarAlerta("Exito","Eliminación exitosa!","success");
-        let intervalId = setInterval(() => {
-          this.counter = this.counter - 1;
-          if(this.counter === 0){
-            this.cerrarAlerta();       
-            clearInterval(intervalId);
-          } 
-          
-      }, 1000)
-      },
-      (error) => {
-        this.activarAlerta("Error","No se pudo eliminar el registro!","danger");
-        let intervalId = setInterval(() => {
-          this.counter = this.counter - 1;
-          if(this.counter === 0){
-            this.cerrarAlerta();         
-            clearInterval(intervalId);
-          } 
-          
-      }, 1000)
-      }
-    );
-  }
-
-
-  //------------------------------------------------------------------------------------
-  //Funcion para iniciar
-  ngOnInit(): void { 
-    this.servicio.getDataWithHeader().subscribe({
-      next:(data) =>{
-        this.accounts = data;
-      }
-    });
-  }
-  //------------------------------------------------------------------------------------
+  mostrarHijos(path:string):void{
+    this.mostrar= this.mostrar == "NO" ? "SI" : "NO";
+    this.route.navigateByUrl("account/"+path);
+   }
 }
