@@ -6,7 +6,7 @@
                     <h3 class="card-text">MODIFICAR EL USUSARIO: {{account.email}}</h3>        
                 </div>
                 <div class="col-2">
-                    <a type="button" class="btn btn-danger"  href="account/list-account"> <!--AGREGAR AQUI REDIRECCION A LA UBICACION ANTERIOR-->
+                    <a type="button" class="btn btn-danger"  [routerLink]="['/account/list-account']" routerLinkActive="active"> <!--AGREGAR AQUI REDIRECCION A LA UBICACION ANTERIOR-->
                         <i class="bi bi-x-circle"></i>
                     </a>
                 </div>
@@ -18,22 +18,22 @@
                 <!--CORREO-->
                 <div class="form-group">
                     <label for="accountId">Correo del usuario</label>
-                    <input [(ngModel)]="account.email" name="email" type="text" class="form-control" id="accountId" aria-describedby="accountHelp" placeholder="Ingrese el correo de usuario">
+                    <input [(ngModel)]="account.email" name="email" type="text" class="form-control" aria-describedby="accountHelp" placeholder="Ingrese el correo de usuario">
                 </div>
                 <!--PASSWORD-->
                 <div class="form-group">
                     <label for="accountId">Contraseña</label>
-                    <input [(ngModel)]="account.password" name="password" type="text" class="form-control" id="accountId" aria-describedby="accountHelp" placeholder="Ingrese la contraseña de usuario">
+                    <input [(ngModel)]="account.password" name="password" type="password" class="form-control" aria-describedby="accountHelp" placeholder="Ingrese la contraseña de usuario">
                 </div>
                 <!--ESTADO-->
-                <div class="form-check mt-2">
-                    <label for="accountId">Estado del usuario Activo</label>
-                    <input type="checkbox" [(ngModel)]="account.is_active" name="is_active" placeholder="Es un usuario activo"  class="form-check-input" id="accountId" aria-describedby="accountHelp">
+                <div class="form-check">
+                    <label class="mr-5">Estado del usuario Activo</label>
+                    <input type="checkbox" [(ngModel)]="account.is_active" name="is_active" placeholder="Es un usuario activo"  class="form-check-input" aria-describedby="accountHelp">
                 </div>
                 <!--STAFF-->
-                <div class="form-check mt-2">
-                    <label for="accountId">Es parte del STAFF</label>
-                    <input type="checkbox" [(ngModel)]="account.is_staff" name="is_staff" placeholder="Es parte del staff"  class="form-check-input" id="accountId" aria-describedby="accountHelp">
+                <div class="form-check">
+                    <label class="mr-5">Es parte del STAFF</label>
+                    <input type="checkbox" [(ngModel)]="account.is_staff" name="is_staff" placeholder="Es parte del staff"  class="form-check-input" aria-describedby="accountHelp">
                 </div>
                 <!--BOTON GUARDAR-->
                 <div class="d-flex justify-content-center">

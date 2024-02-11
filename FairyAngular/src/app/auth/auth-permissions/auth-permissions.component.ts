@@ -78,5 +78,3 @@ export class AuthPermissionsComponent implements OnInit{
   }
 
 }
-
-
