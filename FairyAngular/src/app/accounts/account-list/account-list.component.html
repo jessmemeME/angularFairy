@@ -25,7 +25,7 @@
                                 <input  class="ms-2" type="checkbox"  [(ngModel)]="account.is_active" [checked]="account.is_active"name="is_active" placeholder="Es un usuario ACTIVO">
                             </td>
                             <td align="center">
-                                <a style="min-width: 30px; min-height: 25px;"   type="button"class="icons-table"><i class="bi bi-key"></i></a>
+                                <a style="min-width: 30px; min-height: 25px;"   type="button"class="icons-table"  [routerLink]="['/account/permiision-account']" routerLinkActive="active" [state]="account"><i class="bi bi-key"></i></a>
                                 <a type="button" style="min-width: 30px; min-height: 25px;" class="icons-table" [routerLink]="['/account/update-account']" routerLinkActive="active" [state]="account">
                                     <i class="bi bi-pencil"></i>
                                 </a>

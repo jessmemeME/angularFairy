@@ -1,0 +1,36 @@
+<div class="container">
+    <div class="card">
+        <div class="card-header">
+            <h3 class="card-title">PERMISOS ASIGNADOS A "{{this.account.email}}" </h3>
+        </div>
+        <div class="card-body">
+            <div style="height: 60vh; overflow: auto; display: block; position: relative;">
+                <table class="table table-bordered table-striped mb-0">
+                    <thead>
+                        <tr>
+                            <th class="pl-1">
+                                <input  (click)="seleccionarTodo()" type="checkbox"  [(ngModel)]="allChecked" [checked]="allChecked" name="all_checkeed" placeholder="Seleccionar/Deseleccionar todo">
+                            </th>
+                            <th>Id del permiso</th>
+                            <th>Nombre del permiso</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr *ngFor="let  Item of permissionList">
+                            <td>
+                                <input type="checkbox" [(ngModel)]="Item.chequeado" [checked]="Item.chequeado"  placeholder="Este permiso es asignado"/>
+                            </td>
+                            <td>{{Item.id}}</td>
+                            <td>{{Item.permission_name}}</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        <div class="card-footer">
+            <button type="button" (click)="asignarPermisos()" class="btn btn-primary">
+                    GUARDAR
+            </button>
+        </div>
+    </div>
+</div>

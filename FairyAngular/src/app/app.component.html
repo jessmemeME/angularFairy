@@ -1,8 +1,36 @@
 
+    <div *ngIf="!userIsLoged" style="margin-top: 50px;"> 
+        <div class="container" style="max-width: 40%;">
+            <div class="card">
+                <form>
+                    <h1 class="h3 mb-3 fw-normal ps-3 pt-3">Por favor ingrese</h1>
+                    <div class="form-floating mb-2 p-3">
+                        <input type="email" class="form-control" name="floatingInput" placeholder="Direccion de Email">
+                    </div>
+                    <div class="form-floating mb-2 p-3">
+                        <input type="password" class="form-control" placeholder="Contraseña">
+
+                    </div>
+                    <div class="checkbox mb-3" align="center">
+                        <label>
+                            <input type="checkbox" value="Recuerda me">
+                            Recueda me
+                        </label>
+                    </div>
+                    <div class="mb-3" align="center">
+                            <a href="">Crear cuenta</a>
+                    </div>
+                    <div class="mb-3" align="center"> 
+                        <button  class="btn btn-lg btn-primary" type="button">INICIAR SESSION</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
     <!-- Page Wrapper -->
-    <div id="wrapper">
+    <div id="wrapper" *ngIf="userIsLoged">
         <app-side-menu></app-side-menu>
-        <div id="content-wrapper">
+        <div id="content-wrapper" >
             <div id="content">
                 <app-nav-bar></app-nav-bar>
                 <div class="container-fluid" >
