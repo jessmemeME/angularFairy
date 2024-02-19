@@ -6,12 +6,17 @@ import { NotFoundComponent } from './not-found/not-found.component';
 import {AppComponent} from './app.component';
 
 const routes: Routes = [
+  
+  { path: '', redirectTo: 'login', pathMatch: 'full' },
   {path:'auth', 
   loadChildren:()=>
-  import('./auth/auth.module').then((m)=> m.AuthModule), },
+    import('./auth/auth.module').then((m)=> m.AuthModule)},
   {path:'account', 
-  loadChildren:()=>
-  import('./accounts/account.module').then((m)=> m.AccountModule), },
+    loadChildren:()=>
+  import('./accounts/account.module').then((m)=> m.AccountModule)},
+  {path:'login', 
+    loadChildren:()=>
+  import('./login/login.module').then((m)=> m.LoginModule)},
   {path: '**', component: NotFoundComponent},
 ];
 

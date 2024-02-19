@@ -8,13 +8,16 @@ import {AccountsComponent} from './accounts.component'
 import { AccountsService } from './accounts.service';
 import { FormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
+import { AccountPermissionsComponent } from './account-permissions/account-permissions.component';
+
 
 @NgModule({
   declarations: [
     AccountInsertComponent,
     AccountListComponent,
     AccountUpdateComponent,
-    AccountsComponent
+    AccountsComponent,
+    AccountPermissionsComponent,
   ],
   imports: [
     CommonModule,

@@ -26,3 +26,14 @@ export interface AccountsResult {
     asyncState:string;
     isFaulted:boolean;
 }
+
+export interface UserPermissionsWithCheck {
+    id?:number;
+    permission_name?:string;
+    chequeado: boolean;
+}
+
+export interface UserGroupPermissionsUpdate {
+    id:number;
+    listaPermisos:string;
+}

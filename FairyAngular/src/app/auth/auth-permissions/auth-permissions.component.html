@@ -8,7 +8,9 @@
                 <table class="table table-bordered table-striped mb-0">
                     <thead>
                         <tr>
-                            <th class="pl-1"><input  (click)="seleccionarTodo()" type="checkbox"  [(ngModel)]="allChecked" [checked]="allChecked" name="all_checkeed" placeholder="Seleccionar/Deseleccionar todo"></th>
+                            <th class="pl-1">
+                                <input  (click)="seleccionarTodo()" type="checkbox"  [(ngModel)]="allChecked" [checked]="allChecked" name="all_checkeed" placeholder="Seleccionar/Deseleccionar todo">
+                            </th>
                             <th>ID</th>
                             <th>Nombre</th>
                             <th>Contenido</th>
@@ -16,7 +18,9 @@
                     </thead>
                     <tbody>
                         <tr *ngFor="let authGroupPermisionItem of authGroupPermision">
-                            <td><input  type="checkbox"  [(ngModel)]="authGroupPermisionItem.checqueado" [checked]="authGroupPermisionItem.checqueado" name="is_checkeed" placeholder="Este permiso es asignado"></td>
+                            <td>
+                                <input  type="checkbox" [(ngModel)]="authGroupPermisionItem.checqueado" [checked]="authGroupPermisionItem.checqueado" name="is_checkeed" placeholder="Este permiso es asignado">
+                            </td>
                             <td>{{authGroupPermisionItem.id}}</td>
                             <td>{{authGroupPermisionItem.name}}</td>
                             <td>{{authGroupPermisionItem.content_type}}</td>
@@ -27,7 +31,7 @@
         </div>
         <div class="card-footer">
             <button type="button" (click)="guardarLista()" class="btn btn-primary">
-                Guardar
+                GUARDAR
             </button>
         </div>
     </div>
