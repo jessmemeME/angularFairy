@@ -53,3 +53,18 @@ el dba utilizado.
                * Maintenance database: hdzoacnc
                * Puerto: 5423
                * Password: qBHkfmkyZf0a-KZ9G_i2GPS4ULBGtHIB
+
+//-***********************************
+Para levantar el trabajo nuevamente
+//-***********************************
+#El front
+     1- ir a la ubicacion del proyecto angular, en este caso es el siguiente:
+          C:\Users\Jess\Documents\PROYECTO_HADA_MADRINA\angularFairy\FairyAngular
+     2- una vez alli ejecutar = npm install (la primera vez que se va levantar el proyecto)
+     3- Levantar el proyecto = ng serve
+
+#El Back
+     1- Abrir el visual 2019
+     2- Ejecutar el proyecto
+
+//-***********************************
