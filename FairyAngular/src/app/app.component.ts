@@ -9,5 +9,11 @@ import { Component } from '@angular/core';
 })
 export class AppComponent {
   title = 'FairyAngular';
-  userIsLoged = false;
+  userIsLoged = true;
+
+  password:string = "";
+  user_mail:string= "";
+
+
+
 }
