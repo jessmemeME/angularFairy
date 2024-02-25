@@ -1,0 +1,16 @@
+
+    <div *ngIf="!userIsLoged" style="margin-top: 50px;"> 
+        <router-outlet></router-outlet>
+    </div>
+    <!-- Page Wrapper -->
+    <div id="wrapper" *ngIf="userIsLoged">
+        <app-side-menu></app-side-menu>
+        <div id="content-wrapper" >
+            <div id="content">
+                <app-nav-bar></app-nav-bar>
+                <div class="container-fluid" >
+                    <router-outlet></router-outlet>
+                </div>
+            </div>
+        </div>
+    </div>

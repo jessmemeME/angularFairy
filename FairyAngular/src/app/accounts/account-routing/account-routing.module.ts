@@ -4,13 +4,12 @@ import {Routes, RouterModule} from '@angular/router';
 import { AccountListComponent } from '../account-list/account-list.component';
 import { AccountInsertComponent } from '../account-insert/account-insert.component';
 import { AccountUpdateComponent } from '../account-update/account-update.component';
-import { AccountsComponent } from '../accounts.component';
 import { AccountPermissionsComponent } from '../account-permissions/account-permissions.component';
 
 
 const routes: Routes = [{
   path:'',
-  component: AccountsComponent,
+ // component: AccountsComponent,
   children: [
       {path: 'update-account', component: AccountUpdateComponent},
       {path: 'add-account', component: AccountInsertComponent},
@@ -22,7 +21,7 @@ const routes: Routes = [{
 
 @NgModule({
   declarations: [],
-  imports: [CommonModule,RouterModule.forChild(routes)],
+  imports: [RouterModule.forChild(routes)],
   exports:[RouterModule]
 })
 export class AccountRoutingModule { }
