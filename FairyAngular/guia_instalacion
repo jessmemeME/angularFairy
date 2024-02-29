@@ -51,7 +51,7 @@ el dba utilizado.
                * Host name/address: babar.db.elephantsql.com
                * Username: hdzoacnc
                * Maintenance database: hdzoacnc
-               * Puerto: 5423
+               * Puerto: 5432
                * Password: qBHkfmkyZf0a-KZ9G_i2GPS4ULBGtHIB
 
 //-***********************************
@@ -64,7 +64,7 @@ Para levantar el trabajo nuevamente
      3- Levantar el proyecto = ng serve
 
 #El Back
-     1- Abrir el visual 2019
+     1- Abrir el visual 2022
      2- Ejecutar el proyecto
 
 //-***********************************
