@@ -12,13 +12,17 @@ ___________________________________________________________
 
 ##### CREAR APLICACIONES NUEVAS#####
 ___________________________________________________________
-     1- Para crear aplicaciones nuevas (posicionarse desde el proyecto FAIRYANGULAR)= ng generate component nombre_componente
+     1 -Para aplicaciones nuevas (posicionarse desde el proyecto FAIRYANGULAR)= ng generate module nombre_modulo
 
-     2- para crear el service de las aplicaciones ejecutar = 
+     2 - Luego se crea el modulo de enrutamiento para ello se accede a la cartpeta del modulo recien creado y se ejecuta: ng generate module nombre_modulo-routing
+     
+     3 - Seguimos en la misma carpeta y creamos el componente que equiva a la pagina que queremos mostrar = mg generate c nombre-componente
+     
+     4- para crear el service de las aplicaciones ejecutar = 
           ir a la dirección de la nueva aplicacion (FAIRYANGULAR/src/app/NUEVAAPP)y desde alli 
           ejecutar = ng generate service nombre_servicio
 
-     3- para crear el archivo de modelo de la nueva aplicacion =
+     5- para crear el archivo de modelo de la nueva aplicacion =
           se debe ubicar en la carpeta "models" y desde alli ejecutar = 
           ng generate interface nombre_de_la_interface --type=model
 
