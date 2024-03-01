@@ -12,6 +12,9 @@ import { UtilityModule } from '../utility/utility.module';
 import { LoginComponent } from './login.component';
 
 import { LoginService } from './login.service';
+import { CreateAccountComponent } from './create-account/create-account.component';
+import { ValidateCodeComponent } from './validate-code/validate-code.component';
+import { ResetPasswordComponent } from './reset-password/reset-password.component';
 
 
 
@@ -19,6 +22,9 @@ import { LoginService } from './login.service';
 @NgModule({
   declarations: [
     LoginComponent,
+    CreateAccountComponent,
+    ValidateCodeComponent,
+    ResetPasswordComponent,
   ],
   imports: [
     CommonModule, LoginRouteModule, RouterModule, FormsModule, UtilityModule,

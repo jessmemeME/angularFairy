@@ -16,9 +16,13 @@ export class AuthUpdateComponent implements OnInit{
   auth:AuthGroup ={};
   ngOnInit(): void {
     if(history!==undefined){
-      this.auth = history.state;
+      this.auth = history.state??history.state;
+      sessionStorage.setItem('currentAuth',JSON.stringify(history.state));
     }else{
-      this.router.navigateByUrl("auth/list-rol");
+      const currentAuthString = sessionStorage.getItem('currentAuth');
+     if(currentAuthString){
+      this.auth = JSON.parse(currentAuthString);
+     }
     }
   }
   actualizarDatos():void{
