@@ -12,6 +12,8 @@ import { NavBarComponent } from '../UI/nav-bar/nav-bar.component';
 import { NotFoundComponent } from '../UI/not-found/not-found.component';
 import { SideMenuComponent } from '../UI/side-menu/side-menu.component';
 
+import { LocationStrategy } from '@angular/common';
+import { HashLocationStrategy } from '@angular/common';
 
 
 
@@ -32,6 +34,7 @@ import { SideMenuComponent } from '../UI/side-menu/side-menu.component';
   ],
   providers: [
     provideClientHydration(),
+    {provide: LocationStrategy, useClass: HashLocationStrategy}
   ],
   bootstrap: [AppComponent]
 })
