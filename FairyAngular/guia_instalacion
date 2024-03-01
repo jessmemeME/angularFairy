@@ -8,12 +8,19 @@
 7- una vez alli ejecutar = npm install (la primera vez que se va levantar el proyecto)
 8- Levantar el proyecto = ng serve
 //-----------------------------------------------------------------------------------------
-Para crear aplicaciones nuevas (posicionarse desde el proyecto FAIRYANGULAR)= ng generate component nombre_componente
+___________________________________________________________
 
-para crear el service de las aplicaciones ejecutar = 
-     ir a la dirección de la nueva aplicacion (FAIRYANGULAR/src/app/NUEVAAPP)y desde alli ejecutar = ng generate service nombre_servicio
+##### CREAR APLICACIONES NUEVAS#####
+___________________________________________________________
+     1- Para crear aplicaciones nuevas (posicionarse desde el proyecto FAIRYANGULAR)= ng generate component nombre_componente
 
-para crear el archivo de modelo de la nueva aplicacion se debe ubicar en la carpeta "models" y desde alli ejecutar = ng generate interface nombre_de_la_interface --type=model
+     2- para crear el service de las aplicaciones ejecutar = 
+          ir a la dirección de la nueva aplicacion (FAIRYANGULAR/src/app/NUEVAAPP)y desde alli 
+          ejecutar = ng generate service nombre_servicio
+
+     3- para crear el archivo de modelo de la nueva aplicacion =
+          se debe ubicar en la carpeta "models" y desde alli ejecutar = 
+          ng generate interface nombre_de_la_interface --type=model
 
 //-----------------------------------------------------------------------------------------
 ng generate component accounts
