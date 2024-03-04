@@ -3,11 +3,12 @@ import {Routes, RouterModule} from '@angular/router';
 import {AuthInsertComponent} from "../auth-insert/auth-insert.component";
 import {AuthListComponent} from "../auth-list/auth-list.component";
 import {AuthUpdateComponent} from "../auth-update/auth-update.component";
-import {AuthPermissionsComponent} from "../auth-permissions/auth-permissions.component";
+import {AuthPermissionsComponent} from "../auth-permissions/auth-permissions.component"; 
+import { AuthComponent } from '../auth.component';
 
 const routes: Routes = [{
   path:'',
- // component: AuthComponent,
+  component: AuthComponent,
   children: [
       {path: 'update-rol', component: AuthUpdateComponent},
       {path: 'add-rol', component: AuthInsertComponent},
