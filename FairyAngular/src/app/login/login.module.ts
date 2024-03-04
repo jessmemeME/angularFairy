@@ -15,8 +15,9 @@ import { LoginService } from './login.service';
 import { CreateAccountComponent } from './create-account/create-account.component';
 import { ValidateCodeComponent } from './validate-code/validate-code.component';
 import { ResetPasswordComponent } from './reset-password/reset-password.component';
-
-
+import { LocationStrategy } from '@angular/common';
+import { HashLocationStrategy } from '@angular/common';
+import { LoginApiService } from './login-api.service';
 
 
 @NgModule({
@@ -29,6 +30,10 @@ import { ResetPasswordComponent } from './reset-password/reset-password.componen
   imports: [
     CommonModule, LoginRouteModule, RouterModule, FormsModule, UtilityModule,
   ], 
-  providers:[LoginService]
+  providers:[
+    {provide: LocationStrategy, useClass: HashLocationStrategy},
+    LoginService,
+    LoginApiService
+  ]
 })
 export class LoginModule { }
