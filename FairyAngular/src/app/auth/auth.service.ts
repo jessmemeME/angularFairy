@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders  } from '@angular/common/http';
 import { Observable } from 'rxjs';
-import { catchError, tap, map } from "rxjs/operators";
+import { tap } from "rxjs/operators";
 import {AuthGroup, AuthGroupPermissions, AuthGroupPermissionsUpdate} from "../../models/auth-group.model"
 
 @Injectable({
