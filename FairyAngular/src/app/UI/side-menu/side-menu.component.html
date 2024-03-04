@@ -13,9 +13,9 @@
 
     <!-- Nav Item - Dashboard -->
     <li class="nav-item active">
-        <a class="nav-link" href="index.html">
+        <a class="nav-link" routerLink="/home">
             <i class="fas fa-fw fa-tachometer-alt"></i>
-            <span>Panel de control</span></a>
+            <span>Dashboard</span></a>
     </li>
 
     <!-- Divider -->
@@ -24,7 +24,7 @@
    
     <!-- Nav Item - Pages Collapse Menu -->
     <li class="nav-item">
-        <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseTwo-1"
+        <a class="nav-link collapsed" routerLink="/clients" data-toggle="collapse" data-target="#collapseTwo-1"
             aria-expanded="true" aria-controls="collapseTwo-1">
             <i class="iconos"><img src="assets/static/images/logos/iconos/clientes.svg"></i>
             <span>Clientes</span>
@@ -43,7 +43,7 @@
     <hr class="sidebar-divider">
 
     <li class="nav-item">
-        <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseTwo-2"
+        <a class="nav-link collapsed" routerLink="/vendor" data-toggle="collapse" data-target="#collapseTwo-2"
             aria-expanded="true" aria-controls="collapseTwo-2">
             <i class="iconos"><img src="/assets/static/images/logos/iconos/proveedores.svg"></i>
             <span>Proveedores</span>
@@ -61,7 +61,7 @@
      <hr class="sidebar-divider">
 
      <li class="nav-item">
-         <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseTwo-3"
+         <a class="nav-link collapsed" routerLink="/events" data-toggle="collapse" data-target="#collapseTwo-3"
              aria-expanded="true" aria-controls="collapseTwo-3">
              <i class="iconos"><img src="/assets/static/images/logos/iconos/eventos.svg"></i>
              <span>Eventos</span>
@@ -77,8 +77,10 @@
      <!-- Divider -->
      <hr class="sidebar-divider">
 
+
      <li class="nav-item">
-         <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseTwo-4"
+         
+         <a class="nav-link collapsed" routerLink="/charts" data-toggle="collapse" data-target="#collapseTwo-4"
              aria-expanded="true" aria-controls="collapseTwo-4">
              <i class="iconos"><img src="/assets/static/images/logos/iconos/informes.svg"></i>
              <span>Informes</span>
@@ -109,13 +111,22 @@
         </div>
     </li>
 
-     
-
       <!-- Divider -->
       <hr class="sidebar-divider">
 
       <li class="nav-item">
-          <a class="nav-link" routerLink="/auth">
+           <a class="nav-link" routerLink="/auth"> <!--ESTA ES LA LINEA DE RUTEO-->
+            <i class="iconos"><img src="/assets/static/images/logos/iconos/configuracion.svg"></i>
+              <span>Auth</span>
+          </a>
+      </li>
+
+        <!-- Divider -->
+      <hr class="sidebar-divider">
+
+      <li class="nav-item">
+          <!--a class="nav-link" routerLink="/auth"-->
+          <a class="nav-link" routerLink="/settings">
             <i class="iconos"><img src="/assets/static/images/logos/iconos/configuracion.svg"></i>
               <span>Configuración</span>
           </a>

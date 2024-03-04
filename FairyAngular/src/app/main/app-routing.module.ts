@@ -8,6 +8,9 @@ const routes: Routes = [
   { path: '', redirectTo: 'login', pathMatch: 'full' }, // Redirige la ruta vacía al módulo de login
   { path: 'login', loadChildren: () => import('../login/login.module').then((m) => m.LoginModule) },
   { path: 'auth', loadChildren: () => import('../auth/auth.module').then((m) => m.AuthModule) },
+  { path: 'clients', loadChildren: () => import('../clients/clients.module').then((m) => m.ClientsModule) },
+  { path: 'settings', loadChildren: () => import('../settings/settings/settings.module').then((m) => m.SettingsModule) },
+  //{ path: 'basic', loadChildren: () => import('../settings/basic-info/basic-info.module').then((m) => m.BasicInfoModule) },
   { path: 'account', loadChildren: () => import('../accounts/account.module').then((m) => m.AccountModule) },
   { path: '**', component: NotFoundComponent },
 ];
