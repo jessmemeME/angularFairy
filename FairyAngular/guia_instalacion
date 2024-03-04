@@ -16,10 +16,10 @@ ___________________________________________________________
      
           Crear el modulo de la aplicacion = ng generate module nombre_modulo
 
-     2 - Luego se crea el modulo de enrutamiento para ello se accede a la cartpeta del modulo recien creado y se ejecuta: 
+     2 - Luego se crea el modulo de enrutamiento para ello se accede a la carpeta del modulo recien creado y se ejecuta: 
           ng generate module nombre_modulo-routing
      
-     3 - Seguimos en la misma carpeta y creamos el componente que equiva a la pagina que queremos mostrar = 
+     3 - Seguimos en la misma carpeta y creamos el componente que equivale a la pagina que queremos mostrar = 
           ng generate c nombre-componente
 
      4- para crear el service de las aplicaciones, ir a la dirección de la nueva aplicacion (FAIRYANGULAR/src/app/NUEVAAPP)y desde alli 
@@ -30,11 +30,14 @@ ___________________________________________________________
           ng generate interface nombre_de_la_interface --type=model
           
 //-----------------------------------------------------------------------------------------
-ng generate module nombre_modulo
-ng generate module nombre_modulo-routing
-ng generate component accounts
-ng generate service accounts
-ng generate interface accounts --type=model
+cd C:\Users\Jess\OneDrive\Documentos\Tesis\angularFairy\FairyAngular 
+     ng generate module settings
+cd C:\Users\Jess\OneDrive\Documentos\Tesis\angularFairy\FairyAngular\src\app\settings
+     ng generate module settings-routing
+     ng generate c settings-componente
+     ng generate service settings
+cd C:\Users\Jess\OneDrive\Documentos\Tesis\angularFairy\FairyAngular\src\models
+     ng generate interface settings --type=model
 
 //-----------------------------------------------------------------------------------------
 Para empezar una nueva parte del proyecto seguir estos pasos:
