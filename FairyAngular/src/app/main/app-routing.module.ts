@@ -10,6 +10,7 @@ const routes: Routes = [
   { path: 'auth', loadChildren: () => import('../auth/auth.module').then((m) => m.AuthModule) },
   { path: 'clients', loadChildren: () => import('../clients/clients.module').then((m) => m.ClientsModule) },
   { path: 'settings', loadChildren: () => import('../settings/settings/settings.module').then((m) => m.SettingsModule) },
+  { path: 'payment', loadChildren: () => import('../payment/payment.module').then((m) => m.PaymentModule) },
   //{ path: 'basic', loadChildren: () => import('../settings/basic-info/basic-info.module').then((m) => m.BasicInfoModule) },
   { path: 'account', loadChildren: () => import('../accounts/account.module').then((m) => m.AccountModule) },
   { path: '**', component: NotFoundComponent },
