@@ -11,3 +11,7 @@ export interface ReturnLogin {
 export interface Code {
     auth_code:string;
 }
+
+export interface email{
+    email:string
+}
