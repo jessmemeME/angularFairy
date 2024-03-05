@@ -21,14 +21,22 @@ export class AppComponent implements OnInit{
   constructor(private communicationService: GlobalCommunicationService, private router:Router ) {
     this.communicationService.message$.subscribe(message => {
       this.returnedLogin = message;
-      if(this.returnedLogin.respuesta.toLocaleUpperCase() != 'ERROR'){
-        this.userIsLoged=true;
-        this.router.navigateByUrl("account/list-account");
+      
+      if(this.returnedLogin.respuesta.toLocaleUpperCase() == 'EXITO'){
+        if(this.userIsLoged!=true){
+          this.userIsLoged=true;
+          localStorage.setItem('userIsLoged', 'true');
+          this.router.navigateByUrl("account/list-account");
+        }
       }
+
     });
   }
+
   ngOnInit(): void {
-    console.log(this.userIsLoged, 'userIsLoged')
+    console.log(this.userIsLoged, 'userIsLoged');
+    const userIsLogedFromStorage = localStorage.getItem('userIsLoged');
+    this.userIsLoged = userIsLogedFromStorage ? JSON.parse(userIsLogedFromStorage) : false;
   }
 
 }

@@ -35,7 +35,7 @@ export class AuthService {
       'Access-Control-Allow-Headers': 'Content-Type, Access-Control-Allow-Headers, Authorization, X-Requested-With'
     });
 
-    const body=JSON.stringify(data);
+  
 
     // Realizar una solicitud POST con datos en el cuerpo
     return this.http.post<any>(`${this.apiUrl}/Auth/RegisterAuthGroup`, data, { headers: headers}).pipe(tap((data => {})));
