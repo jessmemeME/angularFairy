@@ -7,10 +7,10 @@
               <p>Su codigo enviado por correo</p>
   
               <div class="otp-field mb-4">
-                <input type="number" />
+                <input type="number" name="code" [(ngModel)]="codigo"/>
               </div>
   
-              <button class="btn btn-primary mb-3">
+              <button class="btn btn-primary mb-3" (click)="validateCode()">
                 Verify
               </button>
   

@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable, tap } from 'rxjs';
-import { Login,Code } from '../../models/login';
+import { Login,Code, email } from '../../models/login';
 
 
 @Injectable({
@@ -16,10 +16,10 @@ export class LoginApiService {
       'Access-Control-Allow-Methods': 'POST, GET, OPTIONS, PUT, DELETE',
       'Access-Control-Allow-Headers': 'Content-Type, Access-Control-Allow-Headers, Authorization, X-Requested-With'
   })
-  VerifyCode(email:string): Observable<Code> {
-      var data={email:email}
+  VerifyCode(Email:email): Observable<Code> {
+      
       return this.http.post<any>(
-        `${this.apiBaseUrl}/Login/VerifyCode`, data, {headers: this.commonHeader})
+        `${this.apiBaseUrl}/Login/VerifyCode`, Email, {headers: this.commonHeader})
         .pipe(
           tap(
             (data)=>{
@@ -29,4 +29,18 @@ export class LoginApiService {
           )
         );
   }
+
+  Validated(Email:email): Observable<any> {
+    
+    return this.http.post<any>(
+      `${this.apiBaseUrl}/Login/Validated`, Email, {headers: this.commonHeader})
+      .pipe(
+        tap(
+          (data)=>{
+            console.log(data, "VerifyCode");
+            return data;
+          }
+        )
+      );
+}
 }
