@@ -48,11 +48,13 @@ export class LoginComponent{
     this.servicio.login(this.loginObject).subscribe((response)=>{
       this.returnObject = response;
       if(this.returnObject.respuesta.toLocaleLowerCase() == 'code'){
-        this.router.navigateByUrl('/login/validate-code')
+        this.router.navigateByUrl('/login/validate-code', {state:this.loginObject})
+      }else{
+        this.alertType = this.returnObject.respuesta.toUpperCase() == 'ERROR'? "error":"success";
+        this.communicationService.sendMessage(this.returnObject);
+        this.toggleAlert()
       }
-      this.alertType = this.returnObject.respuesta.toUpperCase() == 'ERROR'? "error":"success";
-      this.communicationService.sendMessage(this.returnObject);
-      this.toggleAlert()
+      
     })
   }
 
