@@ -1,1 +1,58 @@
-<p>basic-info-componente works!</p>
+
+<div class="container" *ngIf="mostrar=='NO'">
+    <div class="card shadow mb-4" > 
+        <div class="card-header py-3">
+            <h6 class="m-0 font-weight-bold text-primary">
+                INFORMACIONES BASICAS
+            </h6>
+        </div>
+
+        <!--
+
+            Grupos por Edad
+Tipos de Documentos
+Sexo
+Tipos de Relaciones con la empresa
+Tipo de Comensal
+Tradiciones
+Culturas
+Religiones
+        -->
+        <div class="card-body">
+            <ul class="list-group">
+                <li class="list-group-item" (click)="mostrarHijos('list-rol')" style="cursor: pointer;">
+                    Categorias por Edad
+                </li>
+                <li class="list-group-item" (click)="mostrarHijos('list-permission')" style="cursor: pointer;">
+                    Tipos de Documentos
+                </li>
+                <li class="list-group-item" (click)="mostrarHijos('basic-info')" style="cursor: pointer;">
+                    Sexo
+                </li>
+                
+                <li class="list-group-item" (click)="mostrarHijos('list-business')" style="cursor: pointer;">
+                    Tipos de Relaciones con la empresa
+                </li>
+                <li class="list-group-item" (click)="mostrarHijos('basic-info')" style="cursor: pointer;">
+                    Tipo de Comensal
+                </li>
+                
+                <li class="list-group-item" (click)="mostrarHijos('list-business')" style="cursor: pointer;">
+                    Tradiciones
+                </li>      
+                <li class="list-group-item" (click)="mostrarHijos('list-business')" style="cursor: pointer;">
+                    Culturas
+                </li> 
+                <li class="list-group-item" (click)="mostrarHijos('list-business')" style="cursor: pointer;">
+                    Religiones
+                </li>          
+            </ul>
+        </div>
+    </div>
+    
+</div>
+<div *ngIf="mostrar=='SI'">
+    <router-outlet></router-outlet>
+</div>
+
+
