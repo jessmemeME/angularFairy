@@ -1,5 +1,7 @@
 import { NgModule } from '@angular/core';
+import { FormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
+import { RouterModule } from '@angular/router';
 import { BasicInfoComponenteComponent } from './basic-info-componente/basic-info-componente.component';
 import { BasicInfoAgeGroupInsertComponent } from './basic-info-age-group/basic-info-age-group-insert/basic-info-age-group-insert.component';
 import { BasicInfoAgeGroupListComponent } from './basic-info-age-group/basic-info-age-group-list/basic-info-age-group-list.component';
@@ -24,8 +26,8 @@ import { BasicInfoTypeOfDinerListComponent } from './basic-info-type-of-diner/ba
 import { BasicInfoTypeOfDinerUpdateComponent } from './basic-info-type-of-diner/basic-info-type-of-diner-update/basic-info-type-of-diner-update.component';
 import { BasicInfoTraditionInsertComponent } from './basic-info-tradition/basic-info-tradition-insert/basic-info-tradition-insert.component';
 import { BasicInfoTraditionListComponent } from './basic-info-tradition/basic-info-tradition-list/basic-info-tradition-list.component';
-
-
+//Importamos al modulo de ruteo
+import { BasicInfoRoutingModule } from './basic-info-routing/basic-info-routing.module';
 
 
 @NgModule({
@@ -56,7 +58,8 @@ import { BasicInfoTraditionListComponent } from './basic-info-tradition/basic-in
     BasicInfoTraditionListComponent,
   ],
   imports: [
-    CommonModule
+    CommonModule,BasicInfoRoutingModule,FormsModule,RouterModule
+    
   ]
 })
 export class BasicInfoModule { }

@@ -1,1 +1,32 @@
-<p>basic-info-age-group-list works!</p>
+<section class="container">
+    <div class="card shadow mb-4">
+        <div class="card-header py-3">
+            <h6 class="m-0 font-weight-bold text-primary">Lista de Categorias de Edad</h6>
+        </div>
+        <div class="card-body">
+            <div class="">
+                <table class="table table-bordered table-hover" style="width: 100%;">
+                    <thead>
+                        <tr>
+                            <th class="col-2">ID</th>
+                            <th class="col-8">Nombre</th>
+                            <th class="col-2"></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr   *ngFor="let a of ageGroup">
+                            <td>{{a.id}}</td>
+                            <td >{{a.name}}</td>
+                            <!--td align="center">
+                                <a style="min-width: 30px; min-height: 25px;" routerLinkActive="active" [routerLink]="['/auth/list-group-perission']" [state]="auth" type="button"class="icons-table"><i class="bi bi-key"></i></a>
+                                <a style="min-width: 30px; min-height: 25px;" routerLinkActive="active" [routerLink]="['/auth/update-rol']"  [state]="auth" type="button" class="icons-table"> <i class="bi bi-pencil"></i></a>
+                                <button  type="button" class="icons-table" (click)="eliminarDatos(auth)"><i class="bi bi-trash2"></i></button>
+                            </td-->
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</section>
+
