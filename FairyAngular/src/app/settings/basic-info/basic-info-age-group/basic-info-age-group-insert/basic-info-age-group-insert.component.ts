@@ -22,7 +22,7 @@ export class BasicInfoAgeGroupInsertComponent {
     const RegisterAgeGroup = { id: 0, name: this.nombre };
     this.servicio.RegisterAgeGroup(RegisterAgeGroup).subscribe(
       (result) => {
-        this.route.navigateByUrl("auth/list-rol");//Redirigir a la lista de AgeGroup
+        this.route.navigateByUrl("settings/list-age-group");//Redirigir a la lista de AgeGroup
       
       },
       (error) => {}
