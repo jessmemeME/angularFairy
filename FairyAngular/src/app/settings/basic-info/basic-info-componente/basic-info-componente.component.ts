@@ -8,18 +8,18 @@ import { BasicInfoService } from '../basic-info.service';
   styleUrls: ['./basic-info-componente.component.css'] // Corregido a styleUrls
 })
 export class BasicInfoComponenteComponent {
-  mostrar_basic: string = "NO";
+  mostrar_basic: boolean = false;
 
   constructor(private route: Router) {
     route.events.subscribe((event) => {
       if (event instanceof NavigationEnd) {
-        this.mostrar_basic = event.url === '/settings/basic-info' ? "NO" : "SI";
+        this.mostrar_basic = event.url === '/settings/basic-info' ? false : true;
       }
     });
   }
 
   mostrarHijos(path: string): void {
-    this.mostrar_basic = this.mostrar_basic === "NO" ? "SI" : "NO";
+    this.mostrar_basic = true;
     this.route.navigateByUrl("settings/basic-info/" + path);
   }
 }
