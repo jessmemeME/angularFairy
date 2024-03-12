@@ -13,7 +13,8 @@ export class BasicInfoComponenteComponent {
   constructor(private route: Router) {
     route.events.subscribe((event) => {
       if (event instanceof NavigationEnd) {
-        this.mostrar = (event.url === '/settings/basic-info');
+        //this.mostrar = (event.url === '/settings/basic-info');
+        this.mostrar = (event.url === '/settings/basic-info')? false : true;
       }
     });
   }
