@@ -1,3 +1,5 @@
+//app.module.server.ts
+
 import { NgModule } from '@angular/core';
 import { ServerModule } from '@angular/platform-server';
 

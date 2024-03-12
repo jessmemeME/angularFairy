@@ -1,4 +1,11 @@
+<<<<<<< HEAD
+//app.component.ts
+
+//COMPOMENTE PRINCIPAL DEL PROYECTO
+import { Component, OnInit } from '@angular/core';
+=======
 import { Component, AfterViewInit, Inject } from '@angular/core';
+>>>>>>> 49f474bd6fc0ddb6f17851db01ea339cb2c94560
 import { GlobalCommunicationService } from '../global-communication.service';
 import { ReturnLogin } from '../../models/login';
 import { Router } from '@angular/router';
