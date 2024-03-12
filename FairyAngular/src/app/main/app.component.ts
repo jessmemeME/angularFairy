@@ -1,43 +1,61 @@
+<<<<<<< HEAD
 //app.component.ts
 
 //COMPOMENTE PRINCIPAL DEL PROYECTO
 import { Component, OnInit } from '@angular/core';
+=======
+import { Component, AfterViewInit, Inject } from '@angular/core';
+>>>>>>> 49f474bd6fc0ddb6f17851db01ea339cb2c94560
 import { GlobalCommunicationService } from '../global-communication.service';
 import { ReturnLogin } from '../../models/login';
 import { Router } from '@angular/router';
+import { CommonModule, DOCUMENT } from '@angular/common';
+import { type } from 'os';
 
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
-  styleUrl: './app.component.css'
+  styleUrls: ['./app.component.css']
 })
-export class AppComponent implements OnInit{
+export class AppComponent implements AfterViewInit {
   title = 'FairyAngular';
   userIsLoged = false;
-  returnedLogin:ReturnLogin = {
-    mensaje:"",
-    respuesta:""
+  returnedLogin: ReturnLogin = {
+    mensaje: "",
+    respuesta: ""
   }
 
-  constructor(private communicationService: GlobalCommunicationService, private router:Router ) {
+  constructor(
+    @Inject(DOCUMENT) private document: Document,
+    private communicationService: GlobalCommunicationService, 
+    private router: Router 
+  ) { }
+
+  ngAfterViewInit(): void {
+    if (typeof this.document !== 'undefined') {
+      const localStorageA = this.document.defaultView?.localStorage;
+      const isLocalStorageAvailable = typeof localStorageA !== 'undefined';
+      if (isLocalStorageAvailable) {
+        setTimeout(() => {
+          const userIsLogedFromStorage = localStorageA?.getItem('userIsLoged');
+          this.userIsLoged = userIsLogedFromStorage ? JSON.parse(userIsLogedFromStorage) : false;
+        }, 0);
+      } 
+    }
+
     this.communicationService.message$.subscribe(message => {
       this.returnedLogin = message;
       
-      if(this.returnedLogin.respuesta.toLocaleUpperCase() == 'EXITO'){
-        if(this.userIsLoged!=true){
-          this.userIsLoged=true;
-          localStorage.setItem('userIsLoged', 'true');
+      if (this.returnedLogin.respuesta.toLocaleUpperCase() === 'EXITO' && !this.userIsLoged) {
+        setTimeout(() => {
+          this.userIsLoged = true;
+          if (typeof this.document !== 'undefined') {
+            const localStorageA = this.document.defaultView?.localStorage;
+            localStorageA?.setItem('userIsLoged', 'true');
+          }
           this.router.navigateByUrl("account/list-account");
-        }
+        }, 0);
       }
-
     });
   }
-
-  ngOnInit(): void {
-    console.log(this.userIsLoged, 'userIsLoged');
-    const userIsLogedFromStorage = localStorage.getItem('userIsLoged');
-    this.userIsLoged = userIsLogedFromStorage ? JSON.parse(userIsLogedFromStorage) : false;
-  }
-
 }
