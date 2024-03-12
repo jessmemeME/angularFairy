@@ -22,7 +22,22 @@ export class AppComponent implements AfterViewInit {
     @Inject(DOCUMENT) private document: Document,
     private communicationService: GlobalCommunicationService, 
     private router: Router 
-  ) { }
+  ) { 
+    this.communicationService.message$.subscribe(message => {
+      console.log(message,'entro');
+      this.returnedLogin = message;
+      if (this.returnedLogin.respuesta === 'EXITO') {
+        setTimeout(() => {
+          this.userIsLoged = true;
+          if (typeof this.document !== 'undefined') {
+            const localStorageA = this.document.defaultView?.localStorage;
+            localStorageA?.setItem('userIsLoged', 'true');
+          }
+          this.router.navigateByUrl("account/list-account");
+        }, 0);
+      }
+    });
+  }
 
   ngAfterViewInit(): void {
     if (typeof this.document !== 'undefined') {
@@ -35,20 +50,5 @@ export class AppComponent implements AfterViewInit {
         }, 0);
       } 
     }
-
-    this.communicationService.message$.subscribe(message => {
-      this.returnedLogin = message;
-      
-      if (this.returnedLogin.respuesta.toLocaleUpperCase() === 'EXITO' && !this.userIsLoged) {
-        setTimeout(() => {
-          this.userIsLoged = true;
-          if (typeof this.document !== 'undefined') {
-            const localStorageA = this.document.defaultView?.localStorage;
-            localStorageA?.setItem('userIsLoged', 'true');
-          }
-          this.router.navigateByUrl("account/list-account");
-        }, 0);
-      }
-    });
   }
 }
