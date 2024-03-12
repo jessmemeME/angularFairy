@@ -1,3 +1,4 @@
+//app.component.ts
 
 //COMPOMENTE PRINCIPAL DEL PROYECTO
 import { Component, OnInit } from '@angular/core';

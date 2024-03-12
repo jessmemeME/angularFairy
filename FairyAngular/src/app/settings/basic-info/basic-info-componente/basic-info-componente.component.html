@@ -2,7 +2,7 @@
 <!--COMPONENTE PRINCIPAL DE LAS TABLAS DE INFORMACION BASICA-->
 
 
-<div class="container" *ngIf="mostrar_basic==='NO'">
+<div class="container" *ngIf="!mostrar">
 <div class="container">
     <div class="card shadow mb-4" > 
         <div class="card-header py-3">
@@ -44,7 +44,11 @@
     
 </div>
 
+<!--
+<div class="container" *ngIf="mostrar === false">
+<div *ngIf="mostrar === true">
+-->
 
-<div *ngIf="mostrar_basic === 'SI'">
+<div *ngIf="mostrar">   
     <router-outlet></router-outlet>
 </div>
