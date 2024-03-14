@@ -9,8 +9,24 @@
                 <table class="table table-bordered table-hover" style="width: 100%;">
                     <thead>
                         <tr>
+                            <!-- id?:number;
+                            name?:string;
+                            description?:string;
+                            age_range?:string;
+                            is_active?:boolean;
+                            created_date?:string;
+                            updated_date?:string;
+                            created_user_id?:number;
+                            updated_user_id?:number; -->
                             <th class="col-2">ID</th>
                             <th class="col-8">Nombre</th>
+                            <th class="col-8">Descripcion</th>
+                            <th class="col-8">Rango de Edad</th>
+                            <th class="col-8">Estado</th>
+                            <th class="col-8">Fecha de Creacion</th>
+                            <th class="col-8">Fecha de Edicion</th>
+                            <th class="col-8">Usuario de Creacion</th>
+                            <th class="col-8">Usuario de Edicion</th>
                             <th class="col-2">Acciones</th> <!-- Agregamos esta columna para los botones -->
                         </tr>
                     </thead>
@@ -18,6 +34,13 @@
                         <tr *ngFor="let a of ageGroup">
                             <td>{{a.id}}</td>
                             <td>{{a.name}}</td>
+                            <td>{{a.description}}</td>
+                            <td>{{a.age_range}}</td>
+                            <td>{{a.is_active}}</td>
+                            <td>{{a.created_date}}</td>
+                            <td>{{a.updated_date}}</td>
+                            <td>{{a.created_user_id}}</td>
+                            <td>{{a.updated_user_id}}</td>
                             <td align="center">
                                 <a routerLinkActive="active" [routerLink]="['/settings/basic-info/insert-age-group']" [state]="a" type="button" class="btn btn-primary btn-sm"><i class="bi bi-key"></i></a>
                                 <a routerLinkActive="active" [routerLink]="['/settings/basic-info/update-age-group']" [state]="a" type="button" class="btn btn-warning btn-sm"><i class="bi bi-pencil"></i></a>

@@ -28,24 +28,25 @@
 
        <br>
        <div class="row">
-        <!-- Descripción de la categoria -->
-           <div class="col-md-12">
+            <!-- Descripción de la categoria -->
+           <!-- <div class="col-md-9">
                <label class="titulo-campo">Descripción de la categoria</label>
                <input [(ngModel)]="descripcion" class="form-control campo" name="descripcion" type="text" id="ageGroupId" aria-describedby="ageGroupHelp" placeholder="Ingrese la descripcion de la categoria">
-           </div> 
-       </div>
-
-       <br>
-       <div class="row">
-        <!-- Campo de estado (Activo/Inactivo) -->
-            <div class="col-md-12">
+           </div>  -->
+           <div class="col-md-9">
+                <label class="titulo-campo">Descripción de la categoria</label>
+                <textarea [(ngModel)]="descripcion" class="form-control campo" name="descripcion" id="ageGroupId" aria-describedby="ageGroupHelp" placeholder="Ingrese la descripcion de la categoria"></textarea>
+            </div> 
+            <!-- Campo de estado (Activo/Inactivo) -->
+            <div class="col-md-3">
                 <label class="titulo-campo">Estado</label>
                 <select class="form-control" [(ngModel)]="estado" name="estado">
                     <option value="true" selected>Activo</option>
                     <option value="false">Inactivo</option>
                 </select>
             </div>
-        </div>
+       </div>
+
 
        <br>
        <div class="row">
