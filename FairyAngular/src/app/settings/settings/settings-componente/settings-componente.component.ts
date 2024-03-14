@@ -15,7 +15,8 @@ export class SettingsComponenteComponent {
     route.events.subscribe((event) => {
       if (event instanceof NavigationEnd) {
         //this.mostrar = event.url === '/settings' ? "NO" : "SI";
-        this.mostrar = (event.url === '/settings/basic-info')? false : true;
+        //this.mostrar = (event.url === '/settings/basic-info')? false : true;
+        this.mostrar = (event.url === '/settings')? false : true;
       }
     });
   }
