@@ -1,7 +1,8 @@
 <section class="container">
     <div class="card shadow mb-4">
-        <div class="card-header py-3">
-            <h6 class="m-0 font-weight-bold text-primary">Lista de Categorias de Edad</h6>
+        <div class="card-header py-3 d-flex justify-content-between align-items-center">
+            <h6 class="m-0 font-weight-bold text-primary">Lista de Categorías de Edad</h6>
+            <button type="button" class="btn btn-primary btn-sm ml-auto" routerLink="/settings/basic-info/insert-age-group">+</button>
         </div>
         <div class="card-body">
             <div class="">
@@ -10,18 +11,18 @@
                         <tr>
                             <th class="col-2">ID</th>
                             <th class="col-8">Nombre</th>
-                            <th class="col-2"></th>
+                            <th class="col-2">Acciones</th> <!-- Agregamos esta columna para los botones -->
                         </tr>
                     </thead>
                     <tbody>
-                        <tr   *ngFor="let a of ageGroup">
+                        <tr *ngFor="let a of ageGroup">
                             <td>{{a.id}}</td>
-                            <td >{{a.name}}</td>
-                            <!--td align="center">
-                                <a style="min-width: 30px; min-height: 25px;" routerLinkActive="active" [routerLink]="['/auth/list-group-perission']" [state]="auth" type="button"class="icons-table"><i class="bi bi-key"></i></a>
-                                <a style="min-width: 30px; min-height: 25px;" routerLinkActive="active" [routerLink]="['/auth/update-rol']"  [state]="auth" type="button" class="icons-table"> <i class="bi bi-pencil"></i></a>
-                                <button  type="button" class="icons-table" (click)="eliminarDatos(auth)"><i class="bi bi-trash2"></i></button>
-                            </td-->
+                            <td>{{a.name}}</td>
+                            <td align="center">
+                                <a routerLinkActive="active" [routerLink]="['/settings/basic-info/insert-age-group']" [state]="a" type="button" class="btn btn-primary btn-sm"><i class="bi bi-key"></i></a>
+                                <a routerLinkActive="active" [routerLink]="['/settings/basic-info/update-age-group']" [state]="a" type="button" class="btn btn-warning btn-sm"><i class="bi bi-pencil"></i></a>
+                                <button type="button" class="btn btn-danger btn-sm" (click)="eliminarDatos(a)"><i class="bi bi-trash2"></i></button>
+                            </td>
                         </tr>
                     </tbody>
                 </table>
@@ -29,4 +30,3 @@
         </div>
     </div>
 </section>
-

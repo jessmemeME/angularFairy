@@ -28,6 +28,7 @@ import { BasicInfoTraditionInsertComponent } from './basic-info-tradition/basic-
 import { BasicInfoTraditionListComponent } from './basic-info-tradition/basic-info-tradition-list/basic-info-tradition-list.component';
 //Importamos al modulo de ruteo
 import { BasicInfoRoutingModule } from './basic-info-routing/basic-info-routing.module';
+import { BasicInfoTraditionUpdateComponent } from './basic-info-tradition/basic-info-tradition-update/basic-info-tradition-update.component';
 
 
 @NgModule({
@@ -56,6 +57,7 @@ import { BasicInfoRoutingModule } from './basic-info-routing/basic-info-routing.
     BasicInfoTypeOfDinerUpdateComponent,
     BasicInfoTraditionInsertComponent,
     BasicInfoTraditionListComponent,
+    BasicInfoTraditionUpdateComponent,
   ],
   imports: [
     CommonModule,BasicInfoRoutingModule,FormsModule,RouterModule
