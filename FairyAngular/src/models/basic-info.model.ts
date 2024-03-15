@@ -2,7 +2,16 @@
 
 //ESTA SECCION ES DE TODO LO REFERENTE A CUENTAS DE USUARIOS
 //tabla accounts_user
-
+/*
+AgeGroup
+DocumentType
+Gender
+RelationshipBusiness
+TypeOfDiner
+Tradition
+Culture
+Religion
+*/
 export interface BasicInfo {
 }
 

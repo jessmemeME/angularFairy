@@ -25,10 +25,22 @@ import { AgeGroup,
       this.obtenerLista();
     }
 
-    obtenerLista ():void{
+
+    obtenerLista(): void {
       this.servicio.ListAllAgeGroups().subscribe({
-        next:(data) =>{
-          this.ageGroup = data;
+        next: (data: AgeGroup[]) => {
+          console.log('Mostrar lo que hay en data:',data);
+          // Ordenar por ID de forma ascendente
+          this.ageGroup = data.sort((a, b) => {
+            if (a.id !== undefined && b.id !== undefined) {
+              return a.id - b.id;
+            }
+            return 0; // Otra opción podría ser devolver -1 o 1 dependiendo de tu lógica
+          });
+          
+        },
+        error: (error) => {
+          console.error('Error al obtener la lista de categorías de edad:', error);
         }
       });
     }
@@ -44,5 +56,7 @@ import { AgeGroup,
         }
       );
     }
+
+    
 
 }

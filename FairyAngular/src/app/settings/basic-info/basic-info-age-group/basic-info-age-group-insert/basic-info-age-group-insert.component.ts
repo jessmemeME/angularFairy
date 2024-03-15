@@ -18,6 +18,12 @@ export class BasicInfoAgeGroupInsertComponent {
   rangoHasta: number | null = null;
   descripcion: string = "";
   estado: boolean = true;
+  //Campos de auditoria
+	created_date:string= "";
+	updated_date:string= "";
+	created_user_id:number= 1;//usuario por defecto es el de id=1 que es el superadministrador
+	updated_user_id:number= 1;//usuario por defecto es el de id=1 que es el superadministrador
+  //Para controlar los campos obligatorios
   camposObligatoriosCompletos: boolean = false;
 
   checkCamposObligatorios(): void {
@@ -65,14 +71,22 @@ export class BasicInfoAgeGroupInsertComponent {
       descripcion: this.descripcion,
       estado: this.estado
     });
+    // Obtener la fecha y hora actual
+    const now = new Date();
+    const fechaActual = now.toISOString(); // Convertir la fecha a formato ISO
 
     // Crear el objeto para insertar en la base de datos
     const nuevoRegistro: AgeGroup = {
       name: this.nombre,
       description: this.descripcion,
       age_range: rango,
-      is_active:this.estado
+      is_active: this.estado,
+      created_date: fechaActual, // Asignar la fecha actual al campo created_date
+      updated_date: fechaActual, // Asignar la fecha actual al campo updated_date
+      created_user_id:this.created_user_id,
+      updated_user_id:this.updated_user_id
     };
+
 
     // Llamar al servicio para insertar el nuevo registro
     this.servicio.RegisterAgeGroup(nuevoRegistro).subscribe(

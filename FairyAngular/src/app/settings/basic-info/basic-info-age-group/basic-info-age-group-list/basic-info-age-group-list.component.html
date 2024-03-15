@@ -2,7 +2,9 @@
     <div class="card shadow mb-4">
         <div class="card-header py-3 d-flex justify-content-between align-items-center">
             <h6 class="m-0 font-weight-bold text-primary">Lista de Categorías de Edad</h6>
-            <button type="button" class="btn btn-primary btn-sm ml-auto" routerLink="/settings/basic-info/insert-age-group">+</button>
+            <!-- Boton para insertar nuevo registro -->
+            <a routerLinkActive="active" [routerLink]="['/settings/basic-info/insert-age-group']" type="button" class="btn btn-warning btn-sm"><i class="bi bi-plus"></i></a>
+            <!-- <button type="button" class="btn btn-primary btn-sm ml-auto" routerLink="/settings/basic-info/insert-age-group">+</button> -->
         </div>
         <div class="card-body">
             <div class="">
@@ -41,9 +43,11 @@
                             <td>{{a.updated_date}}</td>
                             <td>{{a.created_user_id}}</td>
                             <td>{{a.updated_user_id}}</td>
+                            <!-- Botones de accion -->
                             <td align="center">
-                                <a routerLinkActive="active" [routerLink]="['/settings/basic-info/insert-age-group']" [state]="a" type="button" class="btn btn-primary btn-sm"><i class="bi bi-key"></i></a>
+                                <!-- Editar -->
                                 <a routerLinkActive="active" [routerLink]="['/settings/basic-info/update-age-group']" [state]="a" type="button" class="btn btn-warning btn-sm"><i class="bi bi-pencil"></i></a>
+                                <!-- Eliminar -->
                                 <button type="button" class="btn btn-danger btn-sm" (click)="eliminarDatos(a)"><i class="bi bi-trash2"></i></button>
                             </td>
                         </tr>

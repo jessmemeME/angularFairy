@@ -1,1 +1,85 @@
-<p>basic-info-age-group-update works!</p>
+<section>
+  <!-- Boton de atras -->
+  <button
+    type="button"
+    class="btn btn-secondary float-right mb-3"
+    [routerLink]="['/settings/basic-info/list-age-group']"
+  >
+    Atrás
+  </button>
+
+  <!-- Page Heading -->
+  <h1 class="h3 mb-2 color-primario">Editar la categoria de edad</h1>
+
+  <h5 class="mt-4 color-primario">Datos de la categoria</h5>
+  <div class="borde-d w-100 mt-1"></div>
+
+  <div class="mt-4">
+    <!-- PRIMERA LINEA -->
+    <div class="row">
+      <!-- Nombre -->
+      <div class="col-md-6">
+        <label class="titulo-campo">Nombre de la categoria</label>
+        <input
+          [(ngModel)]="ageGroup.name"
+          class="form-control campo"
+          name="nombre"
+          type="text"
+          id="ageGroupId"
+          aria-describedby="ageGroupHelp"
+          placeholder="Ingrese el nombre de la categoria de edad"
+        />
+      </div>
+      <div class="borde-d w-100 mt-5"></div>
+
+      <!-- Rango de edades -->
+      <div class="col-md-3">
+        <label class="titulo-campo">Rango de edad (Desde)</label>
+        <input
+          [(ngModel)]="ageGroup.age_range"
+          class="form-control campo"
+          name="rango"
+          type="text"
+          id="ageGroupId"
+          aria-describedby="ageGroupHelp"
+          placeholder="Ingrese el rango de edades de la categoria"
+        />
+      </div>
+    </div>
+    <!-- SEGUNDA LINEA -->
+    <br />
+    <div class="row">
+      <!-- Descripción de la categoria -->
+      <div class="col-md-9">
+        <label class="titulo-campo">Descripción de la categoria</label>
+        <textarea
+          [(ngModel)]="ageGroup.description"
+          class="form-control campo"
+          name="descripcion"
+          id="ageGroupId"
+          aria-describedby="ageGroupHelp"
+          placeholder="Ingrese la descripcion de la categoria"
+        ></textarea>
+      </div>
+      <!-- Campo de estado (Activo/Inactivo) -->
+      <!-- <div class="col-md-3">
+        <label class="titulo-campo">Estado</label>
+        <select class="form-control" [(ngModel)]="estado" name="estado">
+          <option value="true" selected>Activo</option>
+          <option value="false">Inactivo</option>
+        </select>
+      </div> -->
+    </div>
+
+    <div class="row">
+      <button
+        type="button"
+        style="max-width: 10%; margin-left: 10px;"
+        class="btn boton-primario btn-lg mt-3 mb-3 float-right"
+        (click)="actualizarDatos()"
+      >
+        Guardar
+      </button>
+    </div>
+  </div>
+</section>
