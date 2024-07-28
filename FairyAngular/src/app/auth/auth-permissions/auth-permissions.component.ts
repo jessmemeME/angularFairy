@@ -1,80 +1,87 @@
+// auth-permissions.component.ts - Componente para la gestión de permisos de autenticación
+
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute, Router, NavigationStart } from '@angular/router';
-import {AuthService} from '../auth.service';
+import { ActivatedRoute, Router } from '@angular/router';
+import { AuthService } from '../auth.service';
 import { AuthGroup, AuthGroupPermissions, AuthGroupPermissionsUpdate } from '../../../models/auth-group.model';
 
 
 @Component({
   selector: 'app-auth-permissions',
   templateUrl: './auth-permissions.component.html',
-  styleUrl: './auth-permissions.component.css'
+  styleUrls: ['./auth-permissions.component.css'] // Corrección: 'styleUrls' en lugar de 'styleUrl'
 })
-export class AuthPermissionsComponent implements OnInit{
-  constructor(private router:Router, private activatedRoute:ActivatedRoute, private servicio:AuthService){}
-  auth:AuthGroup = {};
-  authGroupPermision:AuthGroupPermissions[] = [];
-  allChecked:boolean = false;
+export class AuthPermissionsComponent implements OnInit {
+  auth: AuthGroup = {}; // Variable para almacenar el grupo de autenticación
+  authGroupPermision: AuthGroupPermissions[] = []; // Variable para almacenar los permisos del grupo
+  allChecked: boolean = false; // Variable para controlar si todos los permisos están seleccionados
+
+  // Constructor que inyecta el enrutador, la ruta activada y el servicio de autenticación
+  constructor(private router: Router, private activatedRoute: ActivatedRoute, private servicio: AuthService) {}
+
+  // Método que se ejecuta al inicializar el componente
   ngOnInit(): void {
-    if(history!==undefined){
+    // Verifica si el objeto history está definido
+    if (history !== undefined) {
+      // Asigna el estado del historial a la variable 'auth'
       this.auth = history.state;
+      // Llama al método para obtener la lista de permisos
       this.obtenerLista();
-    }else{
-      this.router.navigateByUrl("auth/list-rol");
+    } else {
+      // Navega a la lista de roles si no hay estado en el historial
+      this.router.navigateByUrl('auth/list-rol');
     }
   }
 
-  obtenerLista ():void{
-    let  idAuth = this.auth.id==undefined?0:this.auth.id;
+  // Método para obtener la lista de permisos de autenticación
+  obtenerLista(): void {
+    const idAuth = this.auth.id ?? 0; // Obtiene el ID del grupo de autenticación
     this.servicio.getAuthPermisionss(idAuth).subscribe({
-      next:(data) =>{
-        this.authGroupPermision = data;
-        //console.log( this.authGroupPermision);
+      next: (data) => {
+        this.authGroupPermision = data; // Asigna los datos recibidos a la variable 'authGroupPermision'
       }
     });
   }
 
-  guardarLista ():void{
-    const authAux = this.authGroupPermision.filter((item) => item.checqueado == true);
-    let  idAuth:number = this.auth.id==undefined?0:this.auth.id;
-    if(authAux.length <= 0){
-      
-      let sender:AuthGroupPermissionsUpdate = {id:idAuth, listaPermisos:"()"}
+  // Método para guardar la lista de permisos de autenticación
+  guardarLista(): void {
+    // Filtra los permisos seleccionados
+    const authAux = this.authGroupPermision.filter((item) => item.checqueado === true);
+    const idAuth: number = this.auth.id ?? 0; // Obtiene el ID del grupo de autenticación
+
+    if (authAux.length <= 0) {
+      // Si no hay permisos seleccionados, crea un objeto con una lista vacía
+      const sender: AuthGroupPermissionsUpdate = { id: idAuth, listaPermisos: '()' };
       this.actualizarLista(sender);
-    }else{
-      
-      let stringAux:string ="("
-      authAux.forEach(function(item,index){
-        if(index == 0){
-          stringAux = stringAux + item.id;
-        }else{ 
-          stringAux = stringAux + "," + item.id;
-        }
+    } else {
+      // Si hay permisos seleccionados, crea una cadena con los IDs de los permisos
+      let stringAux = '(';
+      authAux.forEach((item, index) => {
+        stringAux += index === 0 ? item.id : `,${item.id}`;
       });
-      stringAux = stringAux + ")";
-      let sender:AuthGroupPermissionsUpdate = {id:idAuth, listaPermisos:stringAux}
+      stringAux += ')';
+      const sender: AuthGroupPermissionsUpdate = { id: idAuth, listaPermisos: stringAux };
       this.actualizarLista(sender);
     }
   }
 
-  actualizarLista(data:AuthGroupPermissionsUpdate):void{
+  // Método para actualizar la lista de permisos de autenticación
+  actualizarLista(data: AuthGroupPermissionsUpdate): void {
     this.servicio.updateAuthPermisions(data).subscribe(
-      (result) => {},
+      (result) => {
+        // Manejo de resultado exitoso (puede agregar lógica adicional aquí)
+      },
       (error) => {
-        console.log(error)
+        console.log(error); // Manejo de errores
       }
     );
   }
 
-  seleccionarTodo():void{
-    if(!this.allChecked){
-      this.authGroupPermision.forEach(item=>{
-        item.checqueado = true;
-      });
-    }else{
-      this.authGroupPermision.forEach(item=>{
-        item.checqueado = false;
-      });
-    }
+  // Método para seleccionar o deseleccionar todos los permisos
+  seleccionarTodo(): void {
+    this.authGroupPermision.forEach((item) => {
+      item.checqueado = !this.allChecked; // Alterna el valor de 'checqueado' para cada permiso
+    });
+    this.allChecked = !this.allChecked; // Alterna el valor de 'allChecked'
   }
-
 }

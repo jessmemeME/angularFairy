@@ -1,0 +1,140 @@
+<!-- COMPONENTE PRINCIPAL DE LAS TABLAS DE INFORMACION BASICA -->
+
+<div class="container" *ngIf="!mostrar">
+  <div class="card shadow mb-4">
+    <div class="card-header py-3">
+      <h6 class="m-0 font-weight-bold text-primary">
+        CONFIGURACIONES BASICAS
+      </h6>
+    </div>
+
+    <div class="card-body">
+      <ul class="list-group">
+        <!-- Empresa -->
+        <li class="list-group-item" style="cursor: pointer;">
+          <span (click)="toggleSubmenu('company')">Empresa</span>
+          <ul *ngIf="submenus['company']">
+            <li class="list-group-item" style="cursor: pointer;">
+              <span (click)="toggleSubmenu('users')">Usuarios</span>
+              <ul *ngIf="submenus['users']">
+                <li
+                  class="list-group-item"
+                  (click)="mostrarHijos('list-roles')"
+                  style="cursor: pointer;"
+                >
+                  Roles
+                </li>
+                <li
+                  class="list-group-item"
+                  (click)="mostrarHijos('list-permissions')"
+                  style="cursor: pointer;"
+                >
+                  Permisos
+                </li>
+              </ul>
+            </li>
+            <li
+              class="list-group-item"
+              (click)="mostrarHijos('list-relationship-business')"
+              style="cursor: pointer;"
+            >
+              Tipos de Relaciones con la empresa
+            </li>
+          </ul>
+        </li>
+
+        <!-- Configuraciones Basicas -->
+        <li class="list-group-item" style="cursor: pointer;">
+          <span (click)="toggleSubmenu('configuraciones-basicas')"
+            >Configuraciones Basicas</span
+          >
+          <ul *ngIf="submenus['configuraciones-basicas']">
+            <li class="list-group-item" style="cursor: pointer;">
+              <span (click)="toggleSubmenu('personas')">Personas</span>
+              <ul *ngIf="submenus['personas']">
+                <li class="list-group-item" style="cursor: pointer;">
+                  <span (click)="toggleSubmenu('invitados')">Invitados</span>
+                  <ul *ngIf="submenus['invitados']">
+                    <li
+                      class="list-group-item"
+                      (click)="mostrarHijos('list-age-group')"
+                      style="cursor: pointer;"
+                    >
+                      Categorias por Edad
+                    </li>
+                    <li
+                      class="list-group-item"
+                      (click)="mostrarHijos('list-type-of-diner')"
+                      style="cursor: pointer;"
+                    >
+                      Tipo de Comensal
+                    </li>
+                  </ul>
+                </li>
+                <li class="list-group-item" style="cursor: pointer;">
+                  <span (click)="toggleSubmenu('todos')">Todos</span>
+                  <ul *ngIf="submenus['todos']">
+                    <li
+                      class="list-group-item"
+                      (click)="mostrarHijos('list-document-type')"
+                      style="cursor: pointer;"
+                    >
+                      Tipos de Documentos
+                    </li>
+                    <li
+                      class="list-group-item"
+                      (click)="mostrarHijos('list-gender')"
+                      style="cursor: pointer;"
+                    >
+                      Género
+                    </li>
+                  </ul>
+                </li>
+              </ul>
+            </li>
+          </ul>
+        </li>
+
+        <!-- Eventos -->
+        <li class="list-group-item" style="cursor: pointer;">
+          <span (click)="toggleSubmenu('eventos')">Eventos</span>
+          <ul *ngIf="submenus['eventos']">
+            <li
+              class="list-group-item"
+              (click)="mostrarHijos('list-tradition')"
+              style="cursor: pointer;"
+            >
+              Tradiciones
+            </li>
+            <li
+              class="list-group-item"
+              (click)="mostrarHijos('list-culture')"
+              style="cursor: pointer;"
+            >
+              Culturas
+            </li>
+            <li
+              class="list-group-item"
+              (click)="mostrarHijos('list-religion')"
+              style="cursor: pointer;"
+            >
+              Religiones
+            </li>
+            <li
+              class="list-group-item"
+              (click)="mostrarHijos('list-tasks')"
+              style="cursor: pointer;"
+            >
+              Tareas
+            </li>
+          </ul>
+        </li>
+      </ul>
+    </div>
+  </div>
+</div>
+
+<div *ngIf="mostrar">
+  <button class="btn btn-secondary mb-3" (click)="volver()">Atrás</button>
+  <router-outlet></router-outlet>
+</div>

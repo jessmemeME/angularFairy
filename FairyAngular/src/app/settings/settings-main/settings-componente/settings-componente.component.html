@@ -1,0 +1,48 @@
+<!-- COMPONENTE PRINCIPAL DE CONFIGURACIONES -->
+
+<div class="container" *ngIf="!mostrar">
+  <div class="card shadow mb-4">
+    <div class="card-header py-3">
+      <h6 class="m-0 font-weight-bold text-primary">
+        CONFIGURACIONES
+      </h6>
+    </div>
+    <div class="card-body">
+      <ul class="list-group">
+        <!-- Usuarios -->
+        <li class="list-group-item" style="cursor: pointer;">
+          <span (click)="toggleSubmenu('usuarios')">Usuarios</span>
+          <ul *ngIf="submenus['usuarios']" class="list-group">
+            <li
+              class="list-group-item"
+              (click)="mostrarHijos('list-rol')"
+              style="cursor: pointer;"
+            >
+              Roles
+            </li>
+            <li
+              class="list-group-item"
+              (click)="mostrarHijos('list-permission')"
+              style="cursor: pointer;"
+            >
+              Permisos
+            </li>
+          </ul>
+        </li>
+        <!-- Configuraciones Basicas -->
+        <li
+          class="list-group-item"
+          (click)="mostrarHijos('basic-info')"
+          style="cursor: pointer;"
+        >
+          Configuraciones Basicas
+        </li>
+      </ul>
+    </div>
+  </div>
+</div>
+
+<div *ngIf="mostrar">
+  <button class="btn btn-secondary mb-3" (click)="volver()">Atrás</button>
+  <router-outlet></router-outlet>
+</div>

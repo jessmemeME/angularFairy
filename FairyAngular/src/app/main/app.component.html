@@ -1,16 +1,25 @@
+<!-- Contenedor principal que se muestra solo si el usuario no está logueado -->
+<div *ngIf="!userIsLoged" style="margin-top: 50px;">
+  <!-- Placeholder para el contenido del enrutador -->
+  <router-outlet></router-outlet>
+</div>
 
-    <div *ngIf="!userIsLoged" style="margin-top: 50px;"> 
+<!-- Contenedor inicial de la página, mostrado solo si el usuario está logueado -->
+<div id="wrapper" *ngIf="userIsLoged">
+  <!-- Menú lateral de la aplicación -->
+  <app-side-menu></app-side-menu>
+
+  <!-- Contenedor principal del contenido -->
+  <div id="content-wrapper">
+    <div id="content">
+      <!-- Barra de navegación de la aplicación -->
+      <app-nav-bar></app-nav-bar>
+
+      <!-- Contenedor de contenido fluido -->
+      <div class="container-fluid">
+        <!-- Placeholder para el contenido del enrutador -->
         <router-outlet></router-outlet>
+      </div>
     </div>
-    <!-- Page Wrapper -->
-    <div id="wrapper" *ngIf="userIsLoged">
-        <app-side-menu></app-side-menu>
-        <div id="content-wrapper" >
-            <div id="content">
-                <app-nav-bar></app-nav-bar>
-                <div class="container-fluid" >
-                    <router-outlet></router-outlet>
-                </div>
-            </div>
-        </div>
-    </div>
+  </div>
+</div>
