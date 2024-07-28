@@ -35,7 +35,7 @@ export class AuthPermissionsComponent implements OnInit {
   // Método para obtener la lista de permisos de autenticación
   obtenerLista(): void {
     const idAuth = this.auth.id ?? 0; // Obtiene el ID del grupo de autenticación
-    this.servicio.getAuthPermisionss(idAuth).subscribe({
+    this.servicio.getAuthPermissions(idAuth).subscribe({
       next: (data) => {
         this.authGroupPermision = data; // Asigna los datos recibidos a la variable 'authGroupPermision'
       }
@@ -66,12 +66,17 @@ export class AuthPermissionsComponent implements OnInit {
 
   // Método para actualizar la lista de permisos de autenticación
   actualizarLista(data: AuthGroupPermissionsUpdate): void {
-    this.servicio.updateAuthPermisions(data).subscribe(
-      (result) => {
+    this.servicio.updateAuthPermissions(data).subscribe(
+      (result: any) => {
+        console.log(result, 'test');
         // Manejo de resultado exitoso (puede agregar lógica adicional aquí)
       },
-      (error) => {
-        console.log(error); // Manejo de errores
+      (error: unknown) => {
+        if (error instanceof Error) {
+          console.error('Error:', error.message); // Manejo de errores
+        } else {
+          console.error('Unknown error:', error);
+        }
       }
     );
   }
