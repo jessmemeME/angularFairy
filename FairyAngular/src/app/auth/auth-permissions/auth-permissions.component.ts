@@ -5,7 +5,6 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { AuthService } from '../auth.service';
 import { AuthGroup, AuthGroupPermissions, AuthGroupPermissionsUpdate } from '../../../models/auth-group.model';
 
-
 @Component({
   selector: 'app-auth-permissions',
   templateUrl: './auth-permissions.component.html',

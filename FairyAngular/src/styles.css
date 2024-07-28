@@ -1,27 +1,41 @@
-.sidebar .nav-item.dropdown .dropdown-toggle::after, .topbar .nav-item.dropdown .dropdown-toggle::after {
-    width: 1rem;
-    text-align: center;
-    float: right;
-    vertical-align: 0;
-    border: 0;
-    font-weight: 900;
-    content: '\f105';
-    font-family: 'Font Awesome 5 Free';
+/* Estilos para el ícono de toggle en los elementos de navegación del sidebar y la topbar */
+.sidebar .nav-item.dropdown .dropdown-toggle::after, 
+.topbar .nav-item.dropdown .dropdown-toggle::after {
+    width: 1rem; /* Ancho del ícono */
+    text-align: center; /* Alineación centrada del texto */
+    float: right; /* Flota a la derecha */
+    vertical-align: 0; /* Alineación vertical */
+    border: 0; /* Sin borde */
+    font-weight: 900; /* Grosor de fuente */
+    content: '\f105'; /* Contenido del ícono (flecha hacia la derecha) */
+    font-family: 'Font Awesome 5 Free'; /* Familia de fuentes para íconos FontAwesome */
 }
-.sidebar .nav-item.dropdown.show .dropdown-toggle::after, .topbar .nav-item.dropdown.show .dropdown-toggle::after {
-    content: '\f107';
+
+/* Cambia el contenido del ícono cuando el dropdown está abierto */
+.sidebar .nav-item.dropdown.show .dropdown-toggle::after, 
+.topbar .nav-item.dropdown.show .dropdown-toggle::after {
+    content: '\f107'; /* Contenido del ícono (flecha hacia abajo) */
 }
-.sidebar .nav-item .nav-link, .topbar .nav-item .nav-link {
-    position: relative;
+
+/* Posicionamiento relativo para los enlaces de navegación en el sidebar y la topbar */
+.sidebar .nav-item .nav-link, 
+.topbar .nav-item .nav-link {
+    position: relative; /* Posicionamiento relativo para ajustes internos */
 }
-.sidebar .nav-item .nav-link .badge-counter, .topbar .nav-item .nav-link .badge-counter {
-    position: absolute;
-    transform: scale(0.7);
-    transform-origin: top right;
-    right: 0.25rem;
-    margin-top: -0.25rem;
+
+/* Estilos para el contador de badges en los enlaces de navegación del sidebar y la topbar */
+.sidebar .nav-item .nav-link .badge-counter, 
+.topbar .nav-item .nav-link .badge-counter {
+    position: absolute; /* Posicionamiento absoluto */
+    transform: scale(0.7); /* Escala del badge */
+    transform-origin: top right; /* Origen de la transformación */
+    right: 0.25rem; /* Distancia desde la derecha */
+    margin-top: -0.25rem; /* Margen superior negativo */
 }
-.sidebar .nav-item .nav-link .img-profile, .topbar .nav-item .nav-link .img-profile {
-    height: 2rem;
-    width: 2rem;
+
+/* Estilos para las imágenes de perfil en los enlaces de navegación del sidebar y la topbar */
+.sidebar .nav-item .nav-link .img-profile, 
+.topbar .nav-item .nav-link .img-profile {
+    height: 2rem; /* Altura de la imagen */
+    width: 2rem; /* Anchura de la imagen */
 }
