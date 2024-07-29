@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { Router, NavigationEnd } from "@angular/router";
-import { BasicInfoService } from '../../basic-info.service';
+import { BasicInfoService } from '../basic-info.service';
 
 
 @Component({

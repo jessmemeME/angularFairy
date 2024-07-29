@@ -11,7 +11,7 @@ const routes: Routes = [
   { path: 'login', loadChildren: () => import('../login/login.module').then((m) => m.LoginModule) }, // Carga perezosa del módulo de login
   { path: 'auth', loadChildren: () => import('../auth/auth.module').then((m) => m.AuthModule) }, // Carga perezosa del módulo de autenticación
   { path: 'clients', loadChildren: () => import('../clients/clients.module').then((m) => m.ClientsModule) }, // Carga perezosa del módulo de clientes
-  { path: 'settings', loadChildren: () => import('../settings/settings-main/settings.module').then((m) => m.SettingsModule) }, // Carga perezosa del módulo de configuración
+  { path: 'settings', loadChildren: () => import('../settings/basic-info/basic-info.module').then((m) => m.BasicInfoModule) }, // Carga perezosa del módulo de configuración
   { path: 'payment', loadChildren: () => import('../payment/payment.module').then((m) => m.PaymentModule) }, // Carga perezosa del módulo de pagos
   { path: 'account', loadChildren: () => import('../accounts/account.module').then((m) => m.AccountModule) }, // Carga perezosa del módulo de cuentas
   { path: '**', component: NotFoundComponent }, // Ruta comodín para manejar páginas no encontradas

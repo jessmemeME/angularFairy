@@ -18,6 +18,6 @@ export interface Code {
 }
 
 // Interfaz para el modelo de email
-export interface Email {
+export interface email {
     email: string; // Email del usuario
 }

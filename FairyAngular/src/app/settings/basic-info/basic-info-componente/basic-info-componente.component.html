@@ -1,48 +1,34 @@
-<!-- COMPONENTE PRINCIPAL DE LAS TABLAS DE INFORMACION BASICA -->
+<!-- COMPONENTE PRINCIPAL DE CONFIGURACIONES Y TABLAS DE INFORMACION BASICA -->
 
 <div class="container" *ngIf="!mostrar">
   <div class="card shadow mb-4">
     <div class="card-header py-3">
       <h6 class="m-0 font-weight-bold text-primary">
-        CONFIGURACIONES BASICAS
+        CONFIGURACIONES
       </h6>
     </div>
-
     <div class="card-body">
       <ul class="list-group">
-        <!-- Empresa -->
+        <!-- Usuarios -->
         <li class="list-group-item" style="cursor: pointer;">
-          <span (click)="toggleSubmenu('company')">Empresa</span>
-          <ul *ngIf="submenus['company']">
-            <li class="list-group-item" style="cursor: pointer;">
-              <span (click)="toggleSubmenu('users')">Usuarios</span>
-              <ul *ngIf="submenus['users']">
-                <li
-                  class="list-group-item"
-                  (click)="mostrarHijos('list-roles')"
-                  style="cursor: pointer;"
-                >
-                  Roles
-                </li>
-                <li
-                  class="list-group-item"
-                  (click)="mostrarHijos('list-permissions')"
-                  style="cursor: pointer;"
-                >
-                  Permisos
-                </li>
-              </ul>
+          <span (click)="toggleSubmenu('usuarios')">Usuarios</span>
+          <ul *ngIf="submenus['usuarios']" class="list-group">
+            <li
+              class="list-group-item"
+              (click)="mostrarHijos('list-rol')"
+              style="cursor: pointer;"
+            >
+              Roles
             </li>
             <li
               class="list-group-item"
-              (click)="mostrarHijos('list-relationship-business')"
+              (click)="mostrarHijos('list-permission')"
               style="cursor: pointer;"
             >
-              Tipos de Relaciones con la empresa
+              Permisos
             </li>
           </ul>
         </li>
-
         <!-- Configuraciones Basicas -->
         <li class="list-group-item" style="cursor: pointer;">
           <span (click)="toggleSubmenu('configuraciones-basicas')"
@@ -92,9 +78,15 @@
                 </li>
               </ul>
             </li>
+            <li
+              class="list-group-item"
+              (click)="mostrarHijos('list-relationship-business')"
+              style="cursor: pointer;"
+            >
+              Tipos de Relaciones con la empresa
+            </li>
           </ul>
         </li>
-
         <!-- Eventos -->
         <li class="list-group-item" style="cursor: pointer;">
           <span (click)="toggleSubmenu('eventos')">Eventos</span>
