@@ -1,17 +1,23 @@
+// auth.models.ts - Definición de interfaces para la autenticación
+
+// Interfaz para el modelo de login
 export interface Login {
-    email:string;
-    password:string;
+    email: string; // Email del usuario
+    password: string; // Contraseña del usuario
 }
 
+// Interfaz para la respuesta del login
 export interface ReturnLogin {
-    mensaje:string;
-    respuesta:string;
+    mensaje: string; // Mensaje de respuesta
+    respuesta: string; // Estado de la respuesta (por ejemplo, éxito o error)
 }
 
+// Interfaz para el modelo de código de autenticación
 export interface Code {
-    auth_code:string;
+    auth_code: string; // Código de autenticación
 }
 
-export interface email{
-    email:string
+// Interfaz para el modelo de email
+export interface email {
+    email: string; // Email del usuario
 }

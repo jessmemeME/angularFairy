@@ -1,38 +1,68 @@
+<!-- auth-permissions.component.html - Plantilla HTML para la gestión de permisos de autenticación -->
+
 <section name="Listadepersmisosporgrupo" class="container">
-    <div class="card">
-        <div class="card-header">
-            <h3 class="card-title">PERMISOS ASIGNADOS A "{{this.auth.name}}" </h3>
-        </div>
-        <div class="card-body" >
-            <div style="height: 60vh; overflow: auto; display: block; position: relative;">
-                <table class="table table-bordered table-striped mb-0">
-                    <thead>
-                        <tr>
-                            <th class="pl-1">
-                                <input  (click)="seleccionarTodo()" type="checkbox"  [(ngModel)]="allChecked" [checked]="allChecked" name="all_checkeed" placeholder="Seleccionar/Deseleccionar todo">
-                            </th>
-                            <th>ID</th>
-                            <th>Nombre</th>
-                            <th>Contenido</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr *ngFor="let authGroupPermisionItem of authGroupPermision">
-                            <td>
-                                <input  type="checkbox" [(ngModel)]="authGroupPermisionItem.checqueado" [checked]="authGroupPermisionItem.checqueado" name="is_checkeed" placeholder="Este permiso es asignado">
-                            </td>
-                            <td>{{authGroupPermisionItem.id}}</td>
-                            <td>{{authGroupPermisionItem.name}}</td>
-                            <td>{{authGroupPermisionItem.content_type}}</td>
-                        </tr>
-                    </tbody>
-                </table>
-            </div>
-        </div>
-        <div class="card-footer">
-            <button type="button" (click)="guardarLista()" class="btn btn-primary">
-                GUARDAR
-            </button>
-        </div>
+  <div class="card">
+    <!-- Encabezado de la tarjeta -->
+    <div class="card-header">
+      <h3 class="card-title">PERMISOS ASIGNADOS A "{{this.auth.name}}"</h3>
     </div>
+    <!-- Cuerpo de la tarjeta -->
+    <div class="card-body">
+      <div
+        style="
+          height: 60vh;
+          overflow: auto;
+          display: block;
+          position: relative;
+        "
+      >
+        <!-- Tabla de permisos asignados -->
+        <table class="table table-bordered table-striped mb-0">
+          <thead>
+            <tr>
+              <th class="pl-1">
+                <!-- Checkbox para seleccionar/deseleccionar todos los permisos -->
+                <input
+                  (click)="seleccionarTodo()"
+                  type="checkbox"
+                  [(ngModel)]="allChecked"
+                  [checked]="allChecked"
+                  name="all_checkeed"
+                  placeholder="Seleccionar/Deseleccionar todo"
+                />
+              </th>
+              <th>ID</th>
+              <th>Nombre</th>
+              <th>Contenido</th>
+            </tr>
+          </thead>
+          <tbody>
+            <!-- Recorre la lista de authGroupPermision y genera una fila por cada elemento -->
+            <tr *ngFor="let authGroupPermisionItem of authGroupPermision">
+              <td>
+                <!-- Checkbox para cada permiso individual -->
+                <input
+                  type="checkbox"
+                  [(ngModel)]="authGroupPermisionItem.checqueado"
+                  [checked]="authGroupPermisionItem.checqueado"
+                  name="is_checkeed"
+                  placeholder="Este permiso es asignado"
+                />
+              </td>
+              <td>{{authGroupPermisionItem.id}}</td>
+              <td>{{authGroupPermisionItem.name}}</td>
+              <td>{{authGroupPermisionItem.content_type}}</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+    <!-- Pie de la tarjeta -->
+    <div class="card-footer">
+      <!-- Botón para guardar la lista de permisos -->
+      <button type="button" (click)="guardarLista()" class="btn btn-primary">
+        GUARDAR
+      </button>
+    </div>
+  </div>
 </section>

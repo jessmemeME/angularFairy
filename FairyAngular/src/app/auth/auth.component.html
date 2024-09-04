@@ -1,26 +1,39 @@
-
-
-<div class="container" *ngIf="mostrar=='NO'">
-    <div class="card shadow mb-4" > 
-        <div class="card-header py-3">
-            <h6 class="m-0 font-weight-bold text-primary">
-                CONFIGURACIONES DE ROL
-            </h6>
-        </div>
-        <div class="card-body">
-            <ul class="list-group">
-                <li class="list-group-item" (click)="mostrarHijos('list-rol')" style="cursor: pointer;">
-                    ROLES
-                </li>
-                <li class="list-group-item" (click)="mostrarHijos('list-permission')" style="cursor: pointer;">
-                    PERMISOS
-                </li>
-            </ul>
-        </div>
+<!-- Contenedor principal que se muestra si la variable 'mostrar' es 'NO' -->
+<div class="container" *ngIf="mostrar == 'NO'">
+  <!-- Tarjeta con sombra y margen inferior -->
+  <div class="card shadow mb-4">
+    <!-- Encabezado de la tarjeta -->
+    <div class="card-header py-3">
+      <h6 class="m-0 font-weight-bold text-primary">
+        CONFIGURACIONES DE ROL
+      </h6>
     </div>
-    
+    <!-- Cuerpo de la tarjeta -->
+    <div class="card-body">
+      <!-- Lista de configuraciones de rol -->
+      <ul class="list-group">
+        <!-- Elemento de lista para 'ROLES', con evento de clic para mostrar los hijos -->
+        <li
+          class="list-group-item"
+          (click)="mostrarHijos('list-rol')"
+          style="cursor: pointer;"
+        >
+          ROLES
+        </li>
+        <!-- Elemento de lista para 'PERMISOS', con evento de clic para mostrar los hijos -->
+        <li
+          class="list-group-item"
+          (click)="mostrarHijos('list-permission')"
+          style="cursor: pointer;"
+        >
+          PERMISOS
+        </li>
+      </ul>
+    </div>
+  </div>
 </div>
 
-<div *ngIf="mostrar=='SI'">
-    <router-outlet></router-outlet>
+<!-- Contenedor para mostrar el contenido del enrutador si la variable 'mostrar' es 'SI' -->
+<div *ngIf="mostrar == 'SI'">
+  <router-outlet></router-outlet>
 </div>

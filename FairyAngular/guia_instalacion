@@ -24,6 +24,8 @@ ___________________________________________________________
 
      4- para crear el service de las aplicaciones, ir a la dirección de la nueva aplicacion (FAIRYANGULAR/src/app/NUEVAAPP)y desde alli 
           ejecutar = ng generate service nombre_service
+
+          
           
      5- para crear el archivo de modelo de la nueva aplicacion =
           se debe ubicar en la carpeta "models" y desde alli ejecutar = 

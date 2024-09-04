@@ -1,32 +1,66 @@
-<section class="container">
-    <div class="card shadow mb-4">
-        <div class="card-header py-3">
-            <h6 class="m-0 font-weight-bold text-primary">Lista de roles</h6>
-        </div>
-        <div class="card-body">
-            <div class="">
-                <table class="table table-bordered table-hover" style="width: 100%;">
-                    <thead>
-                        <tr>
-                            <th class="col-2">ID</th>
-                            <th class="col-8">Nombre</th>
-                            <th class="col-2"></th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr   *ngFor="let auth of authGroup">
-                            <td>{{auth.id}}</td>
-                            <td >{{auth.name}}</td>
-                            <td align="center">
-                                <a style="min-width: 30px; min-height: 25px;" routerLinkActive="active" [routerLink]="['/auth/list-group-perission']" [state]="auth" type="button"class="icons-table"><i class="bi bi-key"></i></a>
-                                <a style="min-width: 30px; min-height: 25px;" routerLinkActive="active" [routerLink]="['/auth/update-rol']"  [state]="auth" type="button" class="icons-table"> <i class="bi bi-pencil"></i></a>
-                                <button  type="button" class="icons-table" (click)="eliminarDatos(auth)"><i class="bi bi-trash2"></i></button>
-                            </td>
-                        </tr>
-                    </tbody>
-                </table>
-            </div>
-        </div>
-    </div>
-</section>
+<!-- auth-list.component.html - Plantilla HTML para la lista de roles de autenticación -->
 
+<section class="container">
+  <!-- Tarjeta con sombra y margen inferior -->
+  <div class="card shadow mb-4">
+    <!-- Encabezado de la tarjeta -->
+    <div class="card-header py-3">
+      <h6 class="m-0 font-weight-bold text-primary">Lista de roles</h6>
+    </div>
+    <!-- Cuerpo de la tarjeta -->
+    <div class="card-body">
+      <!-- Contenedor para la tabla -->
+      <div class="">
+        <!-- Tabla con bordes y hover -->
+        <table class="table table-bordered table-hover" style="width: 100%;">
+          <thead>
+            <tr>
+              <th class="col-2">ID</th>
+              <th class="col-8">Nombre</th>
+              <th class="col-2"></th>
+            </tr>
+          </thead>
+          <tbody>
+            <!-- Recorre la lista de authGroup y genera una fila por cada elemento -->
+            <tr *ngFor="let auth of authGroup">
+              <td>{{auth.id}}</td>
+              <td>{{auth.name}}</td>
+              <td align="center">
+                <!-- Enlace para ver los permisos del grupo -->
+                <a
+                  style="min-width: 30px; min-height: 25px;"
+                  routerLinkActive="active"
+                  [routerLink]="['/auth/list-group-perission']"
+                  [state]="auth"
+                  type="button"
+                  class="icons-table"
+                >
+                  <i class="bi bi-key"></i>
+                </a>
+                <!-- Enlace para actualizar el rol -->
+                <a
+                  style="min-width: 30px; min-height: 25px;"
+                  routerLinkActive="active"
+                  [routerLink]="['/auth/update-rol']"
+                  [state]="auth"
+                  type="button"
+                  class="icons-table"
+                >
+                  <i class="bi bi-pencil"></i>
+                </a>
+                <!-- Botón para eliminar el rol -->
+                <button
+                  type="button"
+                  class="icons-table"
+                  (click)="eliminarDatos(auth)"
+                >
+                  <i class="bi bi-trash2"></i>
+                </button>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+</section>
