@@ -23,7 +23,7 @@ export class BasicInfoTraditionInsertComponent {
     const RegisterTradition = { id: 0, name: this.nombre };
     this.servicio.RegisterTradition(RegisterTradition).subscribe(
       (result) => {
-        this.route.navigateByUrl("auth/list-rol");//Redirigir a la lista de Tradition
+        this.route.navigateByUrl("/settings/basic-info/list-tradition");//Redirigir a la lista de Tradition
       
       },
       (error) => {}

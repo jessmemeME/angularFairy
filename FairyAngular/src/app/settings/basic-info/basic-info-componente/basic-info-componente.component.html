@@ -31,10 +31,10 @@
         </li>
         <!-- Configuraciones Basicas -->
         <li class="list-group-item" style="cursor: pointer;">
-          <span (click)="toggleSubmenu('configuraciones-basicas')"
+          <span (click)="toggleSubmenu('basic-info')"
             >Configuraciones Basicas</span
           >
-          <ul *ngIf="submenus['configuraciones-basicas']">
+          <ul *ngIf="submenus['basic-info']">
             <li class="list-group-item" style="cursor: pointer;">
               <span (click)="toggleSubmenu('personas')">Personas</span>
               <ul *ngIf="submenus['personas']">

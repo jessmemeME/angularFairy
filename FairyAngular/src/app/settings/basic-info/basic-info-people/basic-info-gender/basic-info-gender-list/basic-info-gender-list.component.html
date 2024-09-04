@@ -1,1 +1,81 @@
-<p>basic-info-gender-list works!</p>
+<!--p>basic-info-gender-list works!</p-->
+<section class="container">
+  <div class="card shadow mb-4">
+    <div
+      class="card-header py-3 d-flex justify-content-between align-items-center"
+    >
+      <h6 class="m-0 font-weight-bold text-primary">
+        Lista de Generos
+      </h6>
+      <!-- Boton para insertar nuevo registro -->
+      <a
+        routerLinkActive="active"
+        [routerLink]="['insert-document-type']"
+        type="button"
+        class="btn btn-warning btn-sm"
+        ><i class="bi bi-plus"></i
+      ></a>
+      <!-- <button type="button" class="btn btn-primary btn-sm ml-auto" routerLink="/settings/basic-info/insert-age-group">+</button> -->
+    </div>
+    <div class="card-body">
+      <div class="">
+        <table class="table table-bordered table-hover" style="width: 100%;">
+          <thead>
+            <tr>
+              <!--      id?: number; // ID del género
+                        name?: string; // Nombre del género
+                        description?: string; // Descripción del género
+                        is_active?: boolean; // Indica si el género está activo
+                        created_date?: string; // Fecha de creación
+                        updated_date?: string; // Fecha de última actualización
+                        created_user_id?: number; // ID del usuario que creó el género
+                        updated_user_id?: number; // ID del usuario que actualizó el género -->
+              <th class="col-2">ID</th>
+              <th class="col-8">Nombre</th>
+              <th class="col-8">Descripcion</th>
+              <th class="col-8">Estado</th>
+              <th class="col-8">Fecha de Creacion</th>
+              <th class="col-8">Fecha de Edicion</th>
+              <th class="col-8">Usuario de Creacion</th>
+              <th class="col-8">Usuario de Edicion</th>
+              <th class="col-2">Acciones</th>
+              <!-- Agregamos esta columna para los botones -->
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let a of gender">
+              <td>{{a.id}}</td>
+              <td>{{a.name}}</td>
+              <td>{{a.description}}</td>
+              <td>{{a.is_active}}</td>
+              <td>{{a.created_date}}</td>
+              <td>{{a.updated_date}}</td>
+              <td>{{a.created_user_id}}</td>
+              <td>{{a.updated_user_id}}</td>
+              <!-- Botones de accion -->
+              <td align="center">
+                <!-- Editar -->
+                <a
+                  routerLinkActive="active"
+                  [routerLink]="['update-document-type']"
+                  [state]="a"
+                  type="button"
+                  class="btn btn-warning btn-sm"
+                  ><i class="bi bi-pencil"></i
+                ></a>
+                <!-- Eliminar -->
+                <button
+                  type="button"
+                  class="btn btn-danger btn-sm"
+                  (click)="eliminarDatos(a)"
+                >
+                  <i class="bi bi-trash2"></i>
+                </button>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+</section>

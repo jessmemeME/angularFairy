@@ -3,20 +3,19 @@
   <button
     type="button"
     class="btn btn-secondary float-right mb-3"
-    [routerLink]="['/settings/basic-info/list-age-group']"
+    [routerLink]="['/settings/list-age-group']"
   >
     Atrás
   </button>
-  <!-- <a routerLinkActive="active" [routerLink]="['/settings/basic-info/list-age-group']" [state]="a" type="button" class="btn btn-primary btn-sm"><i class="bi bi-key"></i></a> -->
-  <!-- Page Heading -->
-  <h1 class="h3 mb-2 color-primario">Crear nueva categoria de edad</h1>
 
+  <!-- Título de la página -->
+  <h1 class="h3 mb-2 color-primario">Crear nueva categoria de edad</h1>
   <h5 class="mt-4 color-primario">Datos de la categoria de edad</h5>
   <div class="borde-d w-100 mt-1"></div>
 
   <div class="mt-4">
     <div class="row">
-      <!-- Nombre de la categoria -->
+      <!-- Nombre de la categoría -->
       <div class="col-md-6">
         <label class="titulo-campo">Nombre de la categoria</label>
         <input
@@ -25,7 +24,6 @@
           name="nombre"
           type="text"
           id="ageGroupId"
-          aria-describedby="ageGroupHelp"
           placeholder="Ingrese el nombre de la categoria"
           (input)="checkCamposObligatorios()"
         />
@@ -39,9 +37,7 @@
           name="rangoDesde"
           type="number"
           id="ageFromId"
-          aria-describedby="ageFromHelp"
           placeholder="Ingrese el inicio del rango de edades"
-          required
           (input)="checkCamposObligatorios()"
         />
       </div>
@@ -53,10 +49,8 @@
           name="rangoHasta"
           type="number"
           id="ageToId"
-          aria-describedby="ageToHelp"
           placeholder="Ingrese el final del rango de edades"
           [min]="rangoDesde !== null ? rangoDesde + 1 : null"
-          required
           (input)="checkCamposObligatorios()"
         />
       </div>
@@ -64,11 +58,7 @@
 
     <br />
     <div class="row">
-      <!-- Descripción de la categoria -->
-      <!-- <div class="col-md-9">
-               <label class="titulo-campo">Descripción de la categoria</label>
-               <input [(ngModel)]="descripcion" class="form-control campo" name="descripcion" type="text" id="ageGroupId" aria-describedby="ageGroupHelp" placeholder="Ingrese la descripcion de la categoria">
-           </div>  -->
+      <!-- Descripción de la categoría -->
       <div class="col-md-9">
         <label class="titulo-campo">Descripción de la categoria</label>
         <textarea
@@ -76,7 +66,6 @@
           class="form-control campo"
           name="descripcion"
           id="ageGroupId"
-          aria-describedby="ageGroupHelp"
           placeholder="Ingrese la descripcion de la categoria"
         ></textarea>
       </div>
@@ -92,7 +81,7 @@
 
     <br />
     <div class="row">
-      <!-- Boton GUARDAR -->
+      <!-- Botón GUARDAR -->
       <div class="borde-d w-100 mt-5">
         <button
           type="button"
