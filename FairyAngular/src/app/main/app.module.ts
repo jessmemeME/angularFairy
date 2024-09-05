@@ -5,7 +5,7 @@ import { NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
 import { BrowserModule, provideClientHydration } from '@angular/platform-browser';
-
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { AppRoutingModule } from './app-routing.module';
 
 import { AppComponent } from './app.component';
@@ -15,6 +15,14 @@ import { SideMenuComponent } from '../UI/side-menu/side-menu.component';
 
 import { LocationStrategy } from '@angular/common';
 import { HashLocationStrategy } from '@angular/common';
+import { provideAnimationsAsync } from '@angular/platform-browser/animations/async';
+
+
+// Importa el nuevo módulo de Material
+import { MaterialModule } from './material.module';
+
+// Módulo de creación de eventos
+import { EventCreationModule } from '../event-creation/event-creation.module';
 
 @NgModule({
   declarations: [
@@ -29,10 +37,14 @@ import { HashLocationStrategy } from '@angular/common';
     RouterModule, // Módulo de enrutamiento
     HttpClientModule, // Módulo HTTP para hacer solicitudes
     FormsModule, // Módulo para trabajar con formularios
+    MaterialModule, // Importa el módulo Material centralizado
+    //Event-creation
+    BrowserAnimationsModule,  // Necesario para habilitar animaciones en Angular Material
+    EventCreationModule  // Se importa el módulo de creación de eventos
   ],
   providers: [
     provideClientHydration(), // Proveedor para la hidratación del cliente
-    { provide: LocationStrategy, useClass: HashLocationStrategy } // Proveedor para la estrategia de ubicación con hash
+    { provide: LocationStrategy, useClass: HashLocationStrategy }, provideAnimationsAsync() // Proveedor para la estrategia de ubicación con hash
   ],
   bootstrap: [AppComponent] // Componente raíz que se debe inicializar al arrancar la aplicación
 })
