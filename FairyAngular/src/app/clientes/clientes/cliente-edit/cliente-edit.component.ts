@@ -1,13 +1,13 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, FormArray, Validators, FormControl } from '@angular/forms';
-import { Router } from '@angular/router';  // Importa el servicio Router
+import { ActivatedRoute,Router } from '@angular/router'; // Para obtener el ID del cliente a editar
 
 @Component({
-  selector: 'app-cliente-register',
-  templateUrl: './cliente-register.component.html',
-  styleUrls: ['./cliente-register.component.css']
+  selector: 'app-cliente-edit',
+  templateUrl: './cliente-edit.component.html',
+  styleUrls: ['./cliente-edit.component.css']
 })
-export class ClienteRegisterComponent implements OnInit {
+export class ClienteEditComponent implements OnInit {
   clienteForm!: FormGroup;
   showEspecificarOtro: boolean = false;
   departamentos: string[] = ['Asunción', 'Central', 'Cordillera', 'Guairá', 'Caaguazú', 'Caazapá', 'Itapúa', 'Misiones', 'Paraguarí', 'Alto Paraná', 'Ñeembucú', 'Amambay', 'Canindeyú', 'Presidente Hayes', 'Boquerón', 'Alto Paraguay', 'Concepción'];
@@ -32,41 +32,208 @@ export class ClienteRegisterComponent implements OnInit {
     'Boquerón': ['Filadelfia', 'Mariscal Estigarribia', 'Loma Plata'],
     'Alto Paraguay': ['Fuerte Olimpo', 'Bahía Negra', 'Carmelo Peralta', 'Puerto Casado']
   };
-
-  constructor(private fb: FormBuilder, private router: Router) {
+  constructor(private fb: FormBuilder, private route: ActivatedRoute, private router: Router) {
     this.clienteForm = this.fb.group({
       datosBasicos: this.fb.group({
         nombres: ['', Validators.required],
         apellidos: ['', Validators.required],
         tipoDocumento: ['Cedula', Validators.required],
         numeroDocumento: ['', Validators.required],
-        estado: ['Prospecto', Validators.required]  // Valor por defecto "Prospecto"
+        estado: ['Prospecto', Validators.required]
       }),
       datosPersonales: this.fb.group({
         genero: ['', Validators.required],
         especificarOtro: [''],
-        fechaNacimiento: ['', [Validators.required, this.validarFormatoFecha]], // Validador de formato personalizado
+        fechaNacimiento: ['', [Validators.required, this.validarFormatoFecha]],
         edad: new FormControl({ value: '', disabled: true }, Validators.required)
       }),
       ubicaciones: this.fb.array([this.crearUbicacion()]),
       contactos: this.fb.array([this.crearContacto()]),
       redesSociales: this.fb.array([this.crearRedSocial()]),
       facturacion: this.fb.array([this.crearDatoFacturacion()])
-
     });
 
     this.onChangesGender();
     this.onChangesBirthdayDate();
   }
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+    // Obtén el ID del cliente desde la URL
+    const clienteId = this.route.snapshot.paramMap.get('id');
+    
+    if (clienteId) {
+      // Llama a la función para cargar los datos del cliente con el ID proporcionado
+      this.cargarDatosCliente(clienteId);
+    }
+  }
 
   // Método para volver a la lista de clientes
   goBack(): void {
     this.router.navigate(['/clients']);  // Redirige a la página principal de clientes
   }
+  cargarDatosCliente(id: string | null) {
+    if (id) {
+      const datosCliente = this.obtenerDatosCliente(id); 
+      this.clienteForm.patchValue({
+        datosBasicos: datosCliente.datosBasicos,
+        datosPersonales: datosCliente.datosPersonales,
+      });
 
-  //DATOS PERSONALES
+      this.setFormArray('ubicaciones', datosCliente.ubicaciones);
+      this.setFormArray('contactos', datosCliente.contactos);
+      this.setFormArray('redesSociales', datosCliente.redesSociales);
+      this.setFormArray('facturacion', datosCliente.facturacion);
+    }
+  }
+
+  setFormArray(formArrayName: string, data: any[]) {
+    const formArray = this.clienteForm.get(formArrayName) as FormArray;
+    formArray.clear();
+    data.forEach(item => formArray.push(this.fb.group(item)));
+  }
+
+  obtenerDatosCliente(id: string) {
+    return {
+      datosBasicos: {
+        nombres: 'Juan',
+        apellidos: 'Pérez',
+        tipoDocumento: 'Cedula',
+        numeroDocumento: '12345678',
+        estado: 'Cliente Activo'
+      },
+      datosPersonales: {
+        genero: 'Masculino',
+        especificarOtro: '',
+        fechaNacimiento: '01/01/1980',
+        edad: 42
+      },
+      ubicaciones: [{ nombreUbicacion: 'Oficina', ubicacionPrincipal: true }],
+      contactos: [{ tipoContacto: 'WhatsApp', contacto: '0981-123456', estadoContacto: 'Activo' }],
+      redesSociales: [{ tipoRedSocial: 'Facebook', usuario: 'juan.perez', estadoRedSocial: 'Activo' }],
+      facturacion: [{ ruc: '80012345-6', razonSocial: 'Empresa Juan Pérez', estadoFacturacion: 'Activo' }]
+    };
+  }
+
+  //UBICACIONES
+  crearUbicacion(): FormGroup {
+    return this.fb.group({
+      nombreUbicacion: ['', Validators.required],  // Este control debe estar aquí
+      ubicacionPrincipal: [false],
+      callePrincipal: ['', Validators.required],
+      calleSecundaria: ['', Validators.required],
+      numeroCasa: ['', Validators.required],
+      departamento: ['', Validators.required],
+      ciudad: ['', Validators.required],
+      barrio: [''],
+      ubicacionMaps: [''],
+      observacion: [''],
+      estadoUbicacion: ['', Validators.required]
+    });
+  }
+  
+  agregarUbicacion() {
+    this.ubicaciones.push(this.crearUbicacion());
+  }
+
+
+  get ubicaciones(): FormArray {
+    return this.clienteForm.get('ubicaciones') as FormArray;
+  }
+
+
+  onDepartamentoChange(departamento: string) {
+    this.ciudades = this.ciudadesPorDepartamento[departamento] || [];
+  }
+
+  removerUbicacion(index: number): void {
+    this.ubicaciones.removeAt(index);
+  }
+  
+  onPrincipalChangeUbication(index: number): void {
+    // Si se marca una ubicación como principal, desmarcar las demás
+    this.ubicaciones.controls.forEach((control, i) => {
+      if (i !== index) {
+        control.get('ubicacionPrincipal')?.setValue(false, { emitEvent: false });
+      }
+    });
+  }
+
+ //---------------------------------------------------------
+//CONTACTOS
+agregarContacto(): void {
+  this.contactos.push(this.crearContacto());
+}
+
+removerContacto(index: number): void {
+  this.contactos.removeAt(index);
+}
+
+crearContacto(): FormGroup {
+  return this.fb.group({
+    tipoContacto: ['', Validators.required],
+    contacto: ['', Validators.required],
+    contactoPrincipal: [true],
+    estadoContacto: ['Activo', Validators.required] // Valor por defecto "Activo"
+  });
+}
+
+validarContactoPrincipal(index: number): void {
+  this.contactos.controls.forEach((contacto, i) => {
+    if (i !== index) {
+      contacto.get('contactoPrincipal')?.setValue(false);
+    }
+  });
+}
+
+get contactos(): FormArray {
+  return this.clienteForm.get('contactos') as FormArray;
+}
+
+//---------------------------------------------------------
+//REDES SOCIALES
+agregarRedSocial(): void {
+  this.redesSociales.push(this.crearRedSocial());
+}
+
+removerRedSocial(index: number): void {
+  this.redesSociales.removeAt(index);
+}
+
+crearRedSocial(): FormGroup {
+  return this.fb.group({
+    tipoRedSocial: ['', Validators.required],
+    usuario: ['', Validators.required],
+    enlace: [''],
+    estadoRedSocial: ['Activo', Validators.required] // "Activo" por defecto
+  });
+}
+
+get redesSociales(): FormArray {
+  return this.clienteForm.get('redesSociales') as FormArray;
+}
+
+  //---------------------------------------------------------
+  //FACTURACION
+  crearDatoFacturacion(): FormGroup {
+    return this.fb.group({
+      ruc: ['', Validators.required],
+      razonSocial: ['', Validators.required],
+      facturacionPrincipal: [true],
+      estadoFacturacion: ['Activo', Validators.required]
+    });
+  }
+
+
+  agregarDatoFacturacion() {
+    this.facturacion.push(this.crearDatoFacturacion());
+  }
+
+  get facturacion(): FormArray {
+    return this.clienteForm.get('facturacion') as FormArray;
+  }
+
+
+   //DATOS PERSONALES
   //GENERO
   private onChangesGender(): void {
     this.clienteForm.get('datosPersonales.genero')?.valueChanges.subscribe((value) => {
@@ -89,22 +256,20 @@ export class ClienteRegisterComponent implements OnInit {
     }
     especificarOtroControl?.updateValueAndValidity();
   }
-//FECHA DE NACIMIENTO
-private onChangesBirthdayDate(): void {
-  this.clienteForm.get('datosPersonales.fechaNacimiento')?.valueChanges.subscribe((fechaNacimiento) => {
-    // Verifica si la fecha tiene el formato correcto y es una fecha válida
-    if (this.validarFormatoFechaCorrecto(fechaNacimiento)) {
-      // Si la fecha es válida, calcula la edad
-      const edadCalculada = this.calcularEdad(fechaNacimiento);
-      this.clienteForm.get('datosPersonales.edad')?.setValue(edadCalculada, { emitEvent: false });
-    } else {
-      // Si la fecha es inválida, limpia el campo de edad
-      this.clienteForm.get('datosPersonales.edad')?.setValue('', { emitEvent: false });
-    }
-  });
-}
-
-
+  //FECHA DE NACIMIENTO
+  private onChangesBirthdayDate(): void {
+    this.clienteForm.get('datosPersonales.fechaNacimiento')?.valueChanges.subscribe((fechaNacimiento) => {
+      // Verifica si la fecha tiene el formato correcto y es una fecha válida
+      if (this.validarFormatoFechaCorrecto(fechaNacimiento)) {
+        // Si la fecha es válida, calcula la edad
+        const edadCalculada = this.calcularEdad(fechaNacimiento);
+        this.clienteForm.get('datosPersonales.edad')?.setValue(edadCalculada, { emitEvent: false });
+      } else {
+        // Si la fecha es inválida, limpia el campo de edad
+        this.clienteForm.get('datosPersonales.edad')?.setValue('', { emitEvent: false });
+      }
+    });
+  }
 
   formatDateInput(event: Event): void {
     const inputElement = event.target as HTMLInputElement;
@@ -164,12 +329,8 @@ private onChangesBirthdayDate(): void {
   
     return true;
   }
-  
 
-
-
-
-//EDAD
+  //EDAD
 calcularEdad(fechaNacimiento: string): number {
   const [dia, mes, anio] = fechaNacimiento.split('/').map(Number);
   const nacimiento = new Date(anio, mes - 1, dia);
@@ -181,137 +342,14 @@ calcularEdad(fechaNacimiento: string): number {
   }
   return edad;
 }
-//---------------------------------------------------------
 
-  //UBICACIONES
-  crearUbicacion(): FormGroup {
-    return this.fb.group({
-      nombreUbicacion: ['', Validators.required],  // Este control debe estar aquí
-      ubicacionPrincipal: [false],
-      callePrincipal: ['', Validators.required],
-      calleSecundaria: ['', Validators.required],
-      numeroCasa: ['', Validators.required],
-      departamento: ['', Validators.required],
-      ciudad: ['', Validators.required],
-      barrio: [''],
-      ubicacionMaps: [''],
-      observacion: [''],
-      estadoUbicacion: ['', Validators.required]
-    });
-  }
-  
-  agregarUbicacion() {
-    this.ubicaciones.push(this.crearUbicacion());
-  }
-
-
-  get ubicaciones(): FormArray {
-    return this.clienteForm.get('ubicaciones') as FormArray;
-  }
-
-
-  onDepartamentoChange(departamento: string) {
-    this.ciudades = this.ciudadesPorDepartamento[departamento] || [];
-  }
-
-  removerUbicacion(index: number): void {
-    this.ubicaciones.removeAt(index);
-  }
-  
-  onPrincipalChangeUbication(index: number): void {
-    // Si se marca una ubicación como principal, desmarcar las demás
-    this.ubicaciones.controls.forEach((control, i) => {
-      if (i !== index) {
-        control.get('ubicacionPrincipal')?.setValue(false, { emitEvent: false });
-      }
-    });
-  }
-
-//---------------------------------------------------------
-//CONTACTOS
-agregarContacto(): void {
-  this.contactos.push(this.crearContacto());
-}
-
-removerContacto(index: number): void {
-  this.contactos.removeAt(index);
-}
-
-crearContacto(): FormGroup {
-  return this.fb.group({
-    tipoContacto: ['', Validators.required],
-    contacto: ['', Validators.required],
-    contactoPrincipal: [true],
-    estadoContacto: ['Activo', Validators.required] // Valor por defecto "Activo"
-  });
-}
-
-validarContactoPrincipal(index: number): void {
-  this.contactos.controls.forEach((contacto, i) => {
-    if (i !== index) {
-      contacto.get('contactoPrincipal')?.setValue(false);
-    }
-  });
-}
-
-get contactos(): FormArray {
-  return this.clienteForm.get('contactos') as FormArray;
-}
-
-
-//---------------------------------------------------------
-//REDES SOCIALES
-agregarRedSocial(): void {
-  this.redesSociales.push(this.crearRedSocial());
-}
-
-removerRedSocial(index: number): void {
-  this.redesSociales.removeAt(index);
-}
-
-crearRedSocial(): FormGroup {
-  return this.fb.group({
-    tipoRedSocial: ['', Validators.required],
-    usuario: ['', Validators.required],
-    enlace: [''],
-    estadoRedSocial: ['Activo', Validators.required] // "Activo" por defecto
-  });
-}
-
-get redesSociales(): FormArray {
-  return this.clienteForm.get('redesSociales') as FormArray;
-}
-
-  //---------------------------------------------------------
-  //FACTURACION
-  crearDatoFacturacion(): FormGroup {
-    return this.fb.group({
-      ruc: ['', Validators.required],
-      razonSocial: ['', Validators.required],
-      facturacionPrincipal: [true],
-      estadoFacturacion: ['Activo', Validators.required]
-    });
-  }
-
-
-  agregarDatoFacturacion() {
-    this.facturacion.push(this.crearDatoFacturacion());
-  }
-
-  get facturacion(): FormArray {
-    return this.clienteForm.get('facturacion') as FormArray;
-  }
-
-
-//---------------------------------------------------------
   submit() {
     if (this.clienteForm.valid) {
-      console.log('Datos del cliente:', this.clienteForm.value);
+      console.log('Datos del cliente editados:', this.clienteForm.value);
     } else {
       console.error('El formulario no es válido.');
     }
   }
-
   get datosBasicosControl(): FormGroup {
     return this.clienteForm.get('datosBasicos') as FormGroup;
   }
