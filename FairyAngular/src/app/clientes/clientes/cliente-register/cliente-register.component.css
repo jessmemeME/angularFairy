@@ -1,0 +1,12 @@
+.container {
+    padding: 20px;
+  }
+  
+  mat-grid-list {
+    width: 100%;
+  }
+  
+  mat-form-field {
+    width: 100%;
+  }
+  
