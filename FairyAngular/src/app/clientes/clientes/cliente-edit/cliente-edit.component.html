@@ -616,7 +616,10 @@
       </div>
     </form>
   </mat-step>
+  <!-- Botón de Guardar -->
+  <div class="actions">
+    <button mat-raised-button color="primary" (click)="submit()">
+      Guardar Cambios
+    </button>
+  </div>
 </mat-horizontal-stepper>
-
-<!-- Agrega el botón atrás -->
-<button mat-raised-button color="warn" (click)="goBack()">Atrás</button>
