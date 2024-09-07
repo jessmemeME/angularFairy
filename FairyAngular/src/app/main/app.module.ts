@@ -1,51 +1,49 @@
-// app.module.ts - Módulo principal de la aplicación Angular
-
-import { HttpClientModule } from '@angular/common/http';
 import { NgModule } from '@angular/core';
-import { FormsModule } from '@angular/forms';
-import { RouterModule } from '@angular/router';
 import { BrowserModule, provideClientHydration } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { AppRoutingModule } from './app-routing.module';
+import { HttpClientModule } from '@angular/common/http';
+import { FormsModule } from '@angular/forms';
+import { RouterModule } from '@angular/router';
+import { LocationStrategy, HashLocationStrategy } from '@angular/common';
 
+// Importa módulos personalizados
+import { AppRoutingModule } from './app-routing.module';
+import { MaterialModule } from './material.module';
+import { EventCreationModule } from '../event-creation/event-creation.module';
+import { ClientesModule } from '../clientes/clientes.module';
+
+// Componentes de UI
 import { AppComponent } from './app.component';
 import { NavBarComponent } from '../UI/nav-bar/nav-bar.component';
 import { NotFoundComponent } from '../UI/not-found/not-found.component';
 import { SideMenuComponent } from '../UI/side-menu/side-menu.component';
 
-import { LocationStrategy } from '@angular/common';
-import { HashLocationStrategy } from '@angular/common';
+// Proveedor personalizado
 import { provideAnimationsAsync } from '@angular/platform-browser/animations/async';
-
-
-// Importa el nuevo módulo de Material
-import { MaterialModule } from './material.module';
-
-// Módulo de creación de eventos
-import { EventCreationModule } from '../event-creation/event-creation.module';
 
 @NgModule({
   declarations: [
-    AppComponent, // Componente principal de la aplicación
-    NavBarComponent, // Componente de la barra de navegación
-    NotFoundComponent, // Componente para manejar páginas no encontradas
-    SideMenuComponent, // Componente del menú lateral
+    AppComponent,          // Componente principal
+    NavBarComponent,       // Barra de navegación
+    NotFoundComponent,     // Componente para 404
+    SideMenuComponent      // Menú lateral
   ],
   imports: [
-    AppRoutingModule, // Módulo de enrutamiento de la aplicación
-    BrowserModule, // Módulo para navegadores
-    RouterModule, // Módulo de enrutamiento
-    HttpClientModule, // Módulo HTTP para hacer solicitudes
-    FormsModule, // Módulo para trabajar con formularios
-    MaterialModule, // Importa el módulo Material centralizado
-    //Event-creation
-    BrowserAnimationsModule,  // Necesario para habilitar animaciones en Angular Material
-    EventCreationModule  // Se importa el módulo de creación de eventos
+    BrowserModule,         // Módulo para la compatibilidad con navegadores
+    BrowserAnimationsModule, // Animaciones para Angular Material
+    HttpClientModule,      // Comunicación HTTP
+    FormsModule,           // Manejo de formularios
+    RouterModule,          // Ruteo
+    AppRoutingModule,      // Enrutamiento principal
+    MaterialModule,        // Módulo Material centralizado
+    EventCreationModule,   // Módulo de creación de eventos
+    ClientesModule         // Módulo de clientes
   ],
   providers: [
-    provideClientHydration(), // Proveedor para la hidratación del cliente
-    { provide: LocationStrategy, useClass: HashLocationStrategy }, provideAnimationsAsync() // Proveedor para la estrategia de ubicación con hash
+    provideClientHydration(), // Hidratación para SSR
+    { provide: LocationStrategy, useClass: HashLocationStrategy }, // Estrategia de enrutamiento con hash
+    provideAnimationsAsync()   // Proveedor de animaciones asíncronas
   ],
-  bootstrap: [AppComponent] // Componente raíz que se debe inicializar al arrancar la aplicación
+  bootstrap: [AppComponent]   // Componente raíz
 })
 export class AppModule { }
