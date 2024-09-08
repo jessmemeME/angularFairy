@@ -3,7 +3,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders  } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { catchError, tap, map } from "rxjs/operators";
-import { Accounts, UserGroupPermissionsUpdate, UserPermissionsWithCheck } from '../../models/accounts.model'//llamamos a nuestra interface
+import { Accounts, UserGroupPermissionsUpdate, UserPermissionsWithCheck } from '../../../models/accounts.model'//llamamos a nuestra interface
 
 @Injectable({
   providedIn: 'root'

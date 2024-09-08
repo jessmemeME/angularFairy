@@ -1,0 +1,77 @@
+<div class="landing-page">
+  <!-- Navbar -->
+  <mat-toolbar color="primary" class="navbar">
+    <span>Hada Madrina</span>
+    <span class="spacer"></span>
+    <button mat-button routerLink="/login">Iniciar sesión</button>
+  </mat-toolbar>
+  
+  <section class="hero-section">
+    <!-- Hero Section -->
+    <div class=" p-4 d-flex justify-content-center align-items-center text-center">
+      <div>
+        <h1 class="display-4"><strong class="hero-title"> {{ title }} </strong></h1>
+        <p class="lead hero-description">Planifica cada detalle con nosotros para crear el día perfecto.</p>
+      </div>
+    </div>
+
+    <!-- Servicios -->
+    <section class="container py-5 services-section">
+      <h2 class="mb-4 section-title">Servicios</h2>
+      <div class="row">
+        <div class="col-md-4">
+          <mat-card class="service-card mb-2 p-2">
+            <mat-icon>event</mat-icon>
+            <h3>Organización completa</h3>
+            <p>Nos encargamos de todo, desde la planificación inicial hasta la ejecución el día del evento.</p>
+          </mat-card>
+        </div>
+        <div class="col-md-4">
+          <mat-card class="service-card mb-2 p-2">
+            <mat-icon>restaurant_menu</mat-icon>
+            <h3>Proveedores</h3>
+            <p>Trabajamos con los mejores proveedores de catering, fotografía, y más.</p>
+          </mat-card>
+        </div>
+        <div class="col-md-4">
+          <mat-card class="service-card mb-2 p-2">
+            <mat-icon>place</mat-icon>
+            <h3>Locaciones de ensueño</h3>
+            <p><br>Te ayudamos a encontrar el lugar perfecto para tu boda.</p>
+          </mat-card>
+        </div>
+      </div>
+    </section>
+  </section>
+
+  <!-- Testimonios -->
+  <div class="bg-light testimonials-section">
+    <section class="container py-5">
+      <h2 class="mb-4">Lo que dicen nuestros clientes</h2>
+      <div class="row">
+        <div class="col-md-6">
+          <mat-card class="testimonial-card mb-2 p-2">
+            <blockquote>
+              "Hada Madrina, nuestra boda fue increíble. No tuvimos que preocuparnos por nada."
+              <footer>- Laura y Miguel</footer>
+            </blockquote>
+          </mat-card>
+        </div>
+        <div class="col-md-6">
+          <mat-card class="testimonial-card mb-2 p-2">
+            <blockquote>
+              "Hicieron nuestro día mágico. El equipo estuvo presente en cada detalle."
+              <footer>- Ana y Pedro</footer>
+            </blockquote>
+          </mat-card>
+        </div>
+      </div>
+    </section>
+  </div>
+
+  <!-- Call to Action -->
+  <section class="container py-2 text-center cta-section">
+    <h2 class="cta-title">¡Comienza a planificar tu boda hoy mismo!</h2>
+    <button mat-stroked-button color="primary" class="cta-button">Contáctanos</button>
+  </section>
+</div>

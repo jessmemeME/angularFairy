@@ -20,6 +20,7 @@ import { SideMenuComponent } from '../UI/side-menu/side-menu.component';
 
 // Proveedor personalizado
 import { provideAnimationsAsync } from '@angular/platform-browser/animations/async';
+import { provideCharts, withDefaultRegisterables } from 'ng2-charts';
 
 @NgModule({
   declarations: [
@@ -42,7 +43,7 @@ import { provideAnimationsAsync } from '@angular/platform-browser/animations/asy
   providers: [
     provideClientHydration(), // Hidratación para SSR
     { provide: LocationStrategy, useClass: HashLocationStrategy }, // Estrategia de enrutamiento con hash
-    provideAnimationsAsync()   // Proveedor de animaciones asíncronas
+    provideAnimationsAsync(), provideCharts(withDefaultRegisterables())   // Proveedor de animaciones asíncronas
   ],
   bootstrap: [AppComponent]   // Componente raíz
 })

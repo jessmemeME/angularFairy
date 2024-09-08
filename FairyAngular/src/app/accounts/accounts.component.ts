@@ -1,6 +1,6 @@
 import { Component,OnInit } from '@angular/core';
 import { Observable } from 'rxjs';
-import {AccountsService} from './accounts.service' //llamamos a nuestro servicio de la app
+import {AccountsService} from './services/accounts.service' //llamamos a nuestro servicio de la app
 import { Accounts } from '../../models/accounts.model'//llamamos a nuestra interface
 import {Router, NavigationEnd} from "@angular/router"
 
