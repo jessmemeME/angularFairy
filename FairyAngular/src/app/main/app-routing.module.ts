@@ -16,6 +16,8 @@ const routes: Routes = [
   { path: 'account', loadChildren: () => import('../accounts/account.module').then((m) => m.AccountModule) }, // Carga perezosa del módulo de cuentas
   { path: 'events', loadChildren: () => import('../event-creation/event-creation.module').then(m => m.EventCreationModule) },
   { path: 'clients', loadChildren: () => import('../clientes/clientes.module').then(m => m.ClientesModule) },
+  { path: 'agenda', loadChildren: () => import('../agenda/agenda.module').then(m => m.AgendaModule) },
+  //{ path: 'pagos', loadChildren: () => import('../agenda/agenda.module').then(m => m.AgendaModule) },
   //{ path: '', redirectTo: 'crear-evento', pathMatch: 'full' },  // Ruta por defecto que redirige a crear evento
   { path: '**', component: NotFoundComponent }, // Ruta comodín para manejar páginas no encontradas
 ];
