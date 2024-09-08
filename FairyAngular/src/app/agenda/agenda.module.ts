@@ -5,9 +5,10 @@ import { FullCalendarModule } from '@fullcalendar/angular'; // FullCalendar Modu
 import { MatButtonModule } from '@angular/material/button';  // Angular Material
 import { MatIconModule } from '@angular/material/icon';
 import { AgendaRoutingModule } from './agenda-routing/agenda-routing.module';
+import { EventDialogComponent } from './event-dialog/event-dialog.component';
 
 @NgModule({
-  declarations: [AgendaComponent],
+  declarations: [AgendaComponent, EventDialogComponent],
   imports: [
     CommonModule,
     FullCalendarModule,  // FullCalendarModule
