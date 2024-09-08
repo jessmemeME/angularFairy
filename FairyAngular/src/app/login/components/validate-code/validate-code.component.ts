@@ -1,9 +1,9 @@
 import { Component } from '@angular/core';
-import { LoginApiService } from '../login-api.service';
+import { LoginApiService } from '../../services/login-api.service';
 import { OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import { Login, Code, ReturnLogin, email } from '../../../models/login';
-import { GlobalCommunicationService } from '../../global-communication.service';
+import { Login, Code, ReturnLogin, email } from '../../../../models/login';
+import { GlobalCommunicationService } from '../../../global-communication.service';
 
 @Component({
   selector: 'app-validate-code',
@@ -17,6 +17,7 @@ export class ValidateCodeComponent  implements OnInit{
     private router:Router,
     private globalCommunicationService:GlobalCommunicationService
     ){}
+    
   login:Login = {email:"", password:""};
   accesoCorrecto:boolean = false;
   codigoActual:string="";

@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router, NavigationStart } from '@angular/router';
-import { AccountsService } from '../accounts.service';
-import {Accounts} from '../../../models/accounts.model'
+import { AccountsService } from '../../services/accounts.service';
+import {Accounts} from '../../../../models/accounts.model'
 
 @Component({
   selector: 'app-account-update',
