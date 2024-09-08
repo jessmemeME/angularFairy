@@ -1,10 +1,58 @@
-.calendar-container {
-    max-width: 900px;
-    margin: 40px auto;
-  }
-  
-  full-calendar {
-    width: 100%;
-    height: 600px; /* Ajusta según sea necesario */
-  }
-  
+.agenda-container {
+  max-width: 1200px;
+  margin: 40px auto;
+}
+
+.toolbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 20px;
+}
+
+/* Alinea el calendario y el contenedor de eventos arrastrables */
+.content-container {
+  display: flex;
+  justify-content: space-between;
+}
+
+/* Estilos para el contenedor de eventos */
+#external-events {
+  width: 200px; /* Ajusta el ancho según necesites */
+  padding: 10px;
+  background-color: #f4f4f4;
+  border: 1px solid #ccc;
+  margin-right: 20px;
+}
+
+#external-events h4 {
+  margin-top: 0;
+}
+
+.fc-event {
+  margin: 10px 0;
+  padding: 5px;
+  background-color: var(--primary-rosa);
+  color: #ad7784;
+  cursor: pointer;
+  border-radius: 4px;
+}
+
+/* Calendario FullCalendar */
+full-calendar {
+  flex-grow: 1;
+  width: 100%;
+  height: 600px; /* Ajusta según sea necesario */
+}
+/* Estilos para el contenedor de eventos */
+#external-events {
+  width: 200px; /* Ajusta el ancho según necesites */
+  padding: 10px;
+  background-color: #f4f4f4;
+  border: 1px solid #ccc;
+  margin-left: 20px; /* Deja espacio entre el calendario y los eventos */
+}
+
+#external-events h4 {
+  margin-top: 0;
+}
