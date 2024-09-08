@@ -1,0 +1,9 @@
+<div class="agenda-container">
+  <div class="toolbar">
+    <button mat-button (click)="calendarApi.next()">Siguiente</button>
+    <button mat-button (click)="calendarApi.prev()">Anterior</button>
+    <button mat-button (click)="calendarApi.today()">Hoy</button>
+  </div>
+
+  <full-calendar #calendar [options]="calendarOptions"> </full-calendar>
+</div>
