@@ -22,6 +22,23 @@ import { SideMenuComponent } from '../UI/side-menu/side-menu.component';
 import { provideAnimationsAsync } from '@angular/platform-browser/animations/async';
 import { provideCharts, withDefaultRegisterables } from 'ng2-charts';
 
+//
+import { MatDatepickerModule } from '@angular/material/datepicker';
+import { MatNativeDateModule, DateAdapter, MAT_DATE_FORMATS } from '@angular/material/core';
+import { CustomDateAdapter } from '../shared/custom-date-adapter';// Ajusta esta ruta según tu estructura
+
+export const MY_DATE_FORMATS = {
+  parse: {
+    dateInput: 'DD/MM/YYYY',
+  },
+  display: {
+    dateInput: 'DD/MM/YYYY',
+    monthYearLabel: 'MMMM YYYY',
+    dateA11yLabel: 'DD/MM/YYYY',
+    monthYearA11yLabel: 'MMMM YYYY',
+  },
+};
+
 @NgModule({
   declarations: [
     AppComponent,          // Componente principal
@@ -38,12 +55,19 @@ import { provideCharts, withDefaultRegisterables } from 'ng2-charts';
     AppRoutingModule,      // Enrutamiento principal
     MaterialModule,        // Módulo Material centralizado
     EventCreationModule,   // Módulo de creación de eventos
-    ClientesModule         // Módulo de clientes
+    ClientesModule,         // Módulo de clientes
+    MatDatepickerModule,
+    MatNativeDateModule
+
   ],
   providers: [
     provideClientHydration(), // Hidratación para SSR
     { provide: LocationStrategy, useClass: HashLocationStrategy }, // Estrategia de enrutamiento con hash
-    provideAnimationsAsync(), provideCharts(withDefaultRegisterables())   // Proveedor de animaciones asíncronas
+    provideAnimationsAsync(), provideCharts(withDefaultRegisterables()),   // Proveedor de animaciones asíncronas
+     // Proveedor de animaciones asíncronas
+    //CONFIGURACION FORMATO DE FECHA
+    { provide: DateAdapter, useClass: CustomDateAdapter },
+    { provide: MAT_DATE_FORMATS, useValue: MY_DATE_FORMATS },
   ],
   bootstrap: [AppComponent]   // Componente raíz
 })

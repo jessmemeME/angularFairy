@@ -12,7 +12,6 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatToolbarModule } from '@angular/material/toolbar';  // Puedes agregar otros módulos que necesites
 import { ReactiveFormsModule } from '@angular/forms';
 
-
 @NgModule({
   exports: [
     MatStepperModule,
@@ -25,7 +24,7 @@ import { ReactiveFormsModule } from '@angular/forms';
     MatTableModule,
     MatIconModule,
     MatToolbarModule,  // Exporta otros módulos que usarás en tus componentes
-    ReactiveFormsModule   // Importar ReactiveFormsModule si usas formularios reactivos
+    ReactiveFormsModule,   // Importar ReactiveFormsModule si usas formularios reactivos
   ]
 })
 export class MaterialModule { }

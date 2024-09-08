@@ -18,6 +18,8 @@ const routes: Routes = [
   { path: 'events', loadChildren: () => import('../event-creation/event-creation.module').then(m => m.EventCreationModule) },
   { path: 'clients', loadChildren: () => import('../clientes/clientes.module').then(m => m.ClientesModule) },
   { path: 'landing', loadChildren: () => import('../landing-page/landing-page.module').then(m => m.LandingPageModule) }, // Nueva ruta para la landing page
+  { path: 'agenda', loadChildren: () => import('../agenda/agenda.module').then(m => m.AgendaModule) },
+  //{ path: 'pagos', loadChildren: () => import('../agenda/agenda.module').then(m => m.AgendaModule) },
   //{ path: '', redirectTo: 'crear-evento', pathMatch: 'full' },  // Ruta por defecto que redirige a crear evento
   {path: 'dashboard', loadChildren: () => import('../dashboard/dashboard.module').then(m => m.DashboardModule)},
   { path: '**', component: NotFoundComponent }, // Ruta comodín para manejar páginas no encontradas
