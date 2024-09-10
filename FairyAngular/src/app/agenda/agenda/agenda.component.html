@@ -13,7 +13,7 @@
         Agregar Evento
       </button>
       <button mat-raised-button color="accent" (click)="addBackgroundEvent()">
-        Agregar Evento de Fondo
+        Agregar Evento de Varios Dias
       </button>
     </div>
   </div>
@@ -25,7 +25,7 @@
 
     <!-- Lista de eventos arrastrables al lado derecho -->
     <div id="external-events">
-      <h4>Eventos de arrastrar y soltar</h4>
+      <h4>Tareas para arrastrar y soltar</h4>
       <div class="fc-event" *ngFor="let event of externalEvents">
         {{ event.title }}
       </div>
