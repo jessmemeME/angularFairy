@@ -40,10 +40,12 @@
 
 /* Calendario FullCalendar */
 full-calendar {
+  z-index: 1; /* Asegúrate de que el calendario tenga un z-index bajo */
   flex-grow: 1;
   width: 100%;
   height: 600px; /* Ajusta según sea necesario */
 }
+
 /* Estilos para el contenedor de eventos */
 #external-events {
   width: 200px; /* Ajusta el ancho según necesites */
