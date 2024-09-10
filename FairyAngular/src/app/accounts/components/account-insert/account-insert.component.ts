@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
-import {AccountsService} from './../accounts.service';
-import { Accounts } from '../../../models/accounts.model'//llamamos a nuestra interface
+import {AccountsService} from '../../services/accounts.service';
+import { Accounts } from '../../../../models/accounts.model'//llamamos a nuestra interface
 import { Router } from '@angular/router';
 
 

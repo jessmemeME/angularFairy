@@ -1,0 +1,83 @@
+.hero-section {
+  background: url('../../assets/static/images/fondos/landing-bg.jpg');
+  background-size: cover;
+  background-position: cover;
+}
+
+.service-card {
+  mat-icon {
+    font-size: 20px;
+    color: #3f51b5;
+  }
+}
+
+.spacer {
+  flex: 1 1 auto;
+}
+
+/* Navbar Styles */
+.navbar {
+  display: flex;
+  justify-content: space-between;
+}
+
+.spacer {
+  flex: 1;
+}
+
+/* Hero Section Styles */
+.hero-section {
+  background-color: #4a90e2; /* Cambia a tu color de fondo preferido */
+  padding: 60px 20px;
+}
+
+.hero-title {
+  color: white;
+  font-weight: bold;
+}
+
+.hero-description {
+  color: white;
+}
+
+.hero-button {
+  margin-top: 20px;
+}
+
+/* Services Section */
+.services-section {
+  background-color: transparent; /* Fondo claro */
+}
+
+.section-title {
+  color: white; /* Color del título de las secciones */
+}
+
+/* Service Card */
+.service-card {
+  padding: 20px;
+  text-align: center;
+}
+
+/* Testimonials Section */
+.testimonials-section {
+  background-color: black; /* Fondo claro para testimonios */
+}
+
+.testimonial-card {
+  padding: 20px;
+  text-align: center;
+}
+
+/* Call to Action Section */
+.cta-section {
+  margin-top: 40px;
+}
+
+.cta-title {
+  margin-bottom: 20px;
+}
+
+.cta-button {
+  padding: 10px 30px;
+}
