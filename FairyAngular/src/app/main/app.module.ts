@@ -11,6 +11,8 @@ import { AppRoutingModule } from './app-routing.module';
 import { MaterialModule } from './material.module';
 import { EventCreationModule } from '../event-creation/event-creation.module';
 import { ClientesModule } from '../clientes/clientes.module';
+import { AgendaModule } from '../agenda/agenda.module'; // Importar el módulo de agenda si es parte de la app principal
+
 
 // Componentes de UI
 import { AppComponent } from './app.component';
@@ -20,6 +22,8 @@ import { SideMenuComponent } from '../UI/side-menu/side-menu.component';
 
 // Proveedor personalizado
 import { provideAnimationsAsync } from '@angular/platform-browser/animations/async';
+import { MatDialogModule } from '@angular/material/dialog';
+
 
 //
 import { MatDatepickerModule } from '@angular/material/datepicker';
@@ -54,10 +58,12 @@ export const MY_DATE_FORMATS = {
     AppRoutingModule,      // Enrutamiento principal
     MaterialModule,        // Módulo Material centralizado
     EventCreationModule,   // Módulo de creación de eventos
-    ClientesModule,         // Módulo de clientes
+    ClientesModule,        // Módulo de clientes
+    AgendaModule,          // Módulo de Agenda
     MatDatepickerModule,
-    MatNativeDateModule
-
+    MatNativeDateModule,
+    MatDialogModule
+    
   ],
   providers: [
     provideClientHydration(), // Hidratación para SSR
