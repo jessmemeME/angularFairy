@@ -1,0 +1,84 @@
+<section class="container p-2" align="center" style="max-width: 80%;">
+  <mat-card class="create-account-card">
+    <mat-toolbar color="primary">
+      <div class="row w-100">
+        <div class="col-11 d-flex align-items-center">
+          <span class="mat-toolbar-title">Agregar Nueva Cuenta</span>
+        </div>
+        <div class="col-1 text-left">
+          <a
+            mat-icon-button
+            class="btn btn-danger close-button"
+            routerLink="/login"
+          >
+            <mat-icon>close</mat-icon>
+          </a>
+        </div>
+      </div>
+    </mat-toolbar>
+
+    <mat-card-content>
+      <form [formGroup]="accountForm" (ngSubmit)="crearNuevaCuenta()">
+        <!-- CORREO -->
+        <div class="form-group mt-2">
+          <mat-form-field appearance="fill"  style="width: 100%;">
+            <mat-label>Correo del usuario</mat-label>
+            <input
+              matInput
+              formControlName="email"
+              placeholder="Ingrese el correo de usuario"
+            />
+            <mat-error *ngIf="accountForm.controls['email'].hasError('email')">
+              Correo no es válido
+            </mat-error>
+            <mat-error
+              *ngIf="accountForm.controls['email'].hasError('required')"
+            >
+              Correo es requerido
+            </mat-error>
+          </mat-form-field>
+        </div>
+        <!-- CONTRASEÑA -->
+        <div class="form-group mt-2">
+          <mat-form-field appearance="fill"  style="width: 100%;">
+            <mat-label>Contraseña</mat-label>
+            <input
+              matInput
+              type="password"
+              formControlName="password"
+              placeholder="Ingrese la contraseña de usuario"
+            />
+            <mat-error
+              *ngIf="accountForm.controls['password'].hasError('required')"
+            >
+              Contraseña es requerida
+            </mat-error>
+          </mat-form-field>
+        </div>
+        <!-- ESTADO -->
+        <div class="form-group mt-2  text-left">
+          <mat-checkbox formControlName="is_active">
+            Estado del usuario Activo
+          </mat-checkbox>
+        </div>
+        <!-- STAFF -->
+        <div class="form-group mt-2   text-left">
+          <mat-checkbox formControlName="is_staff">
+            Es parte del STAFF
+            </mat-checkbox>
+        </div>
+        <!-- BOTÓN GUARDAR -->
+        <div class="d-flex justify-content-center mt-4">
+          <button
+            mat-raised-button
+            color="primary"
+            type="submit"
+            class="save-button"
+          >
+            Guardar
+          </button>
+        </div>
+      </form>
+    </mat-card-content>
+  </mat-card>
+</section>

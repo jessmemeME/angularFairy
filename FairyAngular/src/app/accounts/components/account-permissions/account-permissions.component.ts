@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { AccountsService } from '../accounts.service';
-import { Accounts, UserGroupPermissionsUpdate, UserPermissionsWithCheck } from '../../../models/accounts.model'
+import { AccountsService } from '../../services/accounts.service';
+import { Accounts, UserGroupPermissionsUpdate, UserPermissionsWithCheck } from '../../../../models/accounts.model'
 import { Router, ActivatedRoute } from '@angular/router';
 @Component({
   selector: 'app-account-permissions',
