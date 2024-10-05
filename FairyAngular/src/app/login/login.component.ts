@@ -47,19 +47,25 @@ export class LoginComponent implements OnInit {
 
   login(): void {
     if (this.loginForm.valid) {
-      this.loginService.login(this.loginForm.value).subscribe((response: ReturnLogin) => {
-        this.returnObject = response;
+      this.loginService.login(this.loginForm.value).subscribe({
+        next: (response: ReturnLogin) => {
+          this.returnObject = response;
 
-        if (this.returnObject.respuesta.toLocaleLowerCase() === 'code') {
-          this.router.navigateByUrl('/login/validate-code', { state: this.loginForm.value });
-        } else {
-          this.alertType = this.returnObject.respuesta.toUpperCase() === 'ERROR' ? "error" : "success";
-          this.communicationService.sendMessage(this.returnObject);
+          if (this.returnObject.respuesta.toLowerCase() === 'code') {
+            this.router.navigateByUrl('/login/validate-code', { state: this.loginForm.value });
+          } else {
+            this.alertType = this.returnObject.respuesta.toUpperCase() === 'ERROR' ? 'error' : 'success';
+            this.communicationService.sendMessage(this.returnObject);
+            this.toggleAlert();
+          }
+        },
+        error: () => {
+          this.alertType = 'error';
           this.toggleAlert();
         }
       });
     } else {
-      this.alertType = "error";
+      this.alertType = 'error';
       this.toggleAlert();
     }
   }
