@@ -4,6 +4,12 @@
     'alert-warning': type === 'warning',
     'alert-info': type === 'info'
   }" *ngIf="isVisible">
-    {{ message }}
-    <button type="button" class="btn-close" aria-label="Close" (click)="closeAlert()"></button>
+  <div class="row">
+    <div class="col-11 p-2">
+      {{ message }}
+    </div>
+    <div class="col-1 p-2">
+      <button type="button" class="btn-close" aria-label="Close" (click)="closeAlert()"></button>
+    </div>
   </div>
+</div>

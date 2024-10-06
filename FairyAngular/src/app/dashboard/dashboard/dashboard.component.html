@@ -2,9 +2,9 @@
   <h2>Dashboard de Gestión de Eventos (Bodas)</h2>
   <div class="row">
     <!-- Tarjeta 1: Gráfico de Barras -->
-    <div class="col-md-4">
-      <div class="card mb-4">
-        <div class="card-body">
+    <div class="col-md-6">
+      <div class="card">
+        <div class="card-body p-2">
           <h5 class="card-title">Ingresos por Mes</h5>
           <ngx-charts-bar-vertical
             [results]="barChartData"
@@ -21,9 +21,9 @@
     </div>
 
     <!-- Tarjeta 2: Gráfico de Línea -->
-    <div class="col-md-4">
-      <div class="card mb-4">
-        <div class="card-body">
+    <div class="col-md-6">
+      <div class="card mb-2">
+        <div class="card-body p-2">
           <h5 class="card-title">Reservas Mensuales</h5>
           <ngx-charts-line-chart
             [results]="lineChartData"
@@ -40,9 +40,9 @@
     </div>
 
     <!-- Tarjeta 3: Gráfico de Área -->
-    <div class="col-md-4">
-      <div class="card mb-4">
-        <div class="card-body">
+    <div class="col-md-6">
+      <div class="card">
+        <div class="card-body p-2">
           <h5 class="card-title">Ingresos Acumulados</h5>
           <ngx-charts-area-chart
             [results]="areaChartData"
@@ -59,9 +59,9 @@
     </div>
 
     <!-- Tarjeta 4: Gráfico de Torta -->
-    <div class="col-md-4">
-      <div class="card mb-4">
-        <div class="card-body">
+    <div class="col-md-6">
+      <div class="card">
+        <div class="card-body p-2">
           <h5 class="card-title">Distribución de Servicios</h5>
           <ngx-charts-pie-chart
             [results]="pieChartData"
@@ -73,9 +73,9 @@
     </div>
 
     <!-- Tarjeta 5: Gráfico de Gauge -->
-    <div class="col-md-4">
-      <div class="card mb-4">
-        <div class="card-body">
+    <div class="col-md-6">
+      <div class="card">
+        <div class="card-body p-2">
           <h5 class="card-title">Progreso de Eventos</h5>
           <ngx-charts-gauge
             [results]="gaugeChartData"
@@ -86,9 +86,9 @@
     </div>
 
     <!-- Tarjeta 6: Gráfico de Polar -->
-    <div class="col-md-4">
-      <div class="card mb-4">
-        <div class="card-body">
+    <div class="col-md-6">
+      <div class="card">
+        <div class="card-body p-2">
           <h5 class="card-title">Ubicación de Eventos</h5>
           <ngx-charts-polar-chart
             [results]="polarChartData"

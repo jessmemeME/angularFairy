@@ -9,6 +9,7 @@ import { GlobalCommunicationService } from '../global-communication.service';
 
 // Models
 import { Login, ReturnLogin } from '../../models';
+import { response } from 'express';
 
 @Component({
   selector: 'app-login',
@@ -18,9 +19,8 @@ import { Login, ReturnLogin } from '../../models';
 export class LoginComponent implements OnInit {
   mostrarCompPrincipal = true;
   loginForm!: FormGroup;
-  returnObject: ReturnLogin = { mensaje: "", respuesta: "" };
-  alertType = "";
-
+  alertType = '';
+  returnObject!: ReturnLogin;
   constructor(
     private fb: FormBuilder,
     private loginService: LoginService,
@@ -31,13 +31,8 @@ export class LoginComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    // Initialize the form
-    this.loginForm = this.fb.group({
-      email: ['', [Validators.required, Validators.email]],
-      password: ['', Validators.required]
-    });
+    this.initializeLoginForm();
 
-    // Subscribe to router events
     this.router.events.subscribe(event => {
       if (event instanceof NavigationEnd) {
         this.mostrarCompPrincipal = event.urlAfterRedirects === '/login';
@@ -45,17 +40,27 @@ export class LoginComponent implements OnInit {
     });
   }
 
+  // Inicializa el formulario de login
+  private initializeLoginForm(): void {
+    this.loginForm = this.fb.group({
+      email: ['', [Validators.required, Validators.email]],
+      password: ['', Validators.required]
+    });
+  }
+
+  // Método de login que interactúa con el servicio y maneja la respuesta
   login(): void {
     if (this.loginForm.valid) {
       this.loginService.login(this.loginForm.value).subscribe({
-        next: (response: ReturnLogin) => {
-          this.returnObject = response;
-
-          if (this.returnObject.respuesta.toLowerCase() === 'code') {
-            this.router.navigateByUrl('/login/validate-code', { state: this.loginForm.value });
+        next: (isAuthenticated: boolean) => { // Cambia el tipo de `response` a `isAuthenticated`
+         
+          if (isAuthenticated) {
+            // Aquí podrías agregar lógica adicional, como navegar a otra ruta
+            this.router.navigateByUrl('/dashboard'); // Cambia a la ruta deseada
           } else {
-            this.alertType = this.returnObject.respuesta.toUpperCase() === 'ERROR' ? 'error' : 'success';
-            this.communicationService.sendMessage(this.returnObject);
+            // Manejo de errores basado en la respuesta
+            this.alertType = 'error';
+            this.communicationService.sendMessage({ mensaje: "Error al iniciar sesión", respuesta: "ERROR" });
             this.toggleAlert();
           }
         },
@@ -69,8 +74,29 @@ export class LoginComponent implements OnInit {
       this.toggleAlert();
     }
   }
+  
 
-  toggleAlert(): void {
-    this.alertService.updateAlertState(true); // Show the alert
+  // Maneja la respuesta de login y realiza acciones según la respuesta
+  private handleLoginResponse(response: ReturnLogin): void {
+    this.returnObject = response;
+    if (response.respuesta.toLowerCase() === 'code') {
+      // Redirecciona a la página de validación de código
+      this.router.navigateByUrl('/login/validate-code', { state: this.loginForm.value });
+    } else {
+      this.alertType = response.respuesta.toUpperCase() === 'ERROR' ? 'error' : 'success';
+      this.communicationService.sendMessage(response);
+      this.toggleAlert();
+    }
+  }
+
+  // Muestra la alerta de error
+  private showErrorAlert(): void {
+    this.alertType = 'error';
+    this.toggleAlert();
+  }
+
+  // Activa la alerta a través del servicio
+  private toggleAlert(): void {
+    this.alertService.updateAlertState(true);
   }
 }
