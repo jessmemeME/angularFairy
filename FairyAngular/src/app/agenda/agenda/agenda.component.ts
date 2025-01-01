@@ -31,8 +31,8 @@ export class AgendaComponent implements OnInit {
       if (info.event.extendedProps["rendering"] === 'background') {
         //return { html: `<div class="background-event">${info.event.extendedProps.description}</div>` };
         return { html: `<div class="background-event">${info.event.extendedProps["description"]}</div>` };
-
-      }
+      } 
+    return {};
     },
     editable: true,
     selectable: true,
