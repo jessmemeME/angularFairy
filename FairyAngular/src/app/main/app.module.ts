@@ -27,7 +27,7 @@ import { MatDialogModule } from '@angular/material/dialog';
 //
 import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatNativeDateModule, DateAdapter, MAT_DATE_FORMATS } from '@angular/material/core';
-import { CustomDateAdapter } from '../shared/custom-date-adapter';// Ajusta esta ruta según tu estructura
+import { CustomDateAdapter } from '../shared/custom-date-adapter'; 
 
 export const MY_DATE_FORMATS = {
   parse: {
@@ -67,8 +67,6 @@ export const MY_DATE_FORMATS = {
   providers: [
     provideClientHydration(), // Hidratación para SSR
     { provide: LocationStrategy, useClass: HashLocationStrategy }, // Estrategia de enrutamiento con hash
-    provideAnimationsAsync(), provideCharts(withDefaultRegisterables()),   // Proveedor de animaciones asíncronas
-     // Proveedor de animaciones asíncronas
     //CONFIGURACION FORMATO DE FECHA
     { provide: DateAdapter, useClass: CustomDateAdapter },
     { provide: MAT_DATE_FORMATS, useValue: MY_DATE_FORMATS },
