@@ -1,9 +1,34 @@
 <div class="agenda-container">
   <div class="toolbar">
-    <button mat-button (click)="calendarApi.next()">Siguiente</button>
-    <button mat-button (click)="calendarApi.prev()">Anterior</button>
-    <button mat-button (click)="calendarApi.today()">Hoy</button>
+    <!-- Controles de navegación a la izquierda -->
+    <div class="left-controls">
+      <button mat-button (click)="calendarApi.prev()">Anterior</button>
+      <button mat-button (click)="calendarApi.today()">Hoy</button>
+      <button mat-button (click)="calendarApi.next()">Siguiente</button>
+    </div>
+
+    <!-- Botones para agregar eventos alineados a la derecha -->
+    <div class="right-controls">
+      <button mat-raised-button color="primary" (click)="addEvent()">
+        Agregar Evento
+      </button>
+      <button mat-raised-button color="accent" (click)="addBackgroundEvent()">
+        Agregar Evento de Varios Dias
+      </button>
+    </div>
   </div>
 
-  <full-calendar #calendar [options]="calendarOptions"> </full-calendar>
+  <!-- Contenedor para alinear el calendario y la lista de eventos -->
+  <div class="content-container">
+    <!-- Calendario de FullCalendar -->
+    <full-calendar #calendar [options]="calendarOptions"></full-calendar>
+
+    <!-- Lista de eventos arrastrables al lado derecho -->
+    <div id="external-events">
+      <h4>Tareas para arrastrar y soltar</h4>
+      <div class="fc-event" *ngFor="let event of externalEvents">
+        {{ event.title }}
+      </div>
+    </div>
+  </div>
 </div>

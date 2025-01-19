@@ -1,9 +1,13 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
-import { FullCalendarComponent } from '@fullcalendar/angular'; // Importa el componente de FullCalendar
-import { CalendarOptions } from '@fullcalendar/core'; // Importar desde @fullcalendar/core
-import dayGridPlugin from '@fullcalendar/daygrid'; // Plugin para la vista de cuadrícula diaria
-import timeGridPlugin from '@fullcalendar/timegrid'; // Plugin para la vista de tiempo
-import interactionPlugin from '@fullcalendar/interaction'; // Plugin para la interacción (selección, clic, etc.)
+import { FullCalendarComponent } from '@fullcalendar/angular';
+import { CalendarOptions } from '@fullcalendar/core';
+import dayGridPlugin from '@fullcalendar/daygrid';
+import timeGridPlugin from '@fullcalendar/timegrid';
+import interactionPlugin from '@fullcalendar/interaction';
+import { Draggable } from '@fullcalendar/interaction';
+import { MatDialog } from '@angular/material/dialog';
+import { EventDialogComponent } from '../event-dialog/event-dialog.component';
+import esLocale from '@fullcalendar/core/locales/es';
 
 @Component({
   selector: 'app-agenda',
@@ -12,46 +16,158 @@ import interactionPlugin from '@fullcalendar/interaction'; // Plugin para la int
 })
 export class AgendaComponent implements OnInit {
 
-  @ViewChild('calendar') calendarComponent!: FullCalendarComponent; // ¡Usa el Non-null assertion operator!
+  @ViewChild('calendar') calendarComponent!: FullCalendarComponent;
 
   calendarOptions: CalendarOptions = {
-    initialView: 'dayGridMonth', // Vista inicial: cuadrícula mensual
-    plugins: [dayGridPlugin, timeGridPlugin, interactionPlugin], // Plugins de FullCalendar
-    headerToolbar: { // Configuración de la barra de herramientas superior
+    initialView: 'dayGridMonth',
+    plugins: [dayGridPlugin, timeGridPlugin, interactionPlugin],
+    locale: esLocale, // Cambiar el idioma a español
+    headerToolbar: {
       left: 'prev,next today',
       center: 'title',
       right: 'dayGridMonth,timeGridWeek,timeGridDay'
     },
-    editable: true, // Permitir edición de eventos (arrastrar, cambiar tamaño)
-    selectable: true, // Permitir seleccionar fechas
+    eventContent: function(info) {
+      if (info.event.extendedProps["rendering"] === 'background') {
+        //return { html: `<div class="background-event">${info.event.extendedProps.description}</div>` };
+        return { html: `<div class="background-event">${info.event.extendedProps["description"]}</div>` };
+      } 
+    return {};
+    },
+    editable: true,
+    selectable: true,
     selectMirror: true,
-    dayMaxEvents: true, // Mostrar '+X más' si hay muchos eventos en un día
-    events: [ // Eventos de ejemplo
-      { title: 'Evento de prueba 1', date: '2024-09-10' },
-      { title: 'Evento de prueba 2', date: '2024-09-12' }
+    dayMaxEvents: true,
+    droppable: true, // Habilitar eventos arrastrables
+    events: [
+      { title: 'Boda Ali y Maxi', date: '2024-09-10' },
+      { title: 'Boda Ani y Marce', date: '2024-09-12' },
+      {
+        start: '2024-09-15',
+        end: '2024-09-17',
+        rendering: 'background',
+        color: '#ff9f89',
+        description: 'Evento de Fondo 1'
+      },
+      {
+        start: '2024-09-20',
+        end: '2024-09-22',
+        rendering: 'background',
+        color: '#ffcc80',
+        description: 'Evento de Fondo 2'
+      }
     ],
-    dateClick: this.handleDateClick.bind(this), // Manejador para clics en una fecha
-    eventClick: this.handleEventClick.bind(this) // Manejador para clics en un evento
+    dateClick: this.handleDateClick.bind(this),
+    eventClick: this.handleEventClick.bind(this),
+    eventReceive: this.handleEventReceive.bind(this),
+    eventDidMount: function(info) {
+      if (info.event.extendedProps["rendering"] === 'background') {
+        const tooltip = document.createElement('div');
+        tooltip.innerText = info.event.extendedProps["description"];
+        tooltip.style.position = 'absolute';
+        tooltip.style.backgroundColor = 'rgba(0, 0, 0, 0.7)';
+        tooltip.style.color = '#fff';
+        tooltip.style.padding = '5px';
+        tooltip.style.borderRadius = '4px';
+        tooltip.style.top = '5px';
+        tooltip.style.left = '5px';
+        info.el.appendChild(tooltip);
+      }
+    }
   };
 
-  constructor() {}
+  constructor(public dialog: MatDialog) {}
 
-  ngOnInit(): void {
-    // Aquí puedes cargar eventos desde una API si es necesario
-  }
+  ngOnInit(): void {}
 
-  // Manejador que se ejecuta cuando se hace clic en una fecha
   handleDateClick(arg: any) {
     alert('Fecha seleccionada: ' + arg.dateStr);
   }
 
-  // Manejador que se ejecuta cuando se hace clic en un evento
   handleEventClick(clickInfo: any) {
     alert('Evento seleccionado: ' + clickInfo.event.title);
   }
 
-  // Acceder a la instancia de la API de FullCalendar para manipular el calendario
+  getDialogWidth() {
+    const screenWidth = window.innerWidth;
+    if (screenWidth < 768) {
+      return '95%';  // Ancho completo en móviles
+    } else if (screenWidth < 992) {
+      return '80%';  // Ancho en tablets
+    } else {
+      return '500px';  // Ancho fijo en pantallas grandes
+    }
+  }
+
+  // Abrir modal para agregar un nuevo evento
+  addEvent() {
+    const dialogRef = this.dialog.open(EventDialogComponent, {
+      width: this.getDialogWidth(),
+      data: { title: '', date: '' }
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      if (result && result.title && result.date) {
+        const calendarApi = this.calendarComponent.getApi();
+        calendarApi.addEvent({
+          title: result.title,
+          start: result.date
+        });
+      }
+    });
+  }
+
+  addBackgroundEvent() {
+    const calendarApi = this.calendarComponent.getApi();
+    const newEventStart = prompt('Ingrese la fecha de inicio del evento (YYYY-MM-DD):');
+    const newEventEnd = prompt('Ingrese la fecha de fin del evento (YYYY-MM-DD):');
+    
+    if (newEventStart && newEventEnd) {
+      calendarApi.addEvent({
+        start: newEventStart,
+        end: newEventEnd,
+        rendering: 'background',
+        color: '#ffcc80' // Color personalizado para evento de fondo
+      });
+    }
+  }
+
   get calendarApi() {
     return this.calendarComponent.getApi();
+  }
+
+  handleDrop(eventInfo: any) {
+    console.log('Evento soltado en el calendario: ', eventInfo);
+  }
+  
+  handleEventReceive(info: any) {
+    alert('Nuevo evento agregado: ' + info.event.title);
+    this.removeEventFromExternalList(info.event.title);
+  }
+
+  removeEventFromExternalList(eventTitle: string) {
+    this.externalEvents = this.externalEvents.filter(event => event.title !== eventTitle);
+  }
+
+  externalEvents = [
+    { title: 'Tarea 1', id: 1 },
+    { title: 'Tarea 2', id: 2 },
+    { title: 'Tarea 3', id: 3 }
+  ];
+    
+  ngAfterViewInit() {
+    let containerEl = document.getElementById('external-events');
+    if (containerEl) {
+      new Draggable(containerEl, {
+        itemSelector: '.fc-event',
+        eventData: function(eventEl) {
+          return {
+            title: eventEl.innerText.trim()
+          };
+        }
+      });
+    } else {
+      console.error('Elemento "external-events" no encontrado.');
+    }
   }
 }

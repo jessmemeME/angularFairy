@@ -1,0 +1,20 @@
+/* Asegura que el contenedor de los diálogos tenga un z-index alto */
+.cdk-overlay-container {
+    z-index: 1000 !important;
+  }
+  
+  /* Asegura que el diálogo (modal) esté por encima de otros elementos */
+  .mat-dialog-container {
+    z-index: 1001 !important;
+  }
+  
+
+  .mat-form-field {
+    width: 100%;          /* Asegura que cada campo ocupe toda la fila */
+    margin-bottom: 16px;   /* Deja espacio entre los campos */
+  }
+  
+  .mat-dialog-container {
+    padding: 20px;        /* Ajusta el padding alrededor del contenido del modal */
+  }
+  

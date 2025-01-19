@@ -11,6 +11,8 @@ import { AppRoutingModule } from './app-routing.module';
 import { MaterialModule } from './material.module';
 import { EventCreationModule } from '../event-creation/event-creation.module';
 import { ClientesModule } from '../clientes/clientes.module';
+import { AgendaModule } from '../agenda/agenda.module'; // Importar el módulo de agenda si es parte de la app principal
+
 
 // Componentes de UI
 import { AppComponent } from './app.component';
@@ -20,12 +22,12 @@ import { SideMenuComponent } from '../UI/side-menu/side-menu.component';
 
 // Proveedor personalizado
 import { provideAnimationsAsync } from '@angular/platform-browser/animations/async';
-import { provideCharts, withDefaultRegisterables } from 'ng2-charts';
+import { MatDialogModule } from '@angular/material/dialog';
 
 //
 import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatNativeDateModule, DateAdapter, MAT_DATE_FORMATS } from '@angular/material/core';
-import { CustomDateAdapter } from '../shared/custom-date-adapter';// Ajusta esta ruta según tu estructura
+import { CustomDateAdapter } from '../shared/custom-date-adapter'; 
 
 export const MY_DATE_FORMATS = {
   parse: {
@@ -55,16 +57,16 @@ export const MY_DATE_FORMATS = {
     AppRoutingModule,      // Enrutamiento principal
     MaterialModule,        // Módulo Material centralizado
     EventCreationModule,   // Módulo de creación de eventos
-    ClientesModule,         // Módulo de clientes
+    ClientesModule,        // Módulo de clientes
+    AgendaModule,          // Módulo de Agenda
     MatDatepickerModule,
-    MatNativeDateModule
-
+    MatNativeDateModule,
+    MatDialogModule
+    
   ],
   providers: [
     provideClientHydration(), // Hidratación para SSR
     { provide: LocationStrategy, useClass: HashLocationStrategy }, // Estrategia de enrutamiento con hash
-    provideAnimationsAsync(), provideCharts(withDefaultRegisterables()),   // Proveedor de animaciones asíncronas
-     // Proveedor de animaciones asíncronas
     //CONFIGURACION FORMATO DE FECHA
     { provide: DateAdapter, useClass: CustomDateAdapter },
     { provide: MAT_DATE_FORMATS, useValue: MY_DATE_FORMATS },

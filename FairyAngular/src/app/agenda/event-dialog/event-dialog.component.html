@@ -1,0 +1,35 @@
+<h2 mat-dialog-title>Agregar Evento</h2>
+
+<div mat-dialog-content>
+  <form [formGroup]="eventForm">
+    <!-- Título del evento -->
+    <mat-form-field appearance="fill" style="width: 100%; margin-bottom: 16px;">
+      <mat-label>Ingrese el título del evento</mat-label>
+      <input matInput formControlName="title" />
+      <mat-error *ngIf="eventForm.get('title')?.hasError('required')">
+        Este campo es requerido
+      </mat-error>
+    </mat-form-field>
+
+    <!-- Fecha del evento -->
+    <mat-form-field appearance="fill" style="width: 100%; margin-bottom: 16px;">
+      <mat-label>Ingrese la fecha del evento (YYYY-MM-DD)</mat-label>
+      <input matInput formControlName="date" />
+      <mat-error *ngIf="eventForm.get('date')?.hasError('required')">
+        Este campo es requerido
+      </mat-error>
+    </mat-form-field>
+  </form>
+</div>
+
+<div mat-dialog-actions style="justify-content: space-between;">
+  <button mat-button (click)="onNoClick()">Cancelar</button>
+  <button
+    mat-button
+    color="primary"
+    (click)="onSave()"
+    [disabled]="!eventForm.valid"
+  >
+    Aceptar
+  </button>
+</div>
