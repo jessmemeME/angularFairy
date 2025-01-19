@@ -1,6 +1,12 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, FormArray, Validators, FormControl } from '@angular/forms';
+import { MatStepper } from '@angular/material/stepper';
 import { Router } from '@angular/router';  // Importa el servicio Router
+import { Clients} from '../../../../models/clients.model';//llamamos a nuestra interface
+import { People } from '../../../../models/basic-info.model';
+import { ClientesService } from '../../clientes.service';
+import { first } from 'rxjs';
+
 
 @Component({
   selector: 'app-cliente-register',
@@ -33,7 +39,7 @@ export class ClienteRegisterComponent implements OnInit {
     'Alto Paraguay': ['Fuerte Olimpo', 'Bahía Negra', 'Carmelo Peralta', 'Puerto Casado']
   };
 
-  constructor(private fb: FormBuilder, private router: Router) {
+  constructor(private fb: FormBuilder, private router: Router, private clientesService: ClientesService) {
     this.clienteForm = this.fb.group({
       datosBasicos: this.fb.group({
         nombres: ['', Validators.required],
@@ -319,4 +325,40 @@ get redesSociales(): FormArray {
   get datosPersonalesControl(): FormGroup {
     return this.clienteForm.get('datosPersonales') as FormGroup;
   }
+
+  saveProgress(stepper: MatStepper): void {
+    
+    console.log('Datos guardados:', this.datosBasicosControl.valid);
+    if (this.datosBasicosControl.valid) {
+      console.log('que es esto');
+      let people: People = { first_name: this.datosBasicosControl.get('nombres')!.value, 
+        last_name: this.datosBasicosControl.get('apellidos')!.value, 
+        document_number: this.datosBasicosControl.get('numeroDocumento')!.value,
+        photo_people: 'No', 
+        date_of_birth: new Date().toISOString(), description: 'New user', is_active: true, created_date: new Date().toISOString(), 
+        updated_date: new Date().toISOString(), age_group_id: 1, document_type_id:1,gender_id:0, type_of_diner_id:1, created_user_id: 1, updated_user_id: 1};
+
+      let client: Clients = { type: this.datosBasicosControl.get('estado')!.value, 
+        name:this.datosBasicosControl.get('nombres')!.value + '_' + this.datosBasicosControl.get('apellidos')!.value,
+        description: 'New user', is_confirmated: true, created_date: new Date().toISOString(), 
+        updated_date: new Date().toISOString(), is_active: true, created_user_id: 1, people_id: 1, updated_user_id: 1};
+      
+        this.clientesService.registerClientAndPeopleStep1(client, people).subscribe(
+          response => {
+            console.log('Cliente y persona creados', response);
+            stepper.next();
+          },
+          error => {
+            console.error('Error al crear el cliente y persona', error);
+          }
+        );
+
+      
+    }else{
+      console.log('Datos del cliente:', this.clienteForm.value);
+    }
+
+    
+  }
+
 }
