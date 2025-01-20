@@ -25,15 +25,17 @@ export class ClientesService {
       });
 
 
-      return this.http.post<People>(`${this.apiUrl}/People/RegisterPeople`, people,{ headers: headers}).pipe(
-        concatMap((peopleCreated) => {
-          console.log(peopleCreated);
-          // Una vez que la persona se ha creado, asignamos el ID de la persona al cliente
-          client.people_id = peopleCreated.id; // Suponiendo que 'id' es el campo que se retorna
-          // Luego, creamos el cliente con la persona recién creada
-          return this.http.post<Clients>(`${this.apiUrl}/Clients/RegisterClients`, client,{ headers: headers});
-        })
-      );
+      // return this.http.post<People>(`${this.apiUrl}/People/RegisterPeople`, people,{ headers: headers}).pipe(
+      //   concatMap((peopleCreated) => {
+      //     console.log('que retorna? '+peopleCreated);
+      //     // Una vez que la persona se ha creado, asignamos el ID de la persona al cliente
+      //     client.people_id = peopleCreated.id; // Suponiendo que 'id' es el campo que se retorna
+      //     // Luego, creamos el cliente con la persona recién creada
+      //     return this.http.post<Clients>(`${this.apiUrl}/Clients/RegisterClients`, client,{ headers: headers});
+      //   })
+      // );
+      const body=JSON.stringify({ClientsClient:client,BasicInfoPeople:people});
+      return this.http.post<any>(`${this.apiUrl}/Clients/RegisterClientsWithPeopleStep1`, body, { headers: headers}).pipe();
     }
 
     /*postData(data:Clients ): Observable<any> {
