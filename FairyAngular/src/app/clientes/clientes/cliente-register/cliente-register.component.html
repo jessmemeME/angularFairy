@@ -65,10 +65,10 @@
         <mat-card-actions>
           <button
             mat-raised-button
-            
+            matStepperNext
             color="primary"
             [disabled]="datosBasicosControl.invalid"
-            (click)="saveProgress(stepper)"
+            
           >
             Siguiente
           </button>
@@ -606,11 +606,11 @@
               </button>
               <button
                 mat-raised-button
-                matStepperNext
+                (click)="submitTEst()"
                 color="primary"
                 [disabled]="factura.invalid"
               >
-                Siguiente
+                Guardar
               </button>
             </mat-card-actions>
           </mat-card>

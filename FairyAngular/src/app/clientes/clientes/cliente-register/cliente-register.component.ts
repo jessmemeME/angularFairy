@@ -310,9 +310,11 @@ get redesSociales(): FormArray {
 
 
 //---------------------------------------------------------
-  submit() {
+  submitTEst() {
+    console.log('Datos del cliente:', this.clienteForm.value);
+    
     if (this.clienteForm.valid) {
-      console.log('Datos del cliente:', this.clienteForm.value);
+      
     } else {
       console.error('El formulario no es válido.');
     }
