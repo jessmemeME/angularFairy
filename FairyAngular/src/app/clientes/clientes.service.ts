@@ -13,9 +13,12 @@ export class ClientesService {
   
     constructor(private http: HttpClient) { }
   
-    registerClientAndPeopleStep1(client:Clients, people:People):Observable<any>{
+    registerClientAndPeopleStep1(client:Clients, people:People,locations:any[],contacts:any[],client_invoice:any[]):Observable<any>{
       console.log(client);
       console.log(people);
+      console.log(locations);
+      console.log(contacts);
+      console.log(client_invoice);
 
       const headers = new HttpHeaders({
         'content-type': 'application/json',

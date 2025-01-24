@@ -6,6 +6,9 @@ import { Clients} from '../../../../models/clients.model';//llamamos a nuestra i
 import { People } from '../../../../models/basic-info.model';
 import { ClientesService } from '../../clientes.service';
 import { first } from 'rxjs';
+import { Locations } from '../../../../models/locations.models';
+import { Contacts } from '../../../../models/contacts.models';
+import { BusinessInvoiceData } from '../../../../models/bussiness.models';
 
 
 @Component({
@@ -344,8 +347,76 @@ get redesSociales(): FormArray {
         name:this.datosBasicosControl.get('nombres')!.value + '_' + this.datosBasicosControl.get('apellidos')!.value,
         description: 'New user', is_confirmated: true, created_date: new Date().toISOString(), 
         updated_date: new Date().toISOString(), is_active: true, created_user_id: 1, people_id: 1, updated_user_id: 1};
+
+      let all_locations : any[] = [];
+      let location: Locations;
+      this.ubicaciones.controls.forEach((control, i) => {
+        location = {
+          name: control.get('nombreUbicacion')!.value,
+          description: 'New user',
+          street1: control.get('callePrincipal')!.value,
+          street2: control.get('calleSecundaria')!.value,
+          house_number: control.get('numeroCasa')!.value,
+          floor: '',
+          building_name: '',
+          latitude: 0,
+          longitude: 0,
+          observation: control.get('observacion')!.value,
+          photo: '',
+          is_main_location: control.get('ubicacionPrincipal')!.value,
+          city_id: 1,
+          departament_id: 1,
+          country_id: 1,
+          id_location_type_id: 1,
+          is_active: true,
+          created_user_id: 1,
+          updated_user_id: 1,
+          created_date: new Date().toISOString(),
+          updated_date: new Date().toISOString()
+        };
+        all_locations.push(location);
+      });
+
+      let all_contacts : any[] = [];
+      let contact: Contacts;
+      this.contactos.controls.forEach((control, i) => {
+        contact = {
+          name: control.get('tipoContacto')!.value,
+          contact_data: control.get('contacto')!.value,
+          verificated_token: '',
+          is_verified: true,
+          is_main_contact: control.get('contactoPrincipal')!.value,
+          description: 'New user',
+          created_date: new Date().toISOString(),
+          updated_date: new Date().toISOString(),
+          is_active: true,
+          table_name: '',
+          contact_type_id: 1,
+          created_user_id: 1,
+          updated_user_id: 1
+        };
+        all_contacts.push(contact);
+      });
       
-        this.clientesService.registerClientAndPeopleStep1(client, people).subscribe(
+      let all_client_invoice : any[] = [];
+      let client_invoice: BusinessInvoiceData;
+      this.facturacion.controls.forEach((control, i) => {
+      
+        client_invoice = {
+          name: control.get('razonSocial')!.value,
+          document_number: control.get('ruc')!.value,
+          description: 'New user',
+          created_date: new Date().toISOString(),
+          updated_date: new Date().toISOString(),
+          is_active: true,
+          created_user_id: 1,
+          updated_user_id: 1,
+          table_name: ''
+        };
+        all_client_invoice.push(client_invoice);
+      });
+      
+        this.clientesService.registerClientAndPeopleStep1(client, people, all_locations,all_contacts,all_client_invoice).subscribe(
           response => {
             console.log('Cliente y persona creados', response);
             stepper.next();
