@@ -13,7 +13,7 @@ export class ClientesService {
   
     constructor(private http: HttpClient) { }
   
-    registerClientAndPeopleStep1(client:Clients, people:People,locations:any[],contacts:any[],client_invoice:any[]):Observable<any>{
+    RegisterClientsAllForm(client:Clients, people:People,locations:any[],contacts:any[],client_invoice:any[]):Observable<any>{
       console.log(client);
       console.log(people);
       console.log(locations);
@@ -37,8 +37,8 @@ export class ClientesService {
       //     return this.http.post<Clients>(`${this.apiUrl}/Clients/RegisterClients`, client,{ headers: headers});
       //   })
       // );
-      const body=JSON.stringify({ClientsClient:client,BasicInfoPeople:people});
-      return this.http.post<any>(`${this.apiUrl}/Clients/RegisterClientsWithPeopleStep1`, body, { headers: headers}).pipe();
+      const body=JSON.stringify({ClientsClient:client,BasicInfoPeople:people,Contacts:contacts,Locations:locations,BusinessInvoiceData:client_invoice});
+      return this.http.post<any>(`${this.apiUrl}/Clients/RegisterClientsAllForm`, body, { headers: headers}).pipe();
     }
 
     /*postData(data:Clients ): Observable<any> {

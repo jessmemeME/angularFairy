@@ -331,7 +331,7 @@ get redesSociales(): FormArray {
     return this.clienteForm.get('datosPersonales') as FormGroup;
   }
 
-  saveProgress(stepper: MatStepper): void {
+  saveProgress(): void {
     
     console.log('Datos guardados:', this.datosBasicosControl.valid);
     if (this.datosBasicosControl.valid) {
@@ -416,10 +416,9 @@ get redesSociales(): FormArray {
         all_client_invoice.push(client_invoice);
       });
       
-        this.clientesService.registerClientAndPeopleStep1(client, people, all_locations,all_contacts,all_client_invoice).subscribe(
+        this.clientesService.RegisterClientsAllForm(client, people, all_locations,all_contacts,all_client_invoice).subscribe(
           response => {
             console.log('Cliente y persona creados', response);
-            stepper.next();
           },
           error => {
             console.error('Error al crear el cliente y persona', error);
