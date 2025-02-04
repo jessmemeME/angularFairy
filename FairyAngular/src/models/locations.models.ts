@@ -22,3 +22,14 @@ export interface Locations {
     created_date?: string; // Fecha de creación
     updated_date?: string; // Fecha de última actualización
   }
+
+export interface LocationsResponse {
+  id?: number; // ID de la ubicación
+  name?: string; // Nombre de la ubicación
+  cities?: citiesResponse[]; // Ciudades de la ubicación
+}
+
+export interface citiesResponse {
+  id?: number; // ID de la ciudad
+  name?: string; // Nombre de la ciudad
+}

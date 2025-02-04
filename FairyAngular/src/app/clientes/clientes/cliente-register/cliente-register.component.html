@@ -244,9 +244,9 @@
                       (selectionChange)="onDepartamentoChange($event.value)"
                     >
                       <mat-option
-                        *ngFor="let dept of departamentos"
-                        [value]="dept"
-                        >{{ dept }}</mat-option
+                        *ngFor="let dept of locations"
+                        [value]="dept.id"
+                        >{{ dept.name }}</mat-option
                       >
                     </mat-select>
                     <mat-error
@@ -262,9 +262,9 @@
                     <mat-label>Ciudad</mat-label>
                     <mat-select formControlName="ciudad" required>
                       <mat-option
-                        *ngFor="let ciudad of ciudades"
-                        [value]="ciudad"
-                        >{{ ciudad }}</mat-option
+                        *ngFor="let city of cities"
+                        [value]="city.id"
+                        >{{ city.name }}</mat-option
                       >
                     </mat-select>
                     <mat-error

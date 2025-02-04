@@ -6,7 +6,7 @@ import { Clients} from '../../../../models/clients.model';//llamamos a nuestra i
 import { People } from '../../../../models/basic-info.model';
 import { ClientesService } from '../../clientes.service';
 import { first } from 'rxjs';
-import { Locations } from '../../../../models/locations.models';
+import { citiesResponse, Locations, LocationsResponse } from '../../../../models/locations.models';
 import { Contacts } from '../../../../models/contacts.models';
 import { BusinessInvoiceData } from '../../../../models/bussiness.models';
 
@@ -42,6 +42,9 @@ export class ClienteRegisterComponent implements OnInit {
     'Alto Paraguay': ['Fuerte Olimpo', 'Bahía Negra', 'Carmelo Peralta', 'Puerto Casado']
   };
 
+  locations: LocationsResponse[] = [];
+  cities: citiesResponse[] = [];
+
   constructor(private fb: FormBuilder, private router: Router, private clientesService: ClientesService) {
     this.clienteForm = this.fb.group({
       datosBasicos: this.fb.group({
@@ -68,7 +71,18 @@ export class ClienteRegisterComponent implements OnInit {
     this.onChangesBirthdayDate();
   }
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+    this.clientesService.getLocations().subscribe(
+      (data) => {
+        this.locations = data;
+        console.log('Datos recibidos:', this.locations);
+      },
+      (error) => {
+        console.error('Error al obtener los datos:', error);
+      }
+    );
+
+  }
 
   // Método para volver a la lista de clientes
   goBack(): void {
@@ -219,8 +233,11 @@ calcularEdad(fechaNacimiento: string): number {
   }
 
 
-  onDepartamentoChange(departamento: string) {
-    this.ciudades = this.ciudadesPorDepartamento[departamento] || [];
+  onDepartamentoChange(departamento: number) {
+    console.log('Departamento seleccionado:', departamento);
+    console.log('Departamento this.locations:', this.locations);
+    this.cities = this.locations.find((location) => location.id == departamento)?.cities || [];
+    console.log('Ciudades del departamento:', this.cities);
   }
 
   removerUbicacion(index: number): void {

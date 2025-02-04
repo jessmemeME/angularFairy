@@ -56,4 +56,8 @@ export class ClientesService {
         // Realizar una solicitud POST con datos en el cuerpo
         return this.http.post<any>(`${this.apiUrl}/Clients/RegisterClients`, data, { headers: headers}).pipe(tap((data => console.log(""))));
     }*/
+
+  getLocations():Observable<any>{
+    return this.http.get<any>(`${this.apiUrl}/Locations/getAllDepartamentsCities`);
+  }
 }
