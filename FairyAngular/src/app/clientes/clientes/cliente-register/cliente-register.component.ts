@@ -1,6 +1,15 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, FormArray, Validators, FormControl } from '@angular/forms';
+import { MatStepper } from '@angular/material/stepper';
 import { Router } from '@angular/router';  // Importa el servicio Router
+import { Clients} from '../../../../models/clients.model';//llamamos a nuestra interface
+import { People } from '../../../../models/basic-info.model';
+import { ClientesService } from '../../clientes.service';
+import { first } from 'rxjs';
+import { citiesResponse, Locations, LocationsResponse } from '../../../../models/locations.models';
+import { Contacts } from '../../../../models/contacts.models';
+import { BusinessInvoiceData } from '../../../../models/bussiness.models';
+
 
 @Component({
   selector: 'app-cliente-register',
@@ -33,7 +42,10 @@ export class ClienteRegisterComponent implements OnInit {
     'Alto Paraguay': ['Fuerte Olimpo', 'Bahía Negra', 'Carmelo Peralta', 'Puerto Casado']
   };
 
-  constructor(private fb: FormBuilder, private router: Router) {
+  locations: LocationsResponse[] = [];
+  cities: citiesResponse[] = [];
+
+  constructor(private fb: FormBuilder, private router: Router, private clientesService: ClientesService) {
     this.clienteForm = this.fb.group({
       datosBasicos: this.fb.group({
         nombres: ['', Validators.required],
@@ -59,7 +71,18 @@ export class ClienteRegisterComponent implements OnInit {
     this.onChangesBirthdayDate();
   }
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+    this.clientesService.getLocations().subscribe(
+      (data) => {
+        this.locations = data;
+        console.log('Datos recibidos:', this.locations);
+      },
+      (error) => {
+        console.error('Error al obtener los datos:', error);
+      }
+    );
+
+  }
 
   // Método para volver a la lista de clientes
   goBack(): void {
@@ -210,8 +233,11 @@ calcularEdad(fechaNacimiento: string): number {
   }
 
 
-  onDepartamentoChange(departamento: string) {
-    this.ciudades = this.ciudadesPorDepartamento[departamento] || [];
+  onDepartamentoChange(departamento: number) {
+    console.log('Departamento seleccionado:', departamento);
+    console.log('Departamento this.locations:', this.locations);
+    this.cities = this.locations.find((location) => location.id == departamento)?.cities || [];
+    console.log('Ciudades del departamento:', this.cities);
   }
 
   removerUbicacion(index: number): void {
@@ -304,9 +330,11 @@ get redesSociales(): FormArray {
 
 
 //---------------------------------------------------------
-  submit() {
+  submitTEst() {
+    console.log('Datos del cliente:', this.clienteForm.value);
+    
     if (this.clienteForm.valid) {
-      console.log('Datos del cliente:', this.clienteForm.value);
+      
     } else {
       console.error('El formulario no es válido.');
     }
@@ -319,4 +347,107 @@ get redesSociales(): FormArray {
   get datosPersonalesControl(): FormGroup {
     return this.clienteForm.get('datosPersonales') as FormGroup;
   }
+
+  saveProgress(): void {
+    
+    console.log('Datos guardados:', this.datosBasicosControl.valid);
+    if (this.datosBasicosControl.valid) {
+      console.log('que es esto');
+      let people: People = { first_name: this.datosBasicosControl.get('nombres')!.value, 
+        last_name: this.datosBasicosControl.get('apellidos')!.value, 
+        document_number: this.datosBasicosControl.get('numeroDocumento')!.value,
+        photo_people: 'No', 
+        date_of_birth: new Date().toISOString(), description: 'New user', is_active: true, created_date: new Date().toISOString(), 
+        updated_date: new Date().toISOString(), age_group_id: 1, document_type_id:1,gender_id:0, type_of_diner_id:1, created_user_id: 1, updated_user_id: 1};
+
+      let client: Clients = { type: this.datosBasicosControl.get('estado')!.value, 
+        name:this.datosBasicosControl.get('nombres')!.value + '_' + this.datosBasicosControl.get('apellidos')!.value,
+        description: 'New user', is_confirmated: true, created_date: new Date().toISOString(), 
+        updated_date: new Date().toISOString(), is_active: true, created_user_id: 1, people_id: 1, updated_user_id: 1};
+
+      let all_locations : any[] = [];
+      let location: Locations;
+      this.ubicaciones.controls.forEach((control, i) => {
+        location = {
+          name: control.get('nombreUbicacion')!.value,
+          description: 'New user',
+          street1: control.get('callePrincipal')!.value,
+          street2: control.get('calleSecundaria')!.value,
+          house_number: control.get('numeroCasa')!.value,
+          floor: '',
+          building_name: '',
+          latitude: 0,
+          longitude: 0,
+          observation: control.get('observacion')!.value,
+          photo: '',
+          is_main_location: control.get('ubicacionPrincipal')!.value,
+          city_id: 1,
+          departament_id: 1,
+          country_id: 1,
+          id_location_type_id: 1,
+          is_active: true,
+          created_user_id: 1,
+          updated_user_id: 1,
+          created_date: new Date().toISOString(),
+          updated_date: new Date().toISOString()
+        };
+        all_locations.push(location);
+      });
+
+      let all_contacts : any[] = [];
+      let contact: Contacts;
+      this.contactos.controls.forEach((control, i) => {
+        contact = {
+          name: control.get('tipoContacto')!.value,
+          contact_data: control.get('contacto')!.value,
+          verificated_token: '',
+          is_verified: true,
+          is_main_contact: control.get('contactoPrincipal')!.value,
+          description: 'New user',
+          created_date: new Date().toISOString(),
+          updated_date: new Date().toISOString(),
+          is_active: true,
+          table_name: '',
+          contact_type_id: 1,
+          created_user_id: 1,
+          updated_user_id: 1
+        };
+        all_contacts.push(contact);
+      });
+      
+      let all_client_invoice : any[] = [];
+      let client_invoice: BusinessInvoiceData;
+      this.facturacion.controls.forEach((control, i) => {
+      
+        client_invoice = {
+          name: control.get('razonSocial')!.value,
+          document_number: control.get('ruc')!.value,
+          description: 'New user',
+          created_date: new Date().toISOString(),
+          updated_date: new Date().toISOString(),
+          is_active: true,
+          created_user_id: 1,
+          updated_user_id: 1,
+          table_name: ''
+        };
+        all_client_invoice.push(client_invoice);
+      });
+      
+        this.clientesService.RegisterClientsAllForm(client, people, all_locations,all_contacts,all_client_invoice).subscribe(
+          response => {
+            console.log('Cliente y persona creados', response);
+          },
+          error => {
+            console.error('Error al crear el cliente y persona', error);
+          }
+        );
+
+      
+    }else{
+      console.log('Datos del cliente:', this.clienteForm.value);
+    }
+
+    
+  }
+
 }
