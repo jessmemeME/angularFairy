@@ -6,6 +6,7 @@
 // Interfaz para la información básica
 export interface BasicInfo {}
 
+
 // Interfaz para los grupos de edad
 export interface AgeGroup {
   id?: number; // ID del grupo de edad
@@ -127,4 +128,24 @@ export interface Religion {
   /*
    TABLE_NAME = 'basic_info_religion'
    */
+}
+
+export interface People {
+  id?: number; // ID de la persona
+  first_name?: string; // Primer nombre de la persona
+  last_name?: string; // Apellido de la persona
+  document_number?: string; // Número de documento de la persona
+  photo_people?: string; // Foto de la persona
+  date_of_birth?: string; // Fecha de nacimiento de la persona
+  date_of_death?: string; // Fecha de defunción de la persona
+  description?: string; // Descripción de la persona
+  created_date?: string; // Fecha de creación
+  updated_date?: string; // Fecha de última actualización
+  is_active?: boolean; // Indica si la persona está activa
+  age_group_id?: number; // ID del grupo de edad de la persona
+  document_type_id?: number; // ID del tipo de documento
+  gender_id ?: number; // ID del género de la persona
+  type_of_diner_id?: number; // ID del tipo de comensal
+  created_user_id?: number; // ID del usuario que creó la persona
+  updated_user_id?: number; // ID del usuario que actualizo
 }
