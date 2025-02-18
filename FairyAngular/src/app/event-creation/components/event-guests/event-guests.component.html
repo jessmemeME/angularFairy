@@ -1,0 +1,13 @@
+<h3>Lista de Invitados</h3>
+<button mat-raised-button (click)="addGuest()">Añadir Invitado</button>
+
+<div *ngFor="let guest of guestsArray.controls; let i = index">
+  <mat-form-field appearance="fill">
+    <mat-label>Nombre</mat-label>
+    <input matInput formControlName="firstName" />
+  </mat-form-field>
+  <mat-form-field appearance="fill">
+    <mat-label>Apellido</mat-label>
+    <input matInput formControlName="lastName" />
+  </mat-form-field>
+</div>

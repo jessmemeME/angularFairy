@@ -1,0 +1,19 @@
+<h3>Datos del Evento</h3>
+<mat-form-field appearance="fill">
+  <mat-label>Nombre del Evento</mat-label>
+  <input matInput formControlName="eventName" required />
+</mat-form-field>
+
+<mat-form-field appearance="fill">
+  <mat-label>Nombre del Cliente</mat-label>
+  <input matInput formControlName="clientName" required />
+</mat-form-field>
+
+<mat-form-field appearance="fill">
+  <mat-label>Tipo de Pareja</mat-label>
+  <mat-select formControlName="coupleType">
+    <mat-option *ngFor="let type of couplesTypes" [value]="type">
+      {{ type }}
+    </mat-option>
+  </mat-select>
+</mat-form-field>
