@@ -1,1 +1,47 @@
-<p>event-list works!</p>
+<div class="event-list-container">
+  <mat-toolbar color="primary" class="mb-4">
+    <span>Lista de Eventos</span>
+    <span class="spacer"></span>
+    <button mat-raised-button color="accent" (click)="navigateToCreate()">
+      <mat-icon>add</mat-icon> Nuevo Evento
+    </button>
+  </mat-toolbar>
+
+  <mat-form-field appearance="outline" class="search-bar">
+    <mat-label>Buscar evento...</mat-label>
+    <input
+      matInput
+      [formControl]="searchControl"
+      placeholder="Cliente, Pareja, Fecha, Estado, Nombre"
+    />
+    <button mat-icon-button matSuffix (click)="searchControl.setValue('')">
+      <mat-icon>clear</mat-icon>
+    </button>
+  </mat-form-field>
+
+  <table mat-table [dataSource]="filteredEvents" class="mat-elevation-z8">
+    <ng-container matColumnDef="name">
+      <th mat-header-cell *matHeaderCellDef>Nombre</th>
+      <td mat-cell *matCellDef="let event">{{ event.name }}</td>
+    </ng-container>
+
+    <ng-container matColumnDef="client">
+      <th mat-header-cell *matHeaderCellDef>Cliente</th>
+      <td mat-cell *matCellDef="let event">{{ event.clientName }}</td>
+    </ng-container>
+
+    <ng-container matColumnDef="event_state">
+      <th mat-header-cell *matHeaderCellDef>Estado</th>
+      <td mat-cell *matCellDef="let event">{{ event.event_state }}</td>
+    </ng-container>
+
+    <tr
+      mat-header-row
+      *matHeaderRowDef="['name', 'client', 'event_state']"
+    ></tr>
+    <tr
+      mat-row
+      *matRowDef="let row; columns: ['name', 'client', 'event_state'];"
+    ></tr>
+  </table>
+</div>

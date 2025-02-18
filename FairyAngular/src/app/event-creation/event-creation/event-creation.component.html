@@ -1,151 +1,26 @@
 <mat-horizontal-stepper [linear]="true">
   <!-- Sección 1: Datos Básicos -->
-  <mat-step [stepControl]="basicDetailsGroup" label="Datos Básicos">
-    <form [formGroup]="basicDetailsGroup">
-      <h3>Datos del Evento</h3>
-      <mat-form-field appearance="fill">
-        <mat-label>Nombre del Evento</mat-label>
-        <input matInput formControlName="eventName" required />
-      </mat-form-field>
-
-      <mat-form-field appearance="fill">
-        <mat-label>Nombre del Cliente</mat-label>
-        <input matInput formControlName="clientName" required />
-      </mat-form-field>
-
-      <mat-form-field appearance="fill">
-        <mat-label>Tipo de Pareja</mat-label>
-        <mat-select formControlName="coupleType">
-          <mat-option *ngFor="let type of couplesTypes" [value]="type">
-            {{ type }}
-          </mat-option>
-        </mat-select>
-      </mat-form-field>
-
-      <!-- Pareja 1 -->
-      <h4>Pareja 1</h4>
-      <div formGroupName="couple1">
-        <mat-form-field appearance="fill">
-          <mat-label>Nombre</mat-label>
-          <input matInput formControlName="name_uno" required />
-        </mat-form-field>
-
-        <mat-form-field appearance="fill">
-          <mat-label>Pronombre</mat-label>
-          <mat-select formControlName="pronoun_uno">
-            <mat-option *ngFor="let pronoun of pronouns" [value]="pronoun">
-              {{ pronoun }}
-            </mat-option>
-          </mat-select>
-        </mat-form-field>
-
-        <mat-form-field appearance="fill">
-          <mat-label>Rol</mat-label>
-          <input matInput formControlName="role_uno" />
-        </mat-form-field>
-      </div>
-
-      <!-- Pareja 2 -->
-      <h4>Pareja 2</h4>
-      <div formGroupName="couple2">
-        <mat-form-field appearance="fill">
-          <mat-label>Nombre</mat-label>
-          <input matInput formControlName="name_dos" required />
-        </mat-form-field>
-
-        <mat-form-field appearance="fill">
-          <mat-label>Pronombre</mat-label>
-          <mat-select formControlName="pronoun_dos">
-            <mat-option *ngFor="let pronoun of pronouns" [value]="pronoun">
-              {{ pronoun }}
-            </mat-option>
-          </mat-select>
-        </mat-form-field>
-
-        <mat-form-field appearance="fill">
-          <mat-label>Rol</mat-label>
-          <input matInput formControlName="role_dos" />
-        </mat-form-field>
-      </div>
-
-      <!-- Cantidad de invitados -->
-      <h4>Cantidad de Invitados</h4>
-      <div formGroupName="guests">
-        <!-- Accede correctamente al grupo guests -->
-        <mat-radio-group formControlName="guestAmountType">
-          <mat-radio-button value="singleNumber">Número Único</mat-radio-button>
-          <mat-radio-button value="range">Rango</mat-radio-button>
-        </mat-radio-group>
-
-        <div
-          *ngIf="basicDetailsGroup.get('guests')?.get('guestAmountType')?.value === 'singleNumber'"
-        >
-          <mat-form-field appearance="fill">
-            <mat-label>Cantidad de Invitados</mat-label>
-            <input matInput formControlName="guestNumber" type="number" />
-          </mat-form-field>
-        </div>
-
-        <div
-          *ngIf="basicDetailsGroup.get('guests')?.get('guestAmountType')?.value === 'range'"
-        >
-          <mat-form-field appearance="fill">
-            <mat-label>Mínimo</mat-label>
-            <input matInput formControlName="minGuests" type="number" />
-          </mat-form-field>
-
-          <mat-form-field appearance="fill">
-            <mat-label>Máximo</mat-label>
-            <input matInput formControlName="maxGuests" type="number" />
-          </mat-form-field>
-        </div>
-      </div>
-
-      <button mat-raised-button matStepperNext>Siguiente</button>
-    </form>
+  <mat-step label="Datos Básicos">
+    <app-event-basic-details
+      [formGroup]="basicDetailsGroup"
+    ></app-event-basic-details>
+    <button mat-raised-button matStepperNext>Siguiente</button>
   </mat-step>
 
   <!-- Sección 2: Ceremonias -->
-  <mat-step [stepControl]="ceremoniesDetailsGroup" label="Ceremonias">
-    <form [formGroup]="ceremoniesDetailsGroup">
-      <h3>Seleccione las ceremonias</h3>
-      <mat-checkbox
-        *ngFor="let ceremony of ceremonies"
-        (change)="addCeremony(ceremony)"
-      >
-        {{ ceremony }}
-      </mat-checkbox>
-
-      <div *ngFor="let ceremony of selectedCeremonies.controls; let i = index">
-        <h4>{{ ceremony.get('type')?.value }} - Detalles</h4>
-        <mat-form-field appearance="fill">
-          <mat-label>Fecha</mat-label>
-          <input matInput formControlName="date" />
-        </mat-form-field>
-      </div>
-
-      <button mat-raised-button matStepperNext>Siguiente</button>
-    </form>
+  <mat-step label="Ceremonias">
+    <app-event-ceremonies
+      [formGroup]="ceremoniesDetailsGroup"
+    ></app-event-ceremonies>
+    <button mat-raised-button matStepperNext>Siguiente</button>
   </mat-step>
 
   <!-- Sección 3: Invitados -->
-  <mat-step [stepControl]="guestsArray" label="Invitados">
-    <form>
-      <h3>Lista de Invitados</h3>
-      <button mat-raised-button (click)="addGuest()">Añadir Invitado</button>
-
-      <div *ngFor="let guest of guestsArray.controls; let i = index">
-        <mat-form-field appearance="fill">
-          <mat-label>Nombre</mat-label>
-          <input matInput formControlName="firstName" />
-        </mat-form-field>
-        <mat-form-field appearance="fill">
-          <mat-label>Apellido</mat-label>
-          <input matInput formControlName="lastName" />
-        </mat-form-field>
-      </div>
-
-      <button mat-raised-button (click)="submitForm()">Finalizar</button>
-    </form>
+  <mat-step label="Invitados">
+    <app-event-guests [formGroup]="guestsArray"></app-event-guests>
+    <button mat-raised-button (click)="submitForm()">Finalizar</button>
   </mat-step>
 </mat-horizontal-stepper>
+
+<!-- Sección de Listado de Eventos -->
+<app-event-list></app-event-list>

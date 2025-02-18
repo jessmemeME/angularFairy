@@ -26,7 +26,16 @@ export class EventListComponent implements OnInit {
 
   ngOnInit(): void {
     this.loadEvents();
-    this.searchControl.valueChanges.pipe(debounceTime(300)).subscribe(value => {this.filterEvents(value);});
+
+    this.searchControl.valueChanges
+      .pipe(debounceTime(300))
+      .subscribe((value: string | null) => {
+        if (value !== null) {
+          this.filterEvents(value);
+        } else {
+          this.filteredEvents = this.events;
+        }
+      });
   }
 
   loadEvents(): void {
@@ -37,7 +46,7 @@ export class EventListComponent implements OnInit {
   }
 
   filterEvents(query: string): void {
-    if (!query) {
+    if (!query.trim()) {  // Se asegura de no filtrar si es una cadena vacía
       this.filteredEvents = this.events;
     } else {
       const lowerQuery = query.toLowerCase();
