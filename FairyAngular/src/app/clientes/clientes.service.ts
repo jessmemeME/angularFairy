@@ -60,4 +60,12 @@ export class ClientesService {
   getLocations():Observable<any>{
     return this.http.get<any>(`${this.apiUrl}/Locations/getAllDepartamentsCities`);
   }
+  
+  getDocumentTypes():Observable<any>{
+    return this.http.get<any>(`${this.apiUrl}/BasicInfo/ListAllDocumentTypes`);
+  }
+
+  getPeopleByDocumentNumber(documentNumber:string,documentType:number):Observable<any>{
+    return this.http.get<any>(`${this.apiUrl}/People/PeobleByDocumentNumber?document_number=${documentNumber}&document_type_id=1${documentType}`);
+  }
 }

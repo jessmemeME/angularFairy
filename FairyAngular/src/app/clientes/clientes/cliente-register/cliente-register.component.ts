@@ -4,6 +4,7 @@ import { MatStepper } from '@angular/material/stepper';
 import { Router } from '@angular/router';  // Importa el servicio Router
 import { Clients} from '../../../../models/clients.model';//llamamos a nuestra interface
 import { People } from '../../../../models/basic-info.model';
+import { DocumentType } from '../../../../models/basic-info.model';
 import { ClientesService } from '../../clientes.service';
 import { first } from 'rxjs';
 import { citiesResponse, Locations, LocationsResponse } from '../../../../models/locations.models';
@@ -44,6 +45,8 @@ export class ClienteRegisterComponent implements OnInit {
 
   locations: LocationsResponse[] = [];
   cities: citiesResponse[] = [];
+  documentTypes: DocumentType[] = [];
+  enableRegisterClient: boolean = false;
 
   constructor(private fb: FormBuilder, private router: Router, private clientesService: ClientesService) {
     this.clienteForm = this.fb.group({
@@ -81,6 +84,18 @@ export class ClienteRegisterComponent implements OnInit {
         console.error('Error al obtener los datos:', error);
       }
     );
+
+    this.clientesService.getDocumentTypes().subscribe(
+      (data) => {
+        this.documentTypes = data;
+        console.log('Tipos de documentos:', this.documentTypes);
+      },
+      (error) => {
+        console.error('Error al obtener los tipos de documentos:', error);
+      }
+    );
+
+    
 
   }
 
@@ -348,6 +363,22 @@ get redesSociales(): FormArray {
     return this.clienteForm.get('datosPersonales') as FormGroup;
   }
 
+  verificarDocumento(): void {
+    const numeroDocumento = this.datosBasicosControl.get('numeroDocumento')!.value;
+    const tipoDocumento = this.datosBasicosControl.get('tipoDocumento')!.value;
+    console.log('Verificar documento:', numeroDocumento, tipoDocumento);
+    this.clientesService.getPeopleByDocumentNumber(numeroDocumento, tipoDocumento).subscribe(
+      (response) => {
+        console.log('Documento verificado:', response);
+        if (response.length == 0) {
+          this.enableRegisterClient = true;
+        }
+      },
+      (error) => {
+        console.error('Error al verificar el documento:', error);
+      });
+  }
+
   saveProgress(): void {
     
     console.log('Datos guardados:', this.datosBasicosControl.valid);
@@ -356,9 +387,10 @@ get redesSociales(): FormArray {
       let people: People = { first_name: this.datosBasicosControl.get('nombres')!.value, 
         last_name: this.datosBasicosControl.get('apellidos')!.value, 
         document_number: this.datosBasicosControl.get('numeroDocumento')!.value,
+        document_type_id: this.datosBasicosControl.get('tipoDocumento')!.value,
         photo_people: 'No', 
         date_of_birth: new Date().toISOString(), description: 'New user', is_active: true, created_date: new Date().toISOString(), 
-        updated_date: new Date().toISOString(), age_group_id: 1, document_type_id:1,gender_id:0, type_of_diner_id:1, created_user_id: 1, updated_user_id: 1};
+        updated_date: new Date().toISOString(), age_group_id: 1,gender_id:0, type_of_diner_id:1, created_user_id: 1, updated_user_id: 1};
 
       let client: Clients = { type: this.datosBasicosControl.get('estado')!.value, 
         name:this.datosBasicosControl.get('nombres')!.value + '_' + this.datosBasicosControl.get('apellidos')!.value,
