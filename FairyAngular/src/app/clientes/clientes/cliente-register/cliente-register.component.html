@@ -100,9 +100,7 @@
           <mat-form-field appearance="outline">
             <mat-label>Género</mat-label>
             <mat-select formControlName="genero" required>
-              <mat-option value="Femenino">Femenino</mat-option>
-              <mat-option value="Masculino">Masculino</mat-option>
-              <mat-option value="Otro">Otro</mat-option>
+              <mat-option *ngFor="let gen of genders" [value]="gen.id">{{gen.name}}</mat-option>
             </mat-select>
             <mat-error
               *ngIf="datosPersonalesControl.get('genero')?.hasError('required')"
@@ -111,10 +109,10 @@
             </mat-error>
           </mat-form-field>
 
-          <mat-form-field *ngIf="showEspecificarOtro" appearance="outline">
+          <!-- <mat-form-field *ngIf="showEspecificarOtro" appearance="outline">
             <mat-label>Especificar Otro</mat-label>
             <input matInput formControlName="especificarOtro" />
-          </mat-form-field>
+          </mat-form-field> -->
 
           <!-- Fecha de Nacimiento -->
           <mat-form-field appearance="outline">

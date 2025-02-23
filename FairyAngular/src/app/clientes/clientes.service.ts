@@ -68,4 +68,12 @@ export class ClientesService {
   getPeopleByDocumentNumber(documentNumber:string,documentType:number):Observable<any>{
     return this.http.get<any>(`${this.apiUrl}/People/PeobleByDocumentNumber?document_number=${documentNumber}&document_type_id=1${documentType}`);
   }
+  
+  getAllGender():Observable<any>{
+    return this.http.get<any>(`${this.apiUrl}/BasicInfo/ListAllGenders`);
+  }
+
+  getBussinessInvoiceDataByRuc(ruc:string):Observable<any>{
+    return this.http.get<any>(`${this.apiUrl}/BusinessInvoiceDataByRuc?document_number=${ruc}`);
+  }
 }

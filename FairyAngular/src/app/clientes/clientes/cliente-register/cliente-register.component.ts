@@ -3,7 +3,7 @@ import { FormBuilder, FormGroup, FormArray, Validators, FormControl } from '@ang
 import { MatStepper } from '@angular/material/stepper';
 import { Router } from '@angular/router';  // Importa el servicio Router
 import { Clients} from '../../../../models/clients.model';//llamamos a nuestra interface
-import { People } from '../../../../models/basic-info.model';
+import { Gender, People } from '../../../../models/basic-info.model';
 import { DocumentType } from '../../../../models/basic-info.model';
 import { ClientesService } from '../../clientes.service';
 import { first } from 'rxjs';
@@ -47,6 +47,7 @@ export class ClienteRegisterComponent implements OnInit {
   cities: citiesResponse[] = [];
   documentTypes: DocumentType[] = [];
   enableRegisterClient: boolean = false;
+  genders: Gender[] = [];
 
   constructor(private fb: FormBuilder, private router: Router, private clientesService: ClientesService) {
     this.clienteForm = this.fb.group({
@@ -94,9 +95,14 @@ export class ClienteRegisterComponent implements OnInit {
         console.error('Error al obtener los tipos de documentos:', error);
       }
     );
-
-    
-
+    this.clientesService.getAllGender().subscribe(
+      (data) => {
+        this.genders = data;
+        console.log('Geners:', this.genders);
+      },
+      (error) => {
+        console.error('Error al obtener los generos:', error);
+      });
   }
 
   // Método para volver a la lista de clientes
