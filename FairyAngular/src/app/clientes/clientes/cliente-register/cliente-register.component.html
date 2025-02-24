@@ -573,13 +573,26 @@
               <!-- RUC -->
               <mat-form-field appearance="outline">
                 <mat-label>RUC</mat-label>
-                <input matInput formControlName="ruc" required />
+                <input matInput formControlName="ruc" required [disabled]="enableRegisterRuc" readonly="{{enableRegisterRuc}}"/>
                 <mat-error *ngIf="factura.get('ruc')?.hasError('required')">
                   El RUC es obligatorio
                 </mat-error>
               </mat-form-field>
-
+              <mat-card-actions>
+                <button
+                  type="button"
+                  mat-raised-button
+                  (click)="verificarRuc()"
+                  color="primary"
+                  [disabled]="enableRegisterRuc"
+                >
+                  Verificar Ruc
+                </button>
+              </mat-card-actions>
               <!-- Razón Social -->
+              <div *ngIf="enableRegisterRuc">
+                
+              
               <mat-form-field appearance="outline">
                 <mat-label>Razón Social</mat-label>
                 <input matInput formControlName="razonSocial" required />
@@ -608,6 +621,7 @@
                   El estado es obligatorio
                 </mat-error>
               </mat-form-field>
+            </div>
             </mat-card-content>
             <mat-card-actions>
               <button mat-raised-button matStepperPrevious color="primary">

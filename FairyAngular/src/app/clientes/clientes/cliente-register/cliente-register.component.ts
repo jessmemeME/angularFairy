@@ -48,6 +48,7 @@ export class ClienteRegisterComponent implements OnInit {
   documentTypes: DocumentType[] = [];
   enableRegisterClient: boolean = false;
   genders: Gender[] = [];
+  enableRegisterRuc: boolean = false;
 
   constructor(private fb: FormBuilder, private router: Router, private clientesService: ClientesService) {
     this.clienteForm = this.fb.group({
@@ -385,6 +386,21 @@ get redesSociales(): FormArray {
       });
   }
 
+  verificarRuc(): void {
+    const numeroDocumento = this.facturacion.controls[0].get('ruc')!.value;
+    console.log('Verificar documento:', numeroDocumento);
+    this.clientesService.getBussinessInvoiceDataByRuc(numeroDocumento).subscribe(
+      (response) => {
+        console.log('Documento verificado:', response);
+        if (response.length == 0) {
+          this.enableRegisterRuc = true;
+        }
+      },
+      (error) => {
+        console.error('Error al verificar el documento:', error);
+      });
+  }
+
   saveProgress(): void {
     
     console.log('Datos guardados:', this.datosBasicosControl.valid);
@@ -452,6 +468,25 @@ get redesSociales(): FormArray {
         };
         all_contacts.push(contact);
       });
+      this.redesSociales.controls.forEach((control, i) => {
+        contact = {
+          name: control.get('tipoRedSocial')!.value,
+          contact_data: control.get('usuario')!.value,
+          verificated_token: '',
+          is_verified: true,
+          is_main_contact: false,
+          description: control.get('enlace')!.value,
+          created_date: new Date().toISOString(),
+          updated_date: new Date().toISOString(),
+          is_active: true,
+          table_name: '',
+          contact_type_id: 2,
+          created_user_id: 1,
+          updated_user_id: 1
+        };  
+        all_contacts.push(contact);
+      });
+      
       
       let all_client_invoice : any[] = [];
       let client_invoice: BusinessInvoiceData;
@@ -474,6 +509,7 @@ get redesSociales(): FormArray {
         this.clientesService.RegisterClientsAllForm(client, people, all_locations,all_contacts,all_client_invoice).subscribe(
           response => {
             console.log('Cliente y persona creados', response);
+            this.router.navigate(['/clients']);
           },
           error => {
             console.error('Error al crear el cliente y persona', error);

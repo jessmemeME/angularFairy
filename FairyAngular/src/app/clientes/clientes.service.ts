@@ -74,6 +74,6 @@ export class ClientesService {
   }
 
   getBussinessInvoiceDataByRuc(ruc:string):Observable<any>{
-    return this.http.get<any>(`${this.apiUrl}/BusinessInvoiceDataByRuc?document_number=${ruc}`);
+    return this.http.get<any>(`${this.apiUrl}/Business/BusinessInvoiceDataByRuc?document_number=${ruc}`);
   }
 }
