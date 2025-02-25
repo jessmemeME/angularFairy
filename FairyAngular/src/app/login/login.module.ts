@@ -9,7 +9,6 @@ import { LoginRouteModule } from './routes/login-route.module';
 import { UtilityModule } from '../utility/utility.module';
 
 // Servicios
-import { LoginApiService } from './services/login-api.service';
 import { LoginService } from './services/login.service';
 
 // Componentes
@@ -31,7 +30,6 @@ import { MatCheckboxModule } from '@angular/material/checkbox';
   declarations: [
     LoginComponent,
     CreateAccountComponent,
-    ValidateCodeComponent,
     ResetPasswordComponent,
     
   ],
@@ -53,7 +51,6 @@ import { MatCheckboxModule } from '@angular/material/checkbox';
   providers: [
     { provide: LocationStrategy, useClass: HashLocationStrategy },
     LoginService,
-    LoginApiService
   ]
 })
 export class LoginModule { }

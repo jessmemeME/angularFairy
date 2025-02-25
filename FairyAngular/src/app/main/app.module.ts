@@ -4,7 +4,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { HttpClientModule } from '@angular/common/http';
 import { FormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
-import { LocationStrategy, HashLocationStrategy } from '@angular/common';
+import { LocationStrategy, PathLocationStrategy  } from '@angular/common';
 
 // Importa módulos personalizados
 import { AppRoutingModule } from './app-routing.module';
@@ -12,7 +12,8 @@ import { MaterialModule } from './material.module';
 import { EventCreationModule } from '../event-creation/event-creation.module';
 import { ClientesModule } from '../clientes/clientes.module';
 import { AgendaModule } from '../agenda/agenda.module'; // Importar el módulo de agenda si es parte de la app principal
-
+import { CoreModule } from '../core/core.module'
+import { CookieService } from 'ngx-cookie-service';
 
 // Componentes de UI
 import { AppComponent } from './app.component';
@@ -59,14 +60,16 @@ export const MY_DATE_FORMATS = {
     EventCreationModule,   // Módulo de creación de eventos
     ClientesModule,        // Módulo de clientes
     AgendaModule,          // Módulo de Agenda
+    CoreModule,            // Módulo de autenticacion
     MatDatepickerModule,
     MatNativeDateModule,
-    MatDialogModule
+    MatDialogModule,
     
   ],
   providers: [
+    CookieService,
     provideClientHydration(), // Hidratación para SSR
-    { provide: LocationStrategy, useClass: HashLocationStrategy }, // Estrategia de enrutamiento con hash
+    { provide: LocationStrategy, useClass: PathLocationStrategy  }, // Estrategia de enrutamiento con hash
     //CONFIGURACION FORMATO DE FECHA
     { provide: DateAdapter, useClass: CustomDateAdapter },
     { provide: MAT_DATE_FORMATS, useValue: MY_DATE_FORMATS },

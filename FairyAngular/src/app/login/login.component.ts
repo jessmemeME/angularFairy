@@ -4,12 +4,11 @@ import { ActivatedRoute, NavigationEnd, Router } from '@angular/router';
 
 // Services
 import { LoginService } from './services/login.service';
+import { AuthService } from '../core/services/auth.service';
 import { AlertService } from '../utility/alert/alert.service';
-import { GlobalCommunicationService } from '../global-communication.service';
 
 // Models
-import { Login, ReturnLogin } from '../../models';
-import { response } from 'express';
+import { Login } from '../../models';
 
 @Component({
   selector: 'app-login',
@@ -20,12 +19,13 @@ export class LoginComponent implements OnInit {
   mostrarCompPrincipal = true;
   loginForm!: FormGroup;
   alertType = '';
-  returnObject!: ReturnLogin;
+  errorMessage = '';
+
   constructor(
     private fb: FormBuilder,
     private loginService: LoginService,
+    private authService: AuthService,
     private alertService: AlertService,
-    private communicationService: GlobalCommunicationService,
     private route: ActivatedRoute,
     private router: Router
   ) {}
@@ -33,6 +33,12 @@ export class LoginComponent implements OnInit {
   ngOnInit(): void {
     this.initializeLoginForm();
 
+    // ✅ Redirigir si el usuario ya está autenticado
+    if (this.authService.isAuthenticated()) {
+      this.router.navigate(['/dashboard']);
+    }
+
+    // Manejo de navegación
     this.router.events.subscribe(event => {
       if (event instanceof NavigationEnd) {
         this.mostrarCompPrincipal = event.urlAfterRedirects === '/login';
@@ -40,7 +46,7 @@ export class LoginComponent implements OnInit {
     });
   }
 
-  // Inicializa el formulario de login
+  // ✅ Inicializa el formulario de login
   private initializeLoginForm(): void {
     this.loginForm = this.fb.group({
       email: ['', [Validators.required, Validators.email]],
@@ -48,55 +54,33 @@ export class LoginComponent implements OnInit {
     });
   }
 
-  // Método de login que interactúa con el servicio y maneja la respuesta
+  // ✅ Manejo del Login
   login(): void {
     if (this.loginForm.valid) {
       this.loginService.login(this.loginForm.value).subscribe({
-        next: (isAuthenticated: boolean) => { // Cambia el tipo de `response` a `isAuthenticated`
-         
-          if (isAuthenticated) {
-            // Aquí podrías agregar lógica adicional, como navegar a otra ruta
-            this.router.navigateByUrl('/dashboard'); // Cambia a la ruta deseada
+        next: (response) => { 
+          if (response) {
+            // ✅ Guarda el token y redirige
+            this.authService.storeToken(response);
+            this.router.navigateByUrl('/dashboard'); 
           } else {
-            // Manejo de errores basado en la respuesta
-            this.alertType = 'error';
-            this.communicationService.sendMessage({ mensaje: "Error al iniciar sesión", respuesta: "ERROR" });
-            this.toggleAlert();
+            this.showErrorAlert('Error al iniciar sesión. Inténtalo de nuevo.');
           }
         },
-        error: () => {
-          this.alertType = 'error';
-          this.toggleAlert();
+        error: (err) => {
+          console.error('Error de login:', err);
+          this.showErrorAlert(err.error?.message || 'Credenciales incorrectas');
         }
       });
     } else {
-      this.alertType = 'error';
-      this.toggleAlert();
-    }
-  }
-  
-
-  // Maneja la respuesta de login y realiza acciones según la respuesta
-  private handleLoginResponse(response: ReturnLogin): void {
-    this.returnObject = response;
-    if (response.respuesta.toLowerCase() === 'code') {
-      // Redirecciona a la página de validación de código
-      this.router.navigateByUrl('/login/validate-code', { state: this.loginForm.value });
-    } else {
-      this.alertType = response.respuesta.toUpperCase() === 'ERROR' ? 'error' : 'success';
-      this.communicationService.sendMessage(response);
-      this.toggleAlert();
+      this.showErrorAlert('Por favor, completa todos los campos correctamente.');
     }
   }
 
-  // Muestra la alerta de error
-  private showErrorAlert(): void {
+  // ✅ Muestra la alerta de error con mensaje personalizado
+  private showErrorAlert(message: string): void {
+    this.errorMessage = message;
     this.alertType = 'error';
-    this.toggleAlert();
-  }
-
-  // Activa la alerta a través del servicio
-  private toggleAlert(): void {
     this.alertService.updateAlertState(true);
   }
 }

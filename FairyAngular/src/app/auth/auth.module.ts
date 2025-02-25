@@ -3,7 +3,7 @@
 import { NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
-import { RouterModule } from '@angular/router';
+import { RouterModule } from '@angular/router'; 
 
 import { AuthService } from './auth.service'; // Servicio de autenticación y autorización
 import { AuthListComponent } from './auth-list/auth-list.component'; // Componente de lista de autenticación
