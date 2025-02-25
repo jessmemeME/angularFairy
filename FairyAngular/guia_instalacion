@@ -102,3 +102,9 @@ Gestión de Proyectos: Jira
 Control de Versiones: GitHub
 Comunicación: Slack
 
+
+
+///------------
+Para limpiar el cmd usa : cls
+Para ejecutar: ng serve
+Para importar: npm install
