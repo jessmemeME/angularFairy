@@ -1,25 +1,29 @@
-<!-- Contenedor principal que se muestra solo si el usuario no está logueado -->
-<div *ngIf="!userIsLoged">
-  <!-- Placeholder para el contenido del enrutador -->
-  <router-outlet></router-outlet>
-</div>
+<!-- 🔥 NO renderiza nada hasta que se verifique autenticación -->
+<ng-container *ngIf="isAuthChecked">
+  <ng-container *ngIf="userIsLoged; else publicRoutes">
+    <div id="wrapper">
+      <app-side-menu></app-side-menu>
 
-<!-- Contenedor inicial de la página, mostrado solo si el usuario está logueado -->
-<div id="wrapper" *ngIf="userIsLoged">
-  <!-- Menú lateral de la aplicación -->
-  <app-side-menu></app-side-menu>
+      <div id="content-wrapper">
+        <div id="content">
+          <app-nav-bar></app-nav-bar>
 
-  <!-- Contenedor principal del contenido -->
-  <div id="content-wrapper">
-    <div id="content">
-      <!-- Barra de navegación de la aplicación -->
-      <app-nav-bar></app-nav-bar>
-
-      <!-- Contenedor de contenido fluido -->
-      <div class="container-fluid">
-        <!-- Placeholder para el contenido del enrutador -->
-        <router-outlet></router-outlet>
+          <div class="container-fluid">
+            <router-outlet></router-outlet>
+          </div>
+        </div>
       </div>
     </div>
-  </div>
+  </ng-container>
+
+  <!-- 🔹 Contenido para usuarios NO autenticados -->
+  <ng-template #publicRoutes>
+    <router-outlet></router-outlet>
+  </ng-template>
+</ng-container>
+
+<!--  Spinner de carga -->
+<div *ngIf="!isAuthChecked || isRouting" class="loading-screen">
+  <div class="spinner"></div>
 </div>
+

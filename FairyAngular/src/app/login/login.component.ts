@@ -4,11 +4,11 @@ import { ActivatedRoute, NavigationEnd, Router } from '@angular/router';
 
 // Services
 import { LoginService } from './services/login.service';
+import { AuthService } from '../core/services/auth.service';
 import { AlertService } from '../utility/alert/alert.service';
-import { GlobalCommunicationService } from '../global-communication.service';
 
 // Models
-import { Login, ReturnLogin } from '../../models';
+import { Login } from '../../models';
 
 @Component({
   selector: 'app-login',
@@ -18,26 +18,27 @@ import { Login, ReturnLogin } from '../../models';
 export class LoginComponent implements OnInit {
   mostrarCompPrincipal = true;
   loginForm!: FormGroup;
-  returnObject: ReturnLogin = { mensaje: "", respuesta: "" };
-  alertType = "";
+  alertType = '';
+  errorMessage = '';
 
   constructor(
     private fb: FormBuilder,
     private loginService: LoginService,
+    private authService: AuthService,
     private alertService: AlertService,
-    private communicationService: GlobalCommunicationService,
     private route: ActivatedRoute,
     private router: Router
   ) {}
 
   ngOnInit(): void {
-    // Initialize the form
-    this.loginForm = this.fb.group({
-      email: ['', [Validators.required, Validators.email]],
-      password: ['', Validators.required]
-    });
+    this.initializeLoginForm();
 
-    // Subscribe to router events
+    // ✅ Redirigir si el usuario ya está autenticado
+    if (this.authService.isAuthenticated()) {
+      this.router.navigate(['/dashboard']);
+    }
+
+    // Manejo de navegación
     this.router.events.subscribe(event => {
       if (event instanceof NavigationEnd) {
         this.mostrarCompPrincipal = event.urlAfterRedirects === '/login';
@@ -45,26 +46,41 @@ export class LoginComponent implements OnInit {
     });
   }
 
+  // ✅ Inicializa el formulario de login
+  private initializeLoginForm(): void {
+    this.loginForm = this.fb.group({
+      email: ['', [Validators.required, Validators.email]],
+      password: ['', Validators.required]
+    });
+  }
+
+  // ✅ Manejo del Login
   login(): void {
     if (this.loginForm.valid) {
-      this.loginService.login(this.loginForm.value).subscribe((response: ReturnLogin) => {
-        this.returnObject = response;
-
-        if (this.returnObject.respuesta.toLocaleLowerCase() === 'code') {
-          this.router.navigateByUrl('/login/validate-code', { state: this.loginForm.value });
-        } else {
-          this.alertType = this.returnObject.respuesta.toUpperCase() === 'ERROR' ? "error" : "success";
-          this.communicationService.sendMessage(this.returnObject);
-          this.toggleAlert();
+      this.loginService.login(this.loginForm.value).subscribe({
+        next: (response) => { 
+          if (response) {
+            // ✅ Guarda el token y redirige
+            this.authService.storeToken(response);
+            this.router.navigateByUrl('/dashboard'); 
+          } else {
+            this.showErrorAlert('Error al iniciar sesión. Inténtalo de nuevo.');
+          }
+        },
+        error: (err) => {
+          console.error('Error de login:', err);
+          this.showErrorAlert(err.error?.message || 'Credenciales incorrectas');
         }
       });
     } else {
-      this.alertType = "error";
-      this.toggleAlert();
+      this.showErrorAlert('Por favor, completa todos los campos correctamente.');
     }
   }
 
-  toggleAlert(): void {
-    this.alertService.updateAlertState(true); // Show the alert
+  // ✅ Muestra la alerta de error con mensaje personalizado
+  private showErrorAlert(message: string): void {
+    this.errorMessage = message;
+    this.alertType = 'error';
+    this.alertService.updateAlertState(true);
   }
 }

@@ -8,9 +8,10 @@ export interface Login {
 
 // Interfaz para la respuesta del login
 export interface ReturnLogin {
-    mensaje: string; // Mensaje de respuesta
-    respuesta: string; // Estado de la respuesta (por ejemplo, éxito o error)
-}
+    mensaje: string;  // Mensaje de respuesta
+    respuesta: string; // Estado de la respuesta (EXITO o ERROR)
+    token?: string; // Token de autenticación
+  }
 
 // Interfaz para el modelo de código de autenticación
 export interface Code {

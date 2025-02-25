@@ -1,35 +1,50 @@
 import { Injectable } from '@angular/core';
-import {Login} from '../../../models/login';
-import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { Observable } from 'rxjs';
-import { catchError, map } from 'rxjs/operators';
-import { throwError } from 'rxjs';
-
+import { HttpClient, HttpErrorResponse, HttpHeaders } from '@angular/common/http';
+import { Observable, of } from 'rxjs';
+import { map, catchError } from 'rxjs/operators';  // Asegúrate de importar estos operadores
+import { Login, ReturnLogin } from '../../../models';
+import { AuthService } from '../../core/services/auth.service'; // Importa AuthService
 
 @Injectable({
   providedIn: 'root'
 })
 export class LoginService {
-  constructor(private http:HttpClient) { }
+
   private apiUrl = 'http://localhost:5229';
-  headers = new HttpHeaders({
-    'content-type': 'application/json',
-    'Access-Control-Allow-Origin': 'http://localhost:4200',
-    'Access-Control-Allow-Methods': 'POST, GET, OPTIONS, PUT, DELETE',
-    'Access-Control-Allow-Headers': 'Content-Type, Access-Control-Allow-Headers, Authorization, X-Requested-With'
-  });
 
-  login(data:Login): Observable<any>{
-    console.log(data,'data');
-    return this.http.post<any>(`${this.apiUrl}/Login/Login`, data, {headers:this.headers})
-    .pipe(
-      map(response => {
-          return response;
+  constructor(
+    private http: HttpClient,
+    private authService: AuthService
+  ) {}
+
+  login(data: Login): Observable<string> {
+    return this.http.post<ReturnLogin>(`${this.apiUrl}/Login/Login`, data, {
+      headers: this.getHeaders()
+    }).pipe(
+      map((response: ReturnLogin) => {
+        // Verificamos si la respuesta es exitosa y contiene un token
+        if (response.respuesta === 'EXITO' && response.token) {
+          return response.token;  // Devolvemos el token en caso de éxito
+        } else {
+          throw new Error('Login fallido');  // Lanza error si no hay token
+        }
       }),
-      catchError(error => {
-        return throwError(error);
+      catchError((error: HttpErrorResponse) => {
+        console.error('Error en el login:', error);
+        throw error;  // Lanza el error para que el componente lo maneje
       })
-    )
+    );
   }
+  
 
+
+  // Encabezados comunes para las solicitudes HTTP
+  private getHeaders(): HttpHeaders {
+    return new HttpHeaders({
+      'Content-Type': 'application/json',
+      'Access-Control-Allow-Origin': 'http://localhost:4200',
+      'Access-Control-Allow-Methods': 'POST, GET, OPTIONS, PUT, DELETE',
+      'Access-Control-Allow-Headers': 'Content-Type, Access-Control-Allow-Headers, Authorization, X-Requested-With'
+    });
+  }
 }

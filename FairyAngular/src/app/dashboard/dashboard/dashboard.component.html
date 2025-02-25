@@ -1,107 +1,101 @@
 <div class="container">
-    <h2>Dashboard de Gestión de Eventos (Bodas)</h2>
-    <div class="row">
-      <!-- Tarjeta 1: Gráfico de Barras -->
-      <div class="col-md-4">
-        <div class="card mb-4">
-          <div class="card-body">
-            <h5 class="card-title">Ingresos por Mes</h5>
-            <ngx-charts-bar-vertical
-              [results]="barChartData"
-              [legend]="true"
-              [xAxis]="true"
-              [yAxis]="true"
-              [showXAxisLabel]="true"
-              [showYAxisLabel]="true"
-              xAxisLabel="Mes"
-              yAxisLabel="Ingresos">
-            </ngx-charts-bar-vertical>
-          </div>
+  <h2>Dashboard de Gestión de Eventos (Bodas)</h2>
+  <div class="row">
+    <!-- Tarjeta 1: Gráfico de Barras -->
+    <div class="col-md-6">
+      <div class="card">
+        <div class="card-body p-2">
+          <h5 class="card-title">Ingresos por Mes</h5>
+          <ngx-charts-bar-vertical
+            [results]="barChartData"
+            [legend]="true"
+            [xAxis]="true"
+            [yAxis]="true"
+            [showXAxisLabel]="true"
+            [showYAxisLabel]="true"
+            xAxisLabel="Mes"
+            yAxisLabel="Ingresos">
+          </ngx-charts-bar-vertical>
         </div>
       </div>
-  
-      <!-- Tarjeta 2: Gráfico de Línea -->
-      <div class="col-md-4">
-        <div class="card mb-4">
-          <div class="card-body">
-            <h5 class="card-title">Reservas Mensuales</h5>
-            <ngx-charts-line-chart
-              [results]="lineChartData"
-              
-              [legend]="true"
-              [xAxis]="true"
-              [yAxis]="true"
-              [showXAxisLabel]="true"
-              [showYAxisLabel]="true"
-              xAxisLabel="Mes"
-              yAxisLabel="Reservas">
-            </ngx-charts-line-chart>
-          </div>
+    </div>
+
+    <!-- Tarjeta 2: Gráfico de Línea -->
+    <div class="col-md-6">
+      <div class="card mb-2">
+        <div class="card-body p-2">
+          <h5 class="card-title">Reservas Mensuales</h5>
+          <ngx-charts-line-chart
+            [results]="lineChartData"
+            [legend]="true"
+            [xAxis]="true"
+            [yAxis]="true"
+            [showXAxisLabel]="true"
+            [showYAxisLabel]="true"
+            xAxisLabel="Mes"
+            yAxisLabel="Reservas">
+          </ngx-charts-line-chart>
         </div>
       </div>
-  
-      <!-- Tarjeta 3: Gráfico de Área -->
-      <div class="col-md-4">
-        <div class="card mb-4">
-          <div class="card-body">
-            <h5 class="card-title">Ingresos Acumulados</h5>
-            <ngx-charts-area-chart
-              [results]="areaChartData"
-              
-              [legend]="true"
-              [xAxis]="true"
-              [yAxis]="true"
-              [showXAxisLabel]="true"
-              [showYAxisLabel]="true"
-              xAxisLabel="Mes"
-              yAxisLabel="Ingresos Acumulados">
-            </ngx-charts-area-chart>
-          </div>
+    </div>
+
+    <!-- Tarjeta 3: Gráfico de Área -->
+    <div class="col-md-6">
+      <div class="card">
+        <div class="card-body p-2">
+          <h5 class="card-title">Ingresos Acumulados</h5>
+          <ngx-charts-area-chart
+            [results]="areaChartData"
+            [legend]="true"
+            [xAxis]="true"
+            [yAxis]="true"
+            [showXAxisLabel]="true"
+            [showYAxisLabel]="true"
+            xAxisLabel="Mes"
+            yAxisLabel="Ingresos Acumulados">
+          </ngx-charts-area-chart>
         </div>
       </div>
-  
-      <!-- Tarjeta 4: Gráfico de Torta -->
-      <div class="col-md-4">
-        <div class="card mb-4">
-          <div class="card-body">
-            <h5 class="card-title">Distribución de Servicios</h5>
-            <ngx-charts-pie-chart
-              [results]="pieChartData"
-              
-              [legend]="true"
-              [labels]="true">
-            </ngx-charts-pie-chart>
-          </div>
+    </div>
+
+    <!-- Tarjeta 4: Gráfico de Torta -->
+    <div class="col-md-6">
+      <div class="card">
+        <div class="card-body p-2">
+          <h5 class="card-title">Distribución de Servicios</h5>
+          <ngx-charts-pie-chart
+            [results]="pieChartData"
+            [legend]="true"
+            [labels]="true">
+          </ngx-charts-pie-chart>
         </div>
       </div>
-  
-      <!-- Tarjeta 5: Gráfico de Gauge -->
-      <div class="col-md-4">
-        <div class="card mb-4">
-          <div class="card-body">
-            <h5 class="card-title">Progreso de Eventos</h5>
-            <ngx-charts-gauge
-              [results]="gaugeChartData"
-              
-              [legend]="true">
-            </ngx-charts-gauge>
-          </div>
+    </div>
+
+    <!-- Tarjeta 5: Gráfico de Gauge -->
+    <div class="col-md-6">
+      <div class="card">
+        <div class="card-body p-2">
+          <h5 class="card-title">Progreso de Eventos</h5>
+          <ngx-charts-gauge
+            [results]="gaugeChartData"
+            [legend]="true">
+          </ngx-charts-gauge>
         </div>
       </div>
-  
-      <!-- Tarjeta 6: Gráfico de Polar -->
-      <div class="col-md-4">
-        <div class="card mb-4">
-          <div class="card-body">
-            <h5 class="card-title">Ubicación de Eventos</h5>
-            <ngx-charts-polar-chart
-              [results]="polarChartData"
-              
-              [legend]="true">
-            </ngx-charts-polar-chart>
-          </div>
+    </div>
+
+    <!-- Tarjeta 6: Gráfico de Polar -->
+    <div class="col-md-6">
+      <div class="card">
+        <div class="card-body p-2">
+          <h5 class="card-title">Ubicación de Eventos</h5>
+          <ngx-charts-polar-chart
+            [results]="polarChartData"
+            [legend]="true">
+          </ngx-charts-polar-chart>
         </div>
       </div>
     </div>
   </div>
-  
+</div>

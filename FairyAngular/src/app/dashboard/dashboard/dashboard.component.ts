@@ -6,7 +6,6 @@ import { Component } from '@angular/core';
   styleUrls: ['./dashboard.component.css']
 })
 export class DashboardComponent {
-   // Datos para gráficos de barras
   // Esquema de colores para los gráficos
   colorScheme = {
     domain: ['#5AA454', '#E44D25', '#CFC0BB', '#7aa3e5', '#a8385d', '#aae3f5']
@@ -89,16 +88,12 @@ export class DashboardComponent {
   // Datos para gráfico de polar
   polarChartData = [
     {
-      "name": "Lima",
-      "value": 20
-    },
-    {
-      "name": "Cusco",
-      "value": 15
-    },
-    {
-      "name": "Arequipa",
-      "value": 10
+      "name": "Ubicación",
+      "series": [
+        { "name": "Lima", "value": 20 },
+        { "name": "Cusco", "value": 15 },
+        { "name": "Arequipa", "value": 10 }
+      ]
     }
   ];
 }
