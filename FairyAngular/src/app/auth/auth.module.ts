@@ -24,8 +24,7 @@ import { AuthPermissionsComponent } from './auth-permissions/auth-permissions.co
   imports: [
     CommonModule, // Módulo común de Angular
     AuthRoutingModule, // Módulo de enrutamiento de autenticación
-    FormsModule, // Módulo de formularios de Angular
-    RouterModule // Módulo de enrutamiento de Angular
+    FormsModule
   ],
   providers: [
     AuthService // Proveedor del servicio de autenticación y autorización

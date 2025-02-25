@@ -17,7 +17,7 @@ const routes: Routes = [
       { path: 'update-rol', component: AuthUpdateComponent }, // Ruta para actualizar roles
       { path: 'add-rol', component: AuthInsertComponent }, // Ruta para agregar roles
       { path: 'list-rol', component: AuthListComponent }, // Ruta para listar roles
-      { path: 'list-group-perission', component: AuthPermissionsComponent }, // Ruta para listar permisos de grupo
+      { path: 'list-permission', component: AuthPermissionsComponent }, // Ruta para listar permisos de grupo
     ],
   },
 ];

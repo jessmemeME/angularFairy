@@ -10,9 +10,16 @@
     <div class="card-body">
       <ul class="list-group">
         <!-- Usuarios -->
-        <li class="list-group-item" style="cursor: pointer;">
+        <!--<li class="list-group-item" style="cursor: pointer;">
           <span (click)="toggleSubmenu('usuarios')">Usuarios</span>
           <ul *ngIf="submenus['usuarios']" class="list-group">
+            <li
+              class="list-group-item"
+              (click)="mostrarHijos('list-rol')"
+              style="cursor: pointer;"
+            >
+              Lista de usuarios
+            </li>
             <li
               class="list-group-item"
               (click)="mostrarHijos('list-rol')"
@@ -28,7 +35,7 @@
               Permisos
             </li>
           </ul>
-        </li>
+        </li>-->
         <!-- Configuraciones Basicas -->
         <li class="list-group-item" style="cursor: pointer;">
           <span (click)="toggleSubmenu('basic-info')"
