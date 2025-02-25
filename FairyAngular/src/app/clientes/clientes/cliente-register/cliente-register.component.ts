@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, FormArray, Validators, FormControl } from '@angular/forms';
 import { MatStepper } from '@angular/material/stepper';
 import { Router } from '@angular/router';  // Importa el servicio Router
-import { Clients} from '../../../../models/clients.model';//llamamos a nuestra interface
+import { Client} from '../../../../models/clients.model';//llamamos a nuestra interface
 import { Gender, People } from '../../../../models/basic-info.model';
 import { DocumentType } from '../../../../models/basic-info.model';
 import { ClientesService } from '../../clientes.service';
@@ -414,7 +414,7 @@ get redesSociales(): FormArray {
         date_of_birth: new Date().toISOString(), description: 'New user', is_active: true, created_date: new Date().toISOString(), 
         updated_date: new Date().toISOString(), age_group_id: 1,gender_id:0, type_of_diner_id:1, created_user_id: 1, updated_user_id: 1};
 
-      let client: Clients = { type: this.datosBasicosControl.get('estado')!.value, 
+      let client: Client = { type: this.datosBasicosControl.get('estado')!.value, 
         name:this.datosBasicosControl.get('nombres')!.value + '_' + this.datosBasicosControl.get('apellidos')!.value,
         description: 'New user', is_confirmated: true, created_date: new Date().toISOString(), 
         updated_date: new Date().toISOString(), is_active: true, created_user_id: 1, people_id: 1, updated_user_id: 1};

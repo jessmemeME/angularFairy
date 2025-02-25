@@ -1,7 +1,7 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { concatMap, Observable } from 'rxjs';
-import { Clients} from '../../models/clients.model'//llamamos a nuestra interface
+import { Client} from '../../models/clients.model'//llamamos a nuestra interface
 import { People } from '../../models/basic-info.model';
 
 @Injectable({
@@ -13,7 +13,7 @@ export class ClientesService {
   
     constructor(private http: HttpClient) { }
   
-    RegisterClientsAllForm(client:Clients, people:People,locations:any[],contacts:any[],client_invoice:any[]):Observable<any>{
+    RegisterClientsAllForm(client:Client, people:People,locations:any[],contacts:any[],client_invoice:any[]):Observable<any>{
       console.log(client);
       console.log(people);
       console.log(locations);
@@ -75,5 +75,9 @@ export class ClientesService {
 
   getBussinessInvoiceDataByRuc(ruc:string):Observable<any>{
     return this.http.get<any>(`${this.apiUrl}/Business/BusinessInvoiceDataByRuc?document_number=${ruc}`);
+  }
+
+  getClientes(pagina:number):Observable<any>{
+    return this.http.get<any>(`${this.apiUrl}/Clients/ListAllClientsWithPeoplePag?page=${pagina}&pageSize=100`);
   }
 }
