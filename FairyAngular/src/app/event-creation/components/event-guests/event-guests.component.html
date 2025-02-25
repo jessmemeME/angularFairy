@@ -1,13 +1,39 @@
 <h3>Lista de Invitados</h3>
-<button mat-raised-button (click)="addGuest()">Añadir Invitado</button>
+<button mat-raised-button color="primary" (click)="addGuest()">
+  <mat-icon>person_add</mat-icon> Añadir Invitado
+</button>
 
-<div *ngFor="let guest of guestsArray.controls; let i = index">
-  <mat-form-field appearance="fill">
-    <mat-label>Nombre</mat-label>
-    <input matInput formControlName="firstName" />
-  </mat-form-field>
-  <mat-form-field appearance="fill">
-    <mat-label>Apellido</mat-label>
-    <input matInput formControlName="lastName" />
-  </mat-form-field>
-</div>
+<table mat-table [dataSource]="formGroup.controls" class="mat-elevation-z8">
+  <ng-container matColumnDef="firstName">
+    <th mat-header-cell *matHeaderCellDef> Nombre </th>
+    <td mat-cell *matCellDef="let guest">
+      <input matInput formControlName="firstName" />
+    </td>
+  </ng-container>
+
+  <ng-container matColumnDef="lastName">
+    <th mat-header-cell *matHeaderCellDef> Apellido </th>
+    <td mat-cell *matCellDef="let guest">
+      <input matInput formControlName="lastName" />
+    </td>
+  </ng-container>
+
+  <ng-container matColumnDef="role">
+    <th mat-header-cell *matHeaderCellDef> Rol </th>
+    <td mat-cell *matCellDef="let guest">
+      <input matInput formControlName="role" />
+    </td>
+  </ng-container>
+
+  <ng-container matColumnDef="actions">
+    <th mat-header-cell *matHeaderCellDef> Acciones </th>
+    <td mat-cell *matCellDef="let guest; let i = index">
+      <button mat-icon-button color="warn" (click)="removeGuest(i)">
+        <mat-icon>delete</mat-icon>
+      </button>
+    </td>
+  </ng-container>
+
+  <tr mat-header-row *matHeaderRowDef="['firstName', 'lastName', 'role', 'actions']"></tr>
+  <tr mat-row *matRowDef="let row; columns: ['firstName', 'lastName', 'role', 'actions'];"></tr>
+</table>

@@ -1,24 +1,22 @@
 <div class="event-list-container">
-  <mat-toolbar color="primary" class="mb-4">
-    <span>Lista de Eventos</span>
-    <span class="spacer"></span>
-    <button mat-raised-button color="accent" (click)="navigateToCreate()">
-      <mat-icon>add</mat-icon> Nuevo Evento
-    </button>
-  </mat-toolbar>
+  <h2>Lista de Eventos</h2>
 
-  <mat-form-field appearance="outline" class="search-bar">
-    <mat-label>Buscar evento...</mat-label>
+  <!-- Buscador -->
+  <mat-form-field appearance="fill">
+    <mat-label>Buscar evento</mat-label>
     <input
       matInput
       [formControl]="searchControl"
-      placeholder="Cliente, Pareja, Fecha, Estado, Nombre"
+      placeholder="Nombre, fecha, cliente..."
     />
-    <button mat-icon-button matSuffix (click)="searchControl.setValue('')">
-      <mat-icon>clear</mat-icon>
-    </button>
   </mat-form-field>
 
+  <!-- Botón para crear evento -->
+  <button mat-raised-button color="primary" routerLink="/events/create">
+    <mat-icon>add</mat-icon> Nuevo Evento
+  </button>
+
+  <!-- Tabla de eventos -->
   <table mat-table [dataSource]="filteredEvents" class="mat-elevation-z8">
     <ng-container matColumnDef="name">
       <th mat-header-cell *matHeaderCellDef>Nombre</th>
@@ -30,18 +28,28 @@
       <td mat-cell *matCellDef="let event">{{ event.clientName }}</td>
     </ng-container>
 
-    <ng-container matColumnDef="event_state">
+    <ng-container matColumnDef="date">
+      <th mat-header-cell *matHeaderCellDef>Fecha</th>
+      <td mat-cell *matCellDef="let event">
+        {{ event.event_start_date | date:'shortDate' }}
+      </td>
+    </ng-container>
+
+    <ng-container matColumnDef="state">
       <th mat-header-cell *matHeaderCellDef>Estado</th>
       <td mat-cell *matCellDef="let event">{{ event.event_state }}</td>
     </ng-container>
 
-    <tr
-      mat-header-row
-      *matHeaderRowDef="['name', 'client', 'event_state']"
-    ></tr>
-    <tr
-      mat-row
-      *matRowDef="let row; columns: ['name', 'client', 'event_state'];"
-    ></tr>
+    <ng-container matColumnDef="actions">
+      <th mat-header-cell *matHeaderCellDef>Acciones</th>
+      <td mat-cell *matCellDef="let event">
+        <button mat-icon-button color="accent" (click)="editEvent(event.id)">
+          <mat-icon>edit</mat-icon>
+        </button>
+      </td>
+    </ng-container>
+
+    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+    <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
   </table>
 </div>

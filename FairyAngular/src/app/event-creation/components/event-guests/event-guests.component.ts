@@ -1,5 +1,5 @@
 import { Component, Input } from '@angular/core';
-import { FormGroup, FormArray } from '@angular/forms';
+import { FormArray, FormBuilder, Validators } from '@angular/forms';
 
 @Component({
   selector: 'app-event-guests',
@@ -7,13 +7,20 @@ import { FormGroup, FormArray } from '@angular/forms';
   styleUrls: ['./event-guests.component.css']
 })
 export class EventGuestsComponent {
-  @Input() formGroup!: FormGroup;
+  @Input() formGroup!: FormArray;
 
-  get guestsArray(): FormArray {
-    return this.formGroup.get('guestsArray') as FormArray;
+  constructor(private fb: FormBuilder) {}
+
+  addGuest(): void {
+    this.formGroup.push(this.fb.group({
+      firstName: ['', Validators.required],
+      lastName: ['', Validators.required],
+      role: ['']
+    }));
   }
 
-  addGuest() {
-    this.guestsArray.push(new FormGroup({}));
+  removeGuest(index: number): void {
+    this.formGroup.removeAt(index);
   }
 }
+

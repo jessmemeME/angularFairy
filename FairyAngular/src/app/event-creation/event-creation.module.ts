@@ -1,4 +1,4 @@
-import { NgModule } from '@angular/core';
+import { NgModule, CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { EventCreationComponent } from './event-creation/event-creation.component';
 import { EventBasicDetailsComponent } from './components/event-basic-details/event-basic-details.component';
@@ -11,10 +11,19 @@ import { MatInputModule } from '@angular/material/input';
 import { MatSelectModule } from '@angular/material/select';
 import { MatCheckboxModule } from '@angular/material/checkbox';
 import { MatButtonModule } from '@angular/material/button';
-import { ReactiveFormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { MatIconModule } from '@angular/material/icon'; // Asegurar que MatIconModule está importado
+import { MatTableModule } from '@angular/material/table';
+import { MatPaginatorModule } from '@angular/material/paginator'; // Para la paginación
+import { MatSortModule } from '@angular/material/sort'; // Para ordenar
+import { MatChipsModule } from '@angular/material/chips';
+import { EventCreationRoutingModule } from './event-creation-routing/event-creation-routing.module';
+import { CdkTableModule } from '@angular/cdk/table'; // ✅ Agregado para solucionar _CdkColumnDef error
+
 
 @NgModule({
   declarations: [
+    
     EventCreationComponent,
     EventBasicDetailsComponent,
     EventCeremoniesComponent,
@@ -22,6 +31,7 @@ import { ReactiveFormsModule } from '@angular/forms';
     EventListComponent
   ],
   imports: [
+    EventCreationRoutingModule,
     CommonModule,
     MatStepperModule,
     MatFormFieldModule,
@@ -29,10 +39,19 @@ import { ReactiveFormsModule } from '@angular/forms';
     MatSelectModule,
     MatCheckboxModule,
     MatButtonModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    MatIconModule,
+    MatTableModule,
+    MatPaginatorModule, // Opcional si usas paginación
+    MatSortModule, // Opcional si usas ordenamiento
+    FormsModule,
+    MatChipsModule,
+    CdkTableModule
+
   ],
   exports: [
     EventCreationComponent
-  ]
+  ],
+  schemas: [CUSTOM_ELEMENTS_SCHEMA]
 })
 export class EventCreationModule { }

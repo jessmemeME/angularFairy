@@ -1,19 +1,75 @@
-<h3>Datos del Evento</h3>
-<mat-form-field appearance="fill">
-  <mat-label>Nombre del Evento</mat-label>
-  <input matInput formControlName="eventName" required />
-</mat-form-field>
+<form [formGroup]="formGroup">
+  <!-- Nombre del Evento -->
+  <mat-form-field appearance="fill">
+    <mat-label>Nombre del Evento</mat-label>
+    <input matInput formControlName="eventName" required />
+  </mat-form-field>
 
-<mat-form-field appearance="fill">
-  <mat-label>Nombre del Cliente</mat-label>
-  <input matInput formControlName="clientName" required />
-</mat-form-field>
+  <!-- Nombre del Cliente -->
+  <mat-form-field appearance="fill">
+    <mat-label>Nombre del Cliente</mat-label>
+    <input matInput formControlName="clientName" required />
+  </mat-form-field>
 
-<mat-form-field appearance="fill">
-  <mat-label>Tipo de Pareja</mat-label>
-  <mat-select formControlName="coupleType">
-    <mat-option *ngFor="let type of couplesTypes" [value]="type">
-      {{ type }}
-    </mat-option>
-  </mat-select>
-</mat-form-field>
+  <!-- Datos de la Pareja -->
+  <h3>Detalles de la Pareja</h3>
+  <!-- Tipo de Pareja -->
+  <mat-form-field appearance="fill">
+    <mat-label>Tipo de Pareja</mat-label>
+    <mat-select formControlName="coupleType">
+      <mat-option *ngFor="let type of couplesTypes" [value]="type">
+        {{ type }}
+      </mat-option>
+    </mat-select>
+  </mat-form-field>
+
+  <mat-grid-list cols="2" rowHeight="fit">
+    <!-- Pareja 1 -->
+    <mat-grid-tile>
+      <mat-card class="pareja-card">
+        <mat-card-title>Pareja 1</mat-card-title>
+        <mat-form-field appearance="fill">
+          <mat-label>Nombres y Apellidos</mat-label>
+          <input
+            matInput
+            formControlName="partner1Name"
+            placeholder="Ingrese nombre..."
+          />
+        </mat-form-field>
+        <mat-form-field appearance="fill">
+          <mat-label>Pronombre</mat-label>
+          <mat-select formControlName="partner1Pronoun">
+            <mat-option value="El">Él</mat-option>
+            <mat-option value="Ella">Ella</mat-option>
+            <mat-option value="Elles">Elles</mat-option>
+            <mat-option value="Otro">Otro</mat-option>
+          </mat-select>
+        </mat-form-field>
+      </mat-card>
+    </mat-grid-tile>
+
+    <!-- Pareja 2 -->
+    <mat-grid-tile>
+      <mat-card class="pareja-card">
+        <mat-card-title>Pareja 2</mat-card-title>
+        <mat-form-field appearance="fill">
+          <mat-label>Nombres y Apellidos</mat-label>
+          <input
+            matInput
+            formControlName="partner2Name"
+            placeholder="Ingrese nombre..."
+          />
+        </mat-form-field>
+        <mat-form-field appearance="fill">
+          <mat-label>Pronombre</mat-label>
+          <mat-select formControlName="partner2Pronoun">
+            <mat-option value="El">Él</mat-option>
+            <mat-option value="Ella">Ella</mat-option>
+            <mat-option value="Elles">Elles</mat-option>
+            <mat-option value="Otro">Otro</mat-option>
+          </mat-select>
+        </mat-form-field>
+      </mat-card>
+    </mat-grid-tile>
+  </mat-grid-list>
+</form>

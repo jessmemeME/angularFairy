@@ -1,0 +1,23 @@
+.event-list-container {
+    padding: 20px;
+  }
+  
+  .search-bar {
+    width: 100%;
+    max-width: 400px;
+    margin-bottom: 20px;
+  }
+  
+  .mat-elevation-z8 {
+    width: 100%;
+  }
+  
+  th {
+    text-align: left;
+  }
+  
+  mat-chip {
+    font-size: 14px;
+    padding: 5px 10px;
+  }
+  

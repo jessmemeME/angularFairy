@@ -4,23 +4,44 @@
     <app-event-basic-details
       [formGroup]="basicDetailsGroup"
     ></app-event-basic-details>
-    <button mat-raised-button matStepperNext>Siguiente</button>
+    <div class="step-actions">
+      <button mat-raised-button mat-stepper-next>Siguiente</button>
+    </div>
   </mat-step>
 
   <!-- Sección 2: Ceremonias -->
   <mat-step label="Ceremonias">
     <app-event-ceremonies
-      [formGroup]="ceremoniesDetailsGroup"
+      [formArray]="ceremoniesDetailsArray"
     ></app-event-ceremonies>
-    <button mat-raised-button matStepperNext>Siguiente</button>
+    <div class="step-actions">
+      <button mat-raised-button mat-stepper-previous>Anterior</button>
+      <button
+        mat-raised-button
+        mat-stepper-next
+        [disabled]="ceremoniesDetailsArray.length === 0"
+      >
+        Siguiente
+      </button>
+    </div>
   </mat-step>
 
   <!-- Sección 3: Invitados -->
   <mat-step label="Invitados">
-    <app-event-guests [formGroup]="guestsArray"></app-event-guests>
-    <button mat-raised-button (click)="submitForm()">Finalizar</button>
+    <app-event-guests [formArray]="guestsArray"></app-event-guests>
+    <div class="step-actions">
+      <button mat-raised-button mat-stepper-previous>Anterior</button>
+      <button mat-raised-button mat-stepper-next>Siguiente</button>
+      <!--button mat-raised-button mat-stepper-next [disabled]="isGuestsEmpty()">Siguiente</button-->
+    </div>
+  </mat-step>
+
+  <!-- Sección 4: Lista de Eventos -->
+  <mat-step label="Lista de Eventos">
+    <app-event-list></app-event-list>
+    <div class="step-actions">
+      <button mat-raised-button mat-stepper-previous>Anterior</button>
+      <button mat-raised-button (click)="submitForm()">Finalizar</button>
+    </div>
   </mat-step>
 </mat-horizontal-stepper>
-
-<!-- Sección de Listado de Eventos -->
-<app-event-list></app-event-list>

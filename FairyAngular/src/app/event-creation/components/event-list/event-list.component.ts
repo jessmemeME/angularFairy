@@ -2,12 +2,12 @@ import { Component, OnInit } from '@angular/core';
 import { FormControl } from '@angular/forms';
 import { HttpClient } from '@angular/common/http';
 import { debounceTime } from 'rxjs/operators';
+import { Router } from '@angular/router';
 
 interface Event {
   id: number;
   name: string;
   clientName: string;
-  coupleType: string;
   event_start_date: Date;
   event_state: string;
 }
@@ -21,21 +21,15 @@ export class EventListComponent implements OnInit {
   events: Event[] = [];
   filteredEvents: Event[] = [];
   searchControl = new FormControl('');
+  displayedColumns: string[] = ['name', 'client', 'date', 'state', 'actions'];
 
-  constructor(private http: HttpClient) {}
+  constructor(private http: HttpClient, private router: Router) {}
 
   ngOnInit(): void {
     this.loadEvents();
-
-    this.searchControl.valueChanges
-      .pipe(debounceTime(300))
-      .subscribe((value: string | null) => {
-        if (value !== null) {
-          this.filterEvents(value);
-        } else {
-          this.filteredEvents = this.events;
-        }
-      });
+    this.searchControl.valueChanges.pipe(debounceTime(300)).subscribe(value => {
+      this.filterEvents(value || '');
+    });
   }
 
   loadEvents(): void {
@@ -46,17 +40,16 @@ export class EventListComponent implements OnInit {
   }
 
   filterEvents(query: string): void {
-    if (!query.trim()) {  // Se asegura de no filtrar si es una cadena vacía
-      this.filteredEvents = this.events;
-    } else {
-      const lowerQuery = query.toLowerCase();
-      this.filteredEvents = this.events.filter(event =>
-        event.name.toLowerCase().includes(lowerQuery) ||
-        event.clientName.toLowerCase().includes(lowerQuery) ||
-        event.coupleType.toLowerCase().includes(lowerQuery) ||
-        event.event_start_date.toString().includes(lowerQuery) ||
-        event.event_state.toLowerCase().includes(lowerQuery)
-      );
-    }
+    const lowerQuery = query.toLowerCase();
+    this.filteredEvents = this.events.filter(event =>
+      event.name.toLowerCase().includes(lowerQuery) ||
+      event.clientName.toLowerCase().includes(lowerQuery) ||
+      event.event_start_date.toString().includes(lowerQuery) ||
+      event.event_state.toLowerCase().includes(lowerQuery)
+    );
+  }
+
+  editEvent(id: number): void {
+    this.router.navigate([`/events/edit/${id}`]);
   }
 }
