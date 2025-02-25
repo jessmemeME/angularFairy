@@ -4,39 +4,40 @@
             <h6 class="m-0 font-weight-bold text-primary">LISTA DE CUENTAS</h6>
         </div>
         <div class="card-body">
-            <div class="">
-                <table class="table table-hover table-bordered p-1" style="width: 100%;" >
-                    <thead>
-                        <tr>
-                            <th>Email</th>
-                            <th>Staff</th>
-                            <th>Activo</th>
-                            <th></th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr *ngFor="let account of accounts">
-                            <td>{{account.email}}</td>
+            <table class="table table-hover table-bordered p-1" style="width: 100%;" >
+                <thead>
+                    <tr>
+                        <th>Email</th>
+                        <th>Staff</th>
+                        <th>Activo</th>
+                        <th>Acciones</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr *ngFor="let account of accounts">
+                        <td>{{ account.email }}</td>
 
-                            <td>
-                                <input  class="ms-2" type="checkbox"  [(ngModel)]="account.is_staff" [checked]="account.is_staff" name="is_staff" placeholder="Es parte del staff">
-                            </td>
-                            <td>
-                                <input  class="ms-2" type="checkbox"  [(ngModel)]="account.is_active" [checked]="account.is_active"name="is_active" placeholder="Es un usuario ACTIVO">
-                            </td>
-                            <td align="center">
-                                <a style="min-width: 30px; min-height: 25px;"   type="button"class="icons-table"  [routerLink]="['/account/permiision-account']" routerLinkActive="active" [state]="account"><i class="bi bi-key"></i></a>
-                                <a type="button" style="min-width: 30px; min-height: 25px;" class="icons-table" [routerLink]="['/account/update-account']" routerLinkActive="active" [state]="account">
-                                    <i class="bi bi-pencil"></i>
-                                </a>
-                                <Button type="button" class="icons-table" (click)="eliminarDatos(account)">
-                                    <i class="bi bi-trash2"></i>
-                                </Button>
-                            </td>
-                        </tr>
-                    </tbody>
-                </table>
-            </div>
+                        <td>
+                            <input class="ms-2" type="checkbox" [(ngModel)]="account.is_staff" [checked]="account.is_staff">
+                        </td>
+                        <td>
+                            <input class="ms-2" type="checkbox" [(ngModel)]="account.is_active" [checked]="account.is_active">
+                        </td>
+                        <td align="center">
+                            <!-- 🔥 Ahora usamos métodos del componente en lugar de routerLink -->
+                            <button class="icons-table" (click)="irAPermisos(account)">
+                                <i class="bi bi-key"></i>
+                            </button>
+                            <button class="icons-table" (click)="irAEditar(account)">
+                                <i class="bi bi-pencil"></i>
+                            </button>
+                            <button class="icons-table" (click)="eliminarDatos(account)">
+                                <i class="bi bi-trash2"></i>
+                            </button>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
         </div>
     </div>
 </section>

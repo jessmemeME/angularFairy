@@ -4,27 +4,25 @@ import { AccountRoutingModule } from './components/account-routing/account-routi
 import { AccountInsertComponent } from './components/account-insert/account-insert.component';
 import { AccountListComponent } from './components/account-list/account-list.component';
 import { AccountUpdateComponent } from './components/account-update/account-update.component';
-import {AccountsComponent} from './accounts.component'
+import { AccountsComponent } from './accounts.component';
 import { AccountsService } from './services/accounts.service';
 import { FormsModule } from '@angular/forms';
-import { RouterModule } from '@angular/router';
 import { AccountPermissionsComponent } from './components/account-permissions/account-permissions.component';
-
 
 @NgModule({
   declarations: [
     AccountInsertComponent,
     AccountListComponent,
     AccountUpdateComponent,
-    AccountsComponent,
-    AccountPermissionsComponent,
+    AccountsComponent, 
+    AccountPermissionsComponent
   ],
   imports: [
     CommonModule,
-    AccountRoutingModule,
-    FormsModule,
-    RouterModule,
-  ],providers:[
+    AccountRoutingModule, 
+    FormsModule 
+  ],
+  providers: [
     AccountsService
   ]
 })
