@@ -5,6 +5,7 @@ import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { NotFoundComponent } from '../UI/not-found/not-found.component';
 
+
 // Definición de las rutas de la aplicación
 const routes: Routes = [
   { path: '', redirectTo: 'landing', pathMatch: 'full' },  // Redirige la raíz a 'landing'

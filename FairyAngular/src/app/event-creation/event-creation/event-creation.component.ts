@@ -7,102 +7,52 @@ import { FormBuilder, FormGroup, FormArray, Validators } from '@angular/forms';
   styleUrls: ['./event-creation.component.css']
 })
 export class EventCreationComponent {
-  eventForm: FormGroup;
-  pronouns: string[] = ['él', 'ella', 'elle'];
-  couplesTypes: string[] = ['Pareja heterosexual', 'Pareja homosexual', 'Pareja no binaria'];
-  ceremonies: string[] = ['Civil', 'Religiosa', 'Brindis', 'Viaje', 'Despedida'];
-  selectedCeremonies: FormArray;
-  //selectedCeremonies: string[] = [];
+  eventForm!: FormGroup;
 
   constructor(private fb: FormBuilder) {
+    this.initializeForm();
+  }
+
+  private initializeForm(): void {
     this.eventForm = this.fb.group({
       basicDetails: this.fb.group({
         eventName: ['', Validators.required],
         clientName: ['', Validators.required],
         coupleType: ['', Validators.required],
-        couple1: this.fb.group({
-          name_uno: ['', Validators.required],
-          pronoun_uno: ['', Validators.required],
-          role_uno: ['', Validators.required]
-        }),
-        couple2: this.fb.group({
-          name_dos: ['', Validators.required],
-          pronoun_dos: ['', Validators.required],
-          role_dos: ['', Validators.required]
-        }),
-        guests: this.fb.group({
-          guestAmountType: ['singleNumber', Validators.required],  // Se añadió este control
-          guestNumber: [''],
-          guestRange: this.fb.group({
-            minGuests: [''],
-            maxGuests: ['']
-          })
-        })
-        
+        partner1Name: ['', Validators.required],
+        partner1Pronoun: ['', Validators.required],
+        partner2Name: ['', Validators.required],
+        partner2Pronoun: ['', Validators.required]
       }),
       ceremoniesDetails: this.fb.array([]),
       guestsList: this.fb.array([])
     });
-
-    this.selectedCeremonies = this.fb.array([]);
   }
 
   get basicDetailsGroup(): FormGroup {
     return this.eventForm.get('basicDetails') as FormGroup;
   }
 
-  get ceremoniesDetailsGroup(): FormGroup {
-    return this.eventForm.get('ceremoniesDetails') as FormGroup;
+  get ceremoniesDetailsArray(): FormArray {
+    return this.eventForm.get('ceremoniesDetails') as FormArray;
   }
 
   get guestsArray(): FormArray {
     return this.eventForm.get('guestsList') as FormArray;
   }
-
-  addCeremony(type: string) {
-    const ceremonyGroup = this.fb.group({
-      type: [type],
-      details: this.fb.group({
-        date: [''],
-        startTime: [''],
-        endTime: [''],
-        place: [''],
-        venue: [''],
-        officiant: [''],
-        cost: [''],
-        decoration: this.fb.array([])
-      })
-    });
-    this.selectedCeremonies.push(ceremonyGroup);
+  /** ✅ Validación: No permitir avanzar si el array está vacío */
+  isCeremoniesEmpty(): boolean {
+    return this.ceremoniesDetailsArray.length === 0;
   }
 
-  addGuest() {
-    this.guestsArray.push(this.fb.group({
-      number: [this.guestsArray.length + 1],
-      firstName: ['', Validators.required],
-      lastName: ['', Validators.required],
-      gender: [''],
-      pronoun: [''],
-      mealType: [''],
-      ageRange: this.fb.group({
-        minAge: [''],
-        maxAge: ['']
-      }),
-      invitationNumber: [''],
-      tableNumber: [''],
-      allergies: [''],
-      role: [''],
-      ceremonies: this.fb.group({
-        civil: [false],
-        religious: [false],
-        brindis: [false]
-      })
-    }));
+  isGuestsEmpty(): boolean {
+    return this.guestsArray.length === 0;
   }
 
-  submitForm() {
+
+  submitForm(): void {
     if (this.eventForm.valid) {
-      console.log(this.eventForm.value);
+      console.log('Formulario enviado con éxito:', this.eventForm.value);
     } else {
       console.log('Formulario inválido');
     }

@@ -1,0 +1,28 @@
+<h3>Seleccione las ceremonias</h3>
+
+<!-- Checkbox para seleccionar/deseleccionar ceremonias -->
+<mat-checkbox
+  *ngFor="let ceremony of ceremonies"
+  (change)="toggleCeremony(ceremony, $event.checked)"
+>
+  {{ ceremony }}
+</mat-checkbox>
+
+<!-- Lista de ceremonias seleccionadas -->
+<!--div *ngFor="let ceremonyGroup of formGroup.controls; let i = index"-->
+<div *ngFor="let ceremonyGroup of formGroup.controls; let i = index">
+  <div [formGroup]="ceremonyGroup" class="ceremony-container">
+    <mat-form-field appearance="fill">
+      <mat-label>Fecha de {{ ceremonyGroup.value.type }}</mat-label>
+      <input matInput formControlName="date" type="date" required />
+    </mat-form-field>
+
+    <button
+      mat-icon-button
+      color="warn"
+      (click)="removeCeremony(ceremonyGroup.value.type)"
+    >
+      <mat-icon>delete</mat-icon>
+    </button>
+  </div>
+</div>
