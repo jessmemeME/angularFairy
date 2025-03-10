@@ -8,29 +8,9 @@
         </mat-card-header>
         <mat-card-content>
           <mat-form-field appearance="outline">
-            <mat-label>Nombres</mat-label>
-            <input matInput formControlName="nombres" required />
-            <mat-error
-              *ngIf="datosBasicosControl.get('nombres')?.hasError('required')"
-            >
-              El nombre es obligatorio
-            </mat-error>
-          </mat-form-field>
-          <mat-form-field appearance="outline">
-            <mat-label>Apellidos</mat-label>
-            <input matInput formControlName="apellidos" required />
-            <mat-error
-              *ngIf="datosBasicosControl.get('apellidos')?.hasError('required')"
-            >
-              El apellido es obligatorio
-            </mat-error>
-          </mat-form-field>
-          <mat-form-field appearance="outline">
             <mat-label>Tipo de Documento</mat-label>
-            <mat-select formControlName="tipoDocumento" required>
-              <mat-option value="Cedula">Cédula</mat-option>
-              <mat-option value="Pasaporte">Pasaporte</mat-option>
-              <mat-option value="DNI">DNI</mat-option>
+            <mat-select formControlName="tipoDocumento" required [disabled]="enableRegisterClient">
+              <mat-option *ngFor="let docT of documentTypes" [value]="docT.id">{{docT.name}}</mat-option>
             </mat-select>
             <mat-error
               *ngIf="datosBasicosControl.get('tipoDocumento')?.hasError('required')"
@@ -40,26 +20,58 @@
           </mat-form-field>
           <mat-form-field appearance="outline">
             <mat-label>Número de Documento</mat-label>
-            <input matInput formControlName="numeroDocumento" required />
+            <input matInput formControlName="numeroDocumento" required [disabled]="enableRegisterClient" readonly="{{enableRegisterClient}}"/>
             <mat-error
               *ngIf="datosBasicosControl.get('numeroDocumento')?.hasError('required')"
             >
               El número de documento es obligatorio
             </mat-error>
           </mat-form-field>
-          <mat-form-field appearance="outline">
-            <mat-label>Estado</mat-label>
-            <mat-select formControlName="estado" required>
-              <mat-option value="Prospecto">Prospecto</mat-option>
-              <mat-option value="Cliente Activo">Cliente Activo</mat-option>
-              <mat-option value="Cliente Inactivo">Cliente Inactivo</mat-option>
-            </mat-select>
-            <mat-error
-              *ngIf="datosBasicosControl.get('estado')?.hasError('required')"
+          <mat-card-actions>
+            <button
+              type="button"
+              mat-raised-button
+              (click)="verificarDocumento()"
+              color="primary"
+              [disabled]="enableRegisterClient"
             >
-              Selecciona un estado
-            </mat-error>
-          </mat-form-field>
+              Verificar Documento
+            </button>
+          </mat-card-actions>
+          <div *ngIf="enableRegisterClient">
+            <mat-form-field appearance="outline">
+              <mat-label>Nombres</mat-label>
+              <input matInput formControlName="nombres" required />
+              <mat-error
+                *ngIf="datosBasicosControl.get('nombres')?.hasError('required')"
+              >
+                El nombre es obligatorio
+              </mat-error>
+            </mat-form-field>
+            <mat-form-field appearance="outline">
+              <mat-label>Apellidos</mat-label>
+              <input matInput formControlName="apellidos" required />
+              <mat-error
+                *ngIf="datosBasicosControl.get('apellidos')?.hasError('required')"
+              >
+                El apellido es obligatorio
+              </mat-error>
+            </mat-form-field>
+            
+            <mat-form-field appearance="outline">
+              <mat-label>Estado</mat-label>
+              <mat-select formControlName="estado" required>
+                <mat-option value="Prospecto">Prospecto</mat-option>
+                <mat-option value="Cliente Activo">Cliente Activo</mat-option>
+                <mat-option value="Cliente Inactivo">Cliente Inactivo</mat-option>
+              </mat-select>
+              <mat-error
+                *ngIf="datosBasicosControl.get('estado')?.hasError('required')"
+              >
+                Selecciona un estado
+              </mat-error>
+            </mat-form-field>
+          </div>
         </mat-card-content>
         <mat-card-actions>
           <button
@@ -67,6 +79,7 @@
             matStepperNext
             color="primary"
             [disabled]="datosBasicosControl.invalid"
+            
           >
             Siguiente
           </button>
@@ -87,9 +100,7 @@
           <mat-form-field appearance="outline">
             <mat-label>Género</mat-label>
             <mat-select formControlName="genero" required>
-              <mat-option value="Femenino">Femenino</mat-option>
-              <mat-option value="Masculino">Masculino</mat-option>
-              <mat-option value="Otro">Otro</mat-option>
+              <mat-option *ngFor="let gen of genders" [value]="gen.id">{{gen.name}}</mat-option>
             </mat-select>
             <mat-error
               *ngIf="datosPersonalesControl.get('genero')?.hasError('required')"
@@ -98,10 +109,10 @@
             </mat-error>
           </mat-form-field>
 
-          <mat-form-field *ngIf="showEspecificarOtro" appearance="outline">
+          <!-- <mat-form-field *ngIf="showEspecificarOtro" appearance="outline">
             <mat-label>Especificar Otro</mat-label>
             <input matInput formControlName="especificarOtro" />
-          </mat-form-field>
+          </mat-form-field> -->
 
           <!-- Fecha de Nacimiento -->
           <mat-form-field appearance="outline">
@@ -242,9 +253,9 @@
                       (selectionChange)="onDepartamentoChange($event.value)"
                     >
                       <mat-option
-                        *ngFor="let dept of departamentos"
-                        [value]="dept"
-                        >{{ dept }}</mat-option
+                        *ngFor="let dept of locations"
+                        [value]="dept.id"
+                        >{{ dept.name }}</mat-option
                       >
                     </mat-select>
                     <mat-error
@@ -260,9 +271,9 @@
                     <mat-label>Ciudad</mat-label>
                     <mat-select formControlName="ciudad" required>
                       <mat-option
-                        *ngFor="let ciudad of ciudades"
-                        [value]="ciudad"
-                        >{{ ciudad }}</mat-option
+                        *ngFor="let city of cities"
+                        [value]="city.id"
+                        >{{ city.name }}</mat-option
                       >
                     </mat-select>
                     <mat-error
@@ -562,13 +573,26 @@
               <!-- RUC -->
               <mat-form-field appearance="outline">
                 <mat-label>RUC</mat-label>
-                <input matInput formControlName="ruc" required />
+                <input matInput formControlName="ruc" required [disabled]="enableRegisterRuc" readonly="{{enableRegisterRuc}}"/>
                 <mat-error *ngIf="factura.get('ruc')?.hasError('required')">
                   El RUC es obligatorio
                 </mat-error>
               </mat-form-field>
-
+              <mat-card-actions>
+                <button
+                  type="button"
+                  mat-raised-button
+                  (click)="verificarRuc()"
+                  color="primary"
+                  [disabled]="enableRegisterRuc"
+                >
+                  Verificar Ruc
+                </button>
+              </mat-card-actions>
               <!-- Razón Social -->
+              <div *ngIf="enableRegisterRuc">
+                
+              
               <mat-form-field appearance="outline">
                 <mat-label>Razón Social</mat-label>
                 <input matInput formControlName="razonSocial" required />
@@ -597,6 +621,7 @@
                   El estado es obligatorio
                 </mat-error>
               </mat-form-field>
+            </div>
             </mat-card-content>
             <mat-card-actions>
               <button mat-raised-button matStepperPrevious color="primary">
@@ -604,11 +629,11 @@
               </button>
               <button
                 mat-raised-button
-                matStepperNext
+                (click)="saveProgress()"
                 color="primary"
                 [disabled]="factura.invalid"
               >
-                Siguiente
+                Guardar
               </button>
             </mat-card-actions>
           </mat-card>
@@ -616,10 +641,7 @@
       </div>
     </form>
   </mat-step>
-  <!-- Botón de Guardar -->
-  <div class="actions">
-    <button mat-raised-button color="primary" (click)="submit()">
-      Guardar Cambios
-    </button>
-  </div>
 </mat-horizontal-stepper>
+
+<!-- Agrega el botón atrás -->
+<button mat-raised-button color="warn" (click)="goBack()">Atrás</button>

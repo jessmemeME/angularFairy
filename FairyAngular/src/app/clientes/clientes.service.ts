@@ -80,4 +80,8 @@ export class ClientesService {
   getClientes(pagina:number):Observable<any>{
     return this.http.get<any>(`${this.apiUrl}/Clients/ListAllClientsWithPeoplePag?page=${pagina}&pageSize=100`);
   }
+
+  getClientDetails(clientId:number):Observable<any>{
+    return this.http.get<any>(`${this.apiUrl}/Clients/${clientId}`);
+  }
 }
