@@ -73,6 +73,7 @@ export const MY_DATE_FORMATS = {
     //CONFIGURACION FORMATO DE FECHA
     { provide: DateAdapter, useClass: CustomDateAdapter },
     { provide: MAT_DATE_FORMATS, useValue: MY_DATE_FORMATS },
+    provideAnimationsAsync(),
   ],
   bootstrap: [AppComponent]   // Componente raíz
 })
