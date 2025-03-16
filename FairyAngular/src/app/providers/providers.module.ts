@@ -4,7 +4,8 @@ import { ProviderComponentComponent } from './provider-component/provider-compon
 import { ListComponent } from './component/list/list.component';
 import { CreateComponent } from './component/create/create.component';
 import { UpdateComponent } from './component/update/update.component';
-
+import {RouteModule} from './routes/route/route.module';
+import { NgxChartsModule } from '@swimlane/ngx-charts';
 
 
 @NgModule({
@@ -15,7 +16,9 @@ import { UpdateComponent } from './component/update/update.component';
     UpdateComponent
   ],
   imports: [
-    CommonModule
+    NgxChartsModule,
+    CommonModule,
+    RouteModule,
   ]
 })
 export class ProvidersModule { }
