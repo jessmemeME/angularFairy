@@ -1,0 +1,16 @@
+<div class="graficos">
+    <h3>Total de Servicios por Categoría</h3>
+    <ngx-charts-bar-vertical
+      [results]="serviciosPorCategoria"
+      [legend]="true"
+      [showXAxis]="true"
+      [showYAxis]="true">
+    </ngx-charts-bar-vertical>
+  
+    <h3>Servicios Más Solicitados</h3>
+    <ngx-charts-pie-chart
+      [results]="serviciosMasSolicitados"
+      [legend]="true">
+    </ngx-charts-pie-chart>
+  </div>
+  
