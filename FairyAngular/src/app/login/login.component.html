@@ -55,5 +55,8 @@
     <!--<app-alert [message]="returnObject.mensaje" [title]="returnObject.respuesta" [type]="alertType"></app-alert>-->
   </div>
   
-  <router-outlet *ngIf="!mostrarCompPrincipal"></router-outlet>
+  <div style="width: 100%; height: 100%;">
+    <router-outlet *ngIf="!mostrarCompPrincipal"></router-outlet>
+  </div>
+  
   
