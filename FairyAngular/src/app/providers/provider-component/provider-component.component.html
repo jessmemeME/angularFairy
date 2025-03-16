@@ -1,1 +1,91 @@
-<p>provider-component works!</p>
+<div class="card">
+  <div class="card-header">
+    <h4>PROVEEDORES</h4>
+  </div>
+  <div class="card-body">
+    <div class="row">
+        <div class="col-11">
+            <div class="input-group mb-3">
+                <span class="input-group-text" id="basic-addon1">
+                    <i class="bi bi-search"></i>
+                </span>
+                <input type="text" class="form-control" placeholder="Buscar" aria-label="buscar" aria-describedby="buscar">
+              </div>
+        </div>
+        <div class="col-1">
+            <button type="button" class="btn btn-primary">
+                <i class="bi bi-plus-circle-fill"></i>
+            </button>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-8">
+            <table class="table">
+                <thead class="thead">
+                    <tr>
+                        <th scope="col">#</th>
+                        <th scope="col">Cod. de Proveedor</th>
+                        <th scope="col">Nombre de Proveedor</th>
+                        <th scope="col">Tipo</th>
+                        <th scope="col">Empresa</th>
+                        <th scope="col">Responsable</th>
+                        <th scope="col">Estado</th>
+                        <th scope="col">Acciones</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <th scope="row">1</th>
+                        <td>0001</td>
+                        <td>Proveedor 1</td>
+                        <td>Persona Natural</td>
+                        <td>Empresa 1</td>
+                        <td>Responsable 1</td>
+                        <td>Activo</td>
+                        <td>
+                            <button type="button" class="btn btn-primary">
+                                <i class="bi bi-pencil-fill"></i>
+                            </button>
+                            <button type="button" class="btn btn-danger">
+                                <i class="bi bi-trash-fill"></i>
+                            </button>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+        <div class="col-4 ">
+            <div clas="row">
+                <div class="card p-2">
+                    <div class="card-body">
+                      <h5 class="card-title">TOTAL DE SERVICIOS POR CATEGORIA</h5>
+                      <ngx-charts-bar-vertical
+                        [view]="[300, 150]"
+                        [results]="barChartData"
+                        [xAxis]="true"
+                        [yAxis]="true"
+                        [showXAxisLabel]="true"
+                        [showYAxisLabel]="true"
+                        xAxisLabel="Mes"
+                        yAxisLabel="Ingresos">
+                      </ngx-charts-bar-vertical>
+                    </div>
+                  </div>
+            </div>
+            <br>
+            <div clas="row">
+                <div class="card p-2">
+                    <div class="card-body p-2">
+                      <h5 class="card-title">SERVICIOS MAS SOLICITADOS</h5>
+                      <ngx-charts-pie-chart
+                        [view]="[300, 150]"
+                        [results]="pieChartData"
+                        [labels]="true">
+                      </ngx-charts-pie-chart>
+                    </div>
+                  </div>
+            </div>
+        </div>
+    </div>
+    
+  </div>
