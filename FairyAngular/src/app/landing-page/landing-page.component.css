@@ -1,6 +1,7 @@
 .hero-section {
   background-size: cover;
   background-position: cover;
+  background-image: url('../../assets/static/images/fondos/landing-bg.jpg');
 }
 
 .service-card {
