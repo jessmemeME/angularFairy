@@ -5,6 +5,7 @@ import { ListComponent } from './component/list/list.component';
 import { CreateComponent } from './component/create/create.component';
 import { UpdateComponent } from './component/update/update.component';
 import {RouteModule} from './routes/route/route.module';
+import { NgxChartsModule } from '@swimlane/ngx-charts';
 
 
 @NgModule({
@@ -15,6 +16,7 @@ import {RouteModule} from './routes/route/route.module';
     UpdateComponent
   ],
   imports: [
+    NgxChartsModule,
     CommonModule,
     RouteModule,
   ]
