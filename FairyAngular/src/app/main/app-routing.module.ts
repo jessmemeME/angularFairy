@@ -17,7 +17,8 @@ const routes: Routes = [
   { path: 'agenda', loadChildren: () => import('../agenda/agenda.module').then(m => m.AgendaModule), canMatch: [AuthGuard] },
   { path: 'account', loadChildren: () => import('../accounts/account.module').then(m => m.AccountModule) },
   { path: 'auth', loadChildren: () => import('../auth/auth.module').then(m => m.AuthModule) },
-  { path: 'provider', loadChildren: () => import('../providers/providers.module').then(m => m.ProvidersModule) }
+  { path: 'provider', loadChildren: () => import('../providers/providers.module').then(m => m.ProvidersModule) },
+  { path: 'service', loadChildren: () => import('../services/services.module').then(m => m.ServicesModule) }
 ];
 
 @NgModule({
