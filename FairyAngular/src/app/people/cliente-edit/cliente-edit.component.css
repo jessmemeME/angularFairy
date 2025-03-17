@@ -1,0 +1,25 @@
+.container {
+    padding: 20px;
+  }
+  
+  mat-grid-list {
+    width: 100%;
+  }
+  
+  mat-form-field {
+    width: 100%;
+  }
+/*TRES COLUMNAS*/
+  .grid-container {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr); /* Tres columnas iguales */
+    gap: 16px; /* Espaciado entre elementos */
+  }
+
+  .grid-item {
+    width: 100%;
+  }
+
+  .full-width {
+    grid-column: span 3; /* Ocupa las 3 columnas para algunos campos */
+  }

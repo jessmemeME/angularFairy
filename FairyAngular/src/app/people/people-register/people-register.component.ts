@@ -2,25 +2,22 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, FormArray, Validators, FormControl } from '@angular/forms';
 import { MatStepper } from '@angular/material/stepper';
 import { Router } from '@angular/router';  // Importa el servicio Router
-import { Client} from '../../../../models/clients.model';//llamamos a nuestra interface
-import { Gender, People } from '../../../../models/basic-info.model';
-import { DocumentType } from '../../../../models/basic-info.model';
-import { ClientesService } from '../../clientes.service';
+import { Client} from '../../../models/clients.model';//llamamos a nuestra interface
+import { Gender, People } from '../../../models/basic-info.model';
+import { DocumentType } from '../../../models/basic-info.model';
+import { PeopleService } from '../people.service';
 import { first } from 'rxjs';
-import { citiesResponse, Locations, LocationsResponse } from '../../../../models/locations.models';
-import { Contacts } from '../../../../models/contacts.models';
-import { BusinessInvoiceData } from '../../../../models/bussiness.models';
-import { PeopleService } from '../../../people/people.service';
-import { PeopleModule } from '../../../people/people.module';
-import { PeopleRegisterComponent } from '../../../people/people-register/people-register.component';
+import { citiesResponse, Locations, LocationsResponse } from '../../../models/locations.models';
+import { Contacts } from '../../../models/contacts.models';
+import { BusinessInvoiceData } from '../../../models/bussiness.models';
 
 
 @Component({
-  selector: 'app-cliente-register',
-  templateUrl: './cliente-register.component.html',
-  styleUrls: ['./cliente-register.component.css']
+  selector: 'app-people-register',
+  templateUrl: './people-register.component.html',
+  styleUrls: ['./people-register.component.css']
 })
-export class ClienteRegisterComponent implements OnInit {
+export class PeopleRegisterComponent implements OnInit {
   clienteForm!: FormGroup;
   showEspecificarOtro: boolean = false;
   departamentos: string[] = ['Asunción', 'Central', 'Cordillera', 'Guairá', 'Caaguazú', 'Caazapá', 'Itapúa', 'Misiones', 'Paraguarí', 'Alto Paraná', 'Ñeembucú', 'Amambay', 'Canindeyú', 'Presidente Hayes', 'Boquerón', 'Alto Paraguay', 'Concepción'];
@@ -53,7 +50,7 @@ export class ClienteRegisterComponent implements OnInit {
   genders: Gender[] = [];
   enableRegisterRuc: boolean = false;
 
-  constructor(private fb: FormBuilder, private router: Router, private clientesService: ClientesService) {
+  constructor(private fb: FormBuilder, private router: Router, private peopleService: PeopleService) {
     this.clienteForm = this.fb.group({
       datosBasicos: this.fb.group({
         nombres: ['', Validators.required],
@@ -80,7 +77,7 @@ export class ClienteRegisterComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.clientesService.getLocations().subscribe(
+    this.peopleService.getLocations().subscribe(
       (data) => {
         this.locations = data;
         console.log('Datos recibidos:', this.locations);
@@ -90,7 +87,7 @@ export class ClienteRegisterComponent implements OnInit {
       }
     );
 
-    this.clientesService.getDocumentTypes().subscribe(
+    this.peopleService.getDocumentTypes().subscribe(
       (data) => {
         this.documentTypes = data;
         console.log('Tipos de documentos:', this.documentTypes);
@@ -99,7 +96,7 @@ export class ClienteRegisterComponent implements OnInit {
         console.error('Error al obtener los tipos de documentos:', error);
       }
     );
-    this.clientesService.getAllGender().subscribe(
+    this.peopleService.getAllGender().subscribe(
       (data) => {
         this.genders = data;
         console.log('Geners:', this.genders);
@@ -109,9 +106,9 @@ export class ClienteRegisterComponent implements OnInit {
       });
   }
 
-  // Método para volver a la lista de clientes
+  // Método para volver a la lista de people
   goBack(): void {
-    this.router.navigate(['/clients']);  // Redirige a la página principal de clientes
+    this.router.navigate(['/clients']);  // Redirige a la página principal de people
   }
 
   //DATOS PERSONALES
@@ -377,7 +374,7 @@ get redesSociales(): FormArray {
     const numeroDocumento = this.datosBasicosControl.get('numeroDocumento')!.value;
     const tipoDocumento = this.datosBasicosControl.get('tipoDocumento')!.value;
     console.log('Verificar documento:', numeroDocumento, tipoDocumento);
-    this.clientesService.getPeopleByDocumentNumber(numeroDocumento, tipoDocumento).subscribe(
+    this.peopleService.getPeopleByDocumentNumber(numeroDocumento, tipoDocumento).subscribe(
       (response) => {
         console.log('Documento verificado:', response);
         if (response.length == 0) {
@@ -392,7 +389,7 @@ get redesSociales(): FormArray {
   verificarRuc(): void {
     const numeroDocumento = this.facturacion.controls[0].get('ruc')!.value;
     console.log('Verificar documento:', numeroDocumento);
-    this.clientesService.getBussinessInvoiceDataByRuc(numeroDocumento).subscribe(
+    this.peopleService.getBussinessInvoiceDataByRuc(numeroDocumento).subscribe(
       (response) => {
         console.log('Documento verificado:', response);
         if (response.length == 0) {
@@ -509,9 +506,9 @@ get redesSociales(): FormArray {
         all_client_invoice.push(client_invoice);
       });
       
-        this.clientesService.RegisterClientsAllForm(client, people, all_locations,all_contacts,all_client_invoice).subscribe(
+        this.peopleService.RegisterClientsAllForm(client, people, all_locations,all_contacts,all_client_invoice).subscribe(
           response => {
-            console.log('Cliente y persona creados', response);
+            console.log('People y persona creados', response);
             this.router.navigate(['/clients']);
           },
           error => {

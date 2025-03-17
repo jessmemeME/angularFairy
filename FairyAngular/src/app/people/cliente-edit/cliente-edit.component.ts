@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, FormArray, Validators, FormControl } from '@angular/forms';
 import { MatStepper } from '@angular/material/stepper';
-import { Router } from '@angular/router';  // Importa el servicio Router
+import { Router, ActivatedRoute } from '@angular/router';  // Importa el servicio Router
 import { Client} from '../../../../models/clients.model';//llamamos a nuestra interface
 import { Gender, People } from '../../../../models/basic-info.model';
 import { DocumentType } from '../../../../models/basic-info.model';
@@ -10,17 +10,14 @@ import { first } from 'rxjs';
 import { citiesResponse, Locations, LocationsResponse } from '../../../../models/locations.models';
 import { Contacts } from '../../../../models/contacts.models';
 import { BusinessInvoiceData } from '../../../../models/bussiness.models';
-import { PeopleService } from '../../../people/people.service';
-import { PeopleModule } from '../../../people/people.module';
-import { PeopleRegisterComponent } from '../../../people/people-register/people-register.component';
 
 
 @Component({
-  selector: 'app-cliente-register',
-  templateUrl: './cliente-register.component.html',
-  styleUrls: ['./cliente-register.component.css']
+  selector: 'app-cliente-edit',
+  templateUrl: './cliente-edit.component.html',
+  styleUrls: ['./cliente-edit.component.css']
 })
-export class ClienteRegisterComponent implements OnInit {
+export class ClienteEditComponent implements OnInit {
   clienteForm!: FormGroup;
   showEspecificarOtro: boolean = false;
   departamentos: string[] = ['Asunción', 'Central', 'Cordillera', 'Guairá', 'Caaguazú', 'Caazapá', 'Itapúa', 'Misiones', 'Paraguarí', 'Alto Paraná', 'Ñeembucú', 'Amambay', 'Canindeyú', 'Presidente Hayes', 'Boquerón', 'Alto Paraguay', 'Concepción'];
@@ -53,7 +50,7 @@ export class ClienteRegisterComponent implements OnInit {
   genders: Gender[] = [];
   enableRegisterRuc: boolean = false;
 
-  constructor(private fb: FormBuilder, private router: Router, private clientesService: ClientesService) {
+  constructor(private fb: FormBuilder, private router: Router,private route: ActivatedRoute, private clientesService: ClientesService) {
     this.clienteForm = this.fb.group({
       datosBasicos: this.fb.group({
         nombres: ['', Validators.required],
@@ -107,11 +104,108 @@ export class ClienteRegisterComponent implements OnInit {
       (error) => {
         console.error('Error al obtener los generos:', error);
       });
+
+    const clientId = Number(this.route.snapshot.paramMap.get('clientId'));
+    if (clientId) {
+      this.loadClientData(clientId);
+    }
   }
 
   // Método para volver a la lista de clientes
   goBack(): void {
     this.router.navigate(['/clients']);  // Redirige a la página principal de clientes
+  }
+
+
+  // Método para cargar los datos del cliente y completar el formulario
+  private loadClientData(clientId: number): void {
+    this.clientesService.getClientDetails(clientId).subscribe(
+      
+      (data: any) => {
+        console.log('Datos del cliente:', data);
+        console.log('Datos del BasicInfoPeople:', data.BasicInfoPeople);
+        // Se espera que 'data' contenga: ClientsClient, BasicInfoPeople, Locations, Contacts y BusinessInvoiceData
+        // Completar sección de Datos Básicos
+        this.clienteForm.patchValue({
+          datosBasicos: {
+            nombres: data.basicInfoPeople.first_name,
+            apellidos: data.basicInfoPeople.last_name,
+            numeroDocumento: data.basicInfoPeople.document_number,
+            tipoDocumento: data.basicInfoPeople.document_type_id,  // Ajusta según corresponda
+            estado: data.clientsClient.type
+          },
+          datosPersonales: {
+            genero: data.basicInfoPeople.gender_id,
+            // Suponiendo que si existe date_of_birth se formatea a DD/MM/YYYY
+            fechaNacimiento: data.basicInfoPeople.date_of_birth ? this.formatearFecha(data.basicInfoPeople.date_of_birth) : ''
+          }
+        });
+
+        // Limpiar y reconstruir el FormArray de Ubicaciones
+        const ubicacionesFA = this.clienteForm.get('ubicaciones') as FormArray;
+        ubicacionesFA.clear();
+        data.locations.forEach((loc: any) => {
+          ubicacionesFA.push(this.fb.group({
+            nombreUbicacion: [loc.name, Validators.required],
+            ubicacionPrincipal: [loc.is_main_location],
+            callePrincipal: [loc.street1, Validators.required],
+            calleSecundaria: [loc.street2, Validators.required],
+            numeroCasa: [loc.house_number, Validators.required],
+            departamento: [loc.departament_id, Validators.required],
+            ciudad: [loc.city_id, Validators.required],
+            barrio: [''],  // Completa si el endpoint lo incluye
+            ubicacionMaps: [''],
+            observacion: [loc.observation],
+            estadoUbicacion: [loc.is_active ? 'Activo' : 'Inactivo', Validators.required]
+          }));
+        });
+
+        // Procesar los contactos: separamos contactos normales y redes sociales según contact_type_id
+        const contactosFA = this.clienteForm.get('contactos') as FormArray;
+        const redesSocialesFA = this.clienteForm.get('redesSociales') as FormArray;
+        contactosFA.clear();
+        redesSocialesFA.clear();
+        data.contacts.forEach((contact: any) => {
+          if (contact.contact_type_id === 1) {
+            contactosFA.push(this.fb.group({
+              tipoContacto: [contact.name, Validators.required],
+              contacto: [contact.contact_data, Validators.required],
+              contactoPrincipal: [contact.is_main_contact],
+              estadoContacto: [contact.is_active ? 'Activo' : 'Inactivo', Validators.required]
+            }));
+          } else if (contact.contact_type_id === 2) {
+            redesSocialesFA.push(this.fb.group({
+              tipoRedSocial: [contact.name, Validators.required],
+              usuario: [contact.contact_data, Validators.required],
+              enlace: [''],  // Ajusta si en el endpoint existe información adicional
+              estadoRedSocial: [contact.is_active ? 'Activo' : 'Inactivo', Validators.required]
+            }));
+          }
+        });
+
+        // Procesar datos de facturación
+        const facturacionFA = this.clienteForm.get('facturacion') as FormArray;
+        facturacionFA.clear();
+        data.businessInvoiceData.forEach((invoice: any) => {
+          facturacionFA.push(this.fb.group({
+            ruc: [invoice.document_number, Validators.required],
+            razonSocial: [invoice.name, Validators.required],
+            facturacionPrincipal: [true],  // O asigna según la lógica de negocio
+            estadoFacturacion: [invoice.is_active ? 'Activo' : 'Inactivo', Validators.required]
+          }));
+        });
+      },
+      (error) => console.error('Error al cargar los datos del cliente:', error)
+    );
+  }
+
+  // Método auxiliar para formatear la fecha (de ISO a DD/MM/YYYY)
+  private formatearFecha(fechaISO: string): string {
+    const date = new Date(fechaISO);
+    const dia = ('0' + date.getDate()).slice(-2);
+    const mes = ('0' + (date.getMonth() + 1)).slice(-2);
+    const anio = date.getFullYear();
+    return `${dia}/${mes}/${anio}`;
   }
 
   //DATOS PERSONALES

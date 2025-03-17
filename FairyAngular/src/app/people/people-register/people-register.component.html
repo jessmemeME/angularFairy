@@ -57,20 +57,6 @@
                 El apellido es obligatorio
               </mat-error>
             </mat-form-field>
-            
-            <mat-form-field appearance="outline">
-              <mat-label>Estado</mat-label>
-              <mat-select formControlName="estado" required>
-                <mat-option value="Prospecto">Prospecto</mat-option>
-                <mat-option value="Cliente Activo">Cliente Activo</mat-option>
-                <mat-option value="Cliente Inactivo">Cliente Inactivo</mat-option>
-              </mat-select>
-              <mat-error
-                *ngIf="datosBasicosControl.get('estado')?.hasError('required')"
-              >
-                Selecciona un estado
-              </mat-error>
-            </mat-form-field>
           </div>
         </mat-card-content>
         <mat-card-actions>
@@ -642,6 +628,6 @@
     </form>
   </mat-step>
 </mat-horizontal-stepper>
-<app-people-register></app-people-register>
+
 <!-- Agrega el botón atrás -->
 <button mat-raised-button color="warn" (click)="goBack()">Atrás</button>

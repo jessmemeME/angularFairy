@@ -2,11 +2,11 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { ReactiveFormsModule } from '@angular/forms';
 
-import { ClientesRoutingModule } from './clientes-routing.module';
-import { ClienteSearchComponent } from './clientes/cliente-search/cliente-search.component';
-import { ClienteRegisterComponent } from './clientes/cliente-register/cliente-register.component';
-import { ClienteMainComponent } from './clientes/cliente-main/cliente-main.component';
-import { ClienteEditComponent } from './clientes/cliente-edit/cliente-edit.component';
+import { PeopleRoutingModule } from './people-routing.module';
+//import { PeopleSearchComponent } from './people-search/People-search.component';
+import { PeopleRegisterComponent } from './people-register/people-register.component';
+//import { PeopleMainComponent } from './paraeople-main/People-main.component';
+//import { PeopleEditComponent } from './people-edit/People-edit.component';
 
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
@@ -23,19 +23,18 @@ import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatNativeDateModule } from '@angular/material/core';
 import { MatTableModule } from '@angular/material/table';
 import { MatIconModule } from '@angular/material/icon';
-import { PeopleModule } from '../people/people.module';
 
 
 @NgModule({
   declarations: [
-    ClienteSearchComponent,
-    ClienteRegisterComponent,
-    ClienteMainComponent,
-    ClienteEditComponent
+    //PeopleSearchComponent,
+    PeopleRegisterComponent,
+    //PeopleMainComponent,
+    //PeopleEditComponent
   ],
   imports: [
     CommonModule,
-    ClientesRoutingModule,
+    PeopleRoutingModule,
     ReactiveFormsModule,
     //Modulos del materialize
     MatFormFieldModule,
@@ -51,7 +50,7 @@ import { PeopleModule } from '../people/people.module';
     MatCheckboxModule,
     MatTableModule, // Para usar mat-table
     MatIconModule,  // Para usar mat-icon
-    PeopleModule
-  ]
+  ],
+  exports: [PeopleRegisterComponent]
 })
-export class ClientesModule { }
+export class PeopleModule { }
