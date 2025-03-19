@@ -6,3 +6,4 @@ export * from './event.model';
 export * from './login';
 export * from './payment.model';
 export * from './vendor.model';
+export * from './providers.model';

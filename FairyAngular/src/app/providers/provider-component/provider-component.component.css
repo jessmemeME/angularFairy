@@ -1,0 +1,5 @@
+.table-container {
+    max-height: 475px; /* 🔥 Altura máxima de la tabla */
+    overflow-y: auto;  /* 🔥 Habilita el scroll vertical si se supera el tamaño */
+    border: 1px solid #ddd; /* Opcional: Agregar un borde para visualización */
+  }
