@@ -12,7 +12,8 @@ const routes: Routes = [
   // 🔹 Rutas protegidas (requieren autenticación)
   { path: 'dashboard', loadChildren: () => import('../dashboard/dashboard.module').then(m => m.DashboardModule), canMatch: [AuthGuard] },
   { path: 'settings', loadChildren: () => import('../settings/basic-info/basic-info.module').then(m => m.BasicInfoModule), canMatch: [AuthGuard] },
-  { path: 'events', loadChildren: () => import('../event-creation/event-creation.module').then(m => m.EventCreationModule), canMatch: [AuthGuard] },
+  { path: 'events-old', loadChildren: () => import('../event-creation/event-creation.module').then(m => m.EventCreationModule), canMatch: [AuthGuard] },
+  { path: 'events', loadChildren: () => import('../events/events.module').then(m => m.EventsModule) },
   { path: 'clients', loadChildren: () => import('../clientes/clientes.module').then(m => m.ClientesModule), canMatch: [AuthGuard] },
   { path: 'agenda', loadChildren: () => import('../agenda/agenda.module').then(m => m.AgendaModule), canMatch: [AuthGuard] },
   { path: 'account', loadChildren: () => import('../accounts/account.module').then(m => m.AccountModule) },
