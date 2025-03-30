@@ -55,3 +55,63 @@ body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
 
 html, body { height: 100%; }
 body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+
+
+
+/* Cambiar color global de .btn-primary */
+.btn-primary {
+    background-color: #CB8587 !important; /* rosa fuerte */
+    border-color: #CB8587 !important;
+    color: #fff !important;
+  }
+  
+  .btn-primary:hover {
+    background-color: #CB8587 !important;
+    border-color: #CB8587 !important;
+  }
+  
+  /* Cambiar color global de .btn-danger */
+  .btn-danger {
+    background-color: #a8385d !important; /* rojo fuerte */
+    border-color: #a8385d !important;
+    color: #fff !important;
+  }
+  
+  .btn-danger:hover {
+    background-color: #a8385d !important;
+    border-color: #a8385d !important;
+  }
+  
+
+  .btn-outline-primary {
+    color: #CB8587 !important; /* texto rosa fuerte */
+    border-color: #CB8587 !important;
+    background-color: transparent !important;
+  }
+  
+  .btn-outline-primary:hover,
+  .btn-outline-primary:focus,
+  .btn-outline-primary:active {
+    background-color: #CB8587 !important;
+    color: #fff !important;
+    border-color: #CB8587 !important;
+  }
+
+  .text-primary {
+    color: #CB8587 !important;
+  }
+    
+
+.btn-warning {
+  background-color: #f6c57b !important;  /* ejemplo: dorado suave */
+  border-color: #f6c57b !important;
+  color: #000 !important; /* texto oscuro para mejor contraste */
+}
+
+.btn-warning:hover,
+.btn-warning:focus,
+.btn-warning:active {
+  background-color: #e0ae61 !important;
+  border-color: #e0ae61 !important;
+  color: #000 !important;
+}

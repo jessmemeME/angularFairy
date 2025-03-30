@@ -1,0 +1,52 @@
+.card-compact .card-body {
+    background-color: #fff5f7; /* Rosa muy claro */
+    padding: 0.5rem 0.75rem;
+  }
+  
+
+.card-compact {
+    font-size: 0.72rem;
+    border: none;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1); /* Sombra suave */
+ }
+  
+
+ .card-compact {
+    font-size: 0.60rem;
+  }
+
+  .card-compact .form-group {
+    margin-bottom: 0.2rem;
+
+  }
+
+  .card-compact input,
+  .card-compact select {
+    font-size: 0.72rem;
+    padding: 0.15rem 0.4rem;
+    height: calc(1.2em + 0.4rem);
+  }
+
+  .card-compact label {
+    margin-bottom: 0;
+    font-weight: 500;
+  }
+
+  .card-compact .badge {
+    font-size: 0.60rem;
+    padding: 0.2rem 0.5rem;
+  }
+
+  .card-compact h5 {
+    font-size: 0.70rem;
+    margin-bottom: 0.4rem;
+  }
+
+  .card-compact .card-body {
+    padding: 0.5rem 0.75rem;
+  }
+
+  .card-compact .card-header {
+    padding: 0.4rem 0.75rem;
+    background-color: #fce4ec; /* Rosa bebé */
+  }
