@@ -11,51 +11,23 @@ export class PeopleService {
 
   private apiUrl = 'http://localhost:5229';
   
-    constructor(private http: HttpClient) { }
-  
-    RegisterClientsAllForm(client:Client, people:People,locations:any[],contacts:any[],client_invoice:any[]):Observable<any>{
-      console.log(client);
-      console.log(people);
-      console.log(locations);
-      console.log(contacts);
-      console.log(client_invoice);
+  constructor(private http: HttpClient) { }
 
-      const headers = new HttpHeaders({
-        'content-type': 'application/json',
-        'Access-Control-Allow-Origin': 'http://localhost:4200',
-        'Access-Control-Allow-Methods': 'POST, GET, OPTIONS, PUT, DELETE',
-        'Access-Control-Allow-Headers': 'Content-Type, Access-Control-Allow-Headers, Authorization, X-Requested-With'
-      });
+  RegisterClientsAllForm( people:People,locations:any[],contacts:any[],client_invoice:any[]):Observable<any>{
 
+    console.log(locations);
+    console.log(contacts);
+    console.log(client_invoice);
 
-      // return this.http.post<People>(`${this.apiUrl}/People/RegisterPeople`, people,{ headers: headers}).pipe(
-      //   concatMap((peopleCreated) => {
-      //     console.log('que retorna? '+peopleCreated);
-      //     // Una vez que la persona se ha creado, asignamos el ID de la persona al cliente
-      //     client.people_id = peopleCreated.id; // Suponiendo que 'id' es el campo que se retorna
-      //     // Luego, creamos el cliente con la persona recién creada
-      //     return this.http.post<Clients>(`${this.apiUrl}/Clients/RegisterClients`, client,{ headers: headers});
-      //   })
-      // );
-      const body=JSON.stringify({ClientsClient:client,BasicInfoPeople:people,Contacts:contacts,Locations:locations,BusinessInvoiceData:client_invoice});
-      return this.http.post<any>(`${this.apiUrl}/Clients/RegisterClientsAllForm`, body, { headers: headers}).pipe();
-    }
-
-    /*postData(data:Clients ): Observable<any> {
-        const headers = new HttpHeaders({
-          'content-type': 'application/json',
-          'Access-Control-Allow-Origin': 'http://localhost:4200',
-          'Access-Control-Allow-Methods': 'POST, GET, OPTIONS, PUT, DELETE',
-          'Access-Control-Allow-Headers': 'Content-Type, Access-Control-Allow-Headers, Authorization, X-Requested-With'
-        });
-    
-        
-    
-        const body=JSON.stringify(data);
-        console.log(body)
-        // Realizar una solicitud POST con datos en el cuerpo
-        return this.http.post<any>(`${this.apiUrl}/Clients/RegisterClients`, data, { headers: headers}).pipe(tap((data => console.log(""))));
-    }*/
+    const headers = new HttpHeaders({
+      'content-type': 'application/json',
+      'Access-Control-Allow-Origin': 'http://localhost:4200',
+      'Access-Control-Allow-Methods': 'POST, GET, OPTIONS, PUT, DELETE',
+      'Access-Control-Allow-Headers': 'Content-Type, Access-Control-Allow-Headers, Authorization, X-Requested-With'
+    });
+    const body=JSON.stringify({BasicInfoPeople:people,Contacts:contacts,Locations:locations,BusinessInvoiceData:client_invoice});
+    return this.http.post<any>(`${this.apiUrl}/People/RegisterPeopleWithAllData`, body, { headers: headers}).pipe();
+  }
 
   getLocations():Observable<any>{
     return this.http.get<any>(`${this.apiUrl}/Locations/getAllDepartamentsCities`);
@@ -75,13 +47,8 @@ export class PeopleService {
 
   getBussinessInvoiceDataByRuc(ruc:string):Observable<any>{
     return this.http.get<any>(`${this.apiUrl}/Business/BusinessInvoiceDataByRuc?document_number=${ruc}`);
-  }
-
-  getClientes(pagina:number):Observable<any>{
-    return this.http.get<any>(`${this.apiUrl}/Clients/ListAllClientsWithPeoplePag?page=${pagina}&pageSize=100`);
-  }
-
-  getClientDetails(clientId:number):Observable<any>{
-    return this.http.get<any>(`${this.apiUrl}/Clients/${clientId}`);
+  }  
+  getAllContactTypes():Observable<any>{ 
+    return this.http.get<any>(`${this.apiUrl}/BasicInfo/listAllContactType`);
   }
 }

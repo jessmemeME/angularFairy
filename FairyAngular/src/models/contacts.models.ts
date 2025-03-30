@@ -33,3 +33,15 @@ export interface Contacts {
     created_user_id?: number; // ID del usuario que creó el contacto
     updated_user_id?: number; // ID del usuario que actualizó el contacto
 }; 
+
+
+export interface ContactType {
+    id?: number; // ID del tipo de contacto
+    name?: string; // Nombre del tipo de contacto
+    description?: string; // Descripción del tipo de contacto
+    created_date?: string; // Fecha de creación
+    updated_date?: string; // Fecha de última actualización
+    is_active?: boolean; // Indica si el tipo de contacto está activo
+    created_user_id?: number; // ID del usuario que creó el tipo de contacto
+    updated_user_id?: number; // ID del usuario que actualizó el tipo de contacto
+};

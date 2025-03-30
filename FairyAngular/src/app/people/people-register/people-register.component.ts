@@ -8,7 +8,7 @@ import { DocumentType } from '../../../models/basic-info.model';
 import { PeopleService } from '../people.service';
 import { first } from 'rxjs';
 import { citiesResponse, Locations, LocationsResponse } from '../../../models/locations.models';
-import { Contacts } from '../../../models/contacts.models';
+import { Contacts, ContactType } from '../../../models/contacts.models';
 import { BusinessInvoiceData } from '../../../models/bussiness.models';
 
 
@@ -20,34 +20,12 @@ import { BusinessInvoiceData } from '../../../models/bussiness.models';
 export class PeopleRegisterComponent implements OnInit {
   clienteForm!: FormGroup;
   showEspecificarOtro: boolean = false;
-  departamentos: string[] = ['Asunción', 'Central', 'Cordillera', 'Guairá', 'Caaguazú', 'Caazapá', 'Itapúa', 'Misiones', 'Paraguarí', 'Alto Paraná', 'Ñeembucú', 'Amambay', 'Canindeyú', 'Presidente Hayes', 'Boquerón', 'Alto Paraguay', 'Concepción'];
-  ciudades: string[] = [];
-  ciudadesPorDepartamento: Record<string, string[]> = {
-    'Asunción': ['Asunción'],
-    'Central': ['San Lorenzo', 'Fernando de la Mora', 'Lambaré', 'Luque', 'Areguá', 'Capiatá', 'Guarambaré', 'Itá', 'Itauguá', 'Limpio', 'Mariano Roque Alonso', 'Nueva Italia', 'Ñemby', 'San Antonio', 'Villa Elisa', 'Villeta', 'Ypacaraí', 'Ypané'],
-    'Concepción': ['Concepción', 'Horqueta', 'Loreto', 'San Carlos del Apa', 'San Lázaro', 'Belén', 'Yby Yaú', 'Sargento José Félix López'],
-    'San Pedro': ['San Pedro de Ycuamandiyú', 'Capiibary', 'Choré', 'General Elizardo Aquino', 'Guayaibí', 'Itacurubí del Rosario', 'Liberación', 'Lima', 'Nueva Germania', 'San Estanislao', 'Santa Rosa del Aguaray', 'Tacuatí', 'Unión', 'Villa del Rosario', 'Yataity del Norte'],
-    'Cordillera': ['Caacupé', 'Altos', 'Atyrá', 'Arroyos y Esteros', 'Caraguatay', 'Emboscada', 'Eusebio Ayala', 'Isla Pucú', 'Itacurubí de la Cordillera', 'Juan de Mena', 'Loma Grande', 'Mbocayaty del Yhaguy', 'Piribebuy', 'Primero de Marzo', 'San Bernardino', 'Santa Elena', 'Tobatí', 'Valenzuela'],
-    'Guairá': ['Villarrica', 'Borja', 'Capitán Mauricio José Troche', 'Doctor Bottrell', 'Félix Pérez Cardozo', 'Independencia', 'Iturbe', 'Mbocayaty', 'Natalicio Talavera', 'Ñumí', 'Paso Yobái', 'San Salvador', 'Yataity'],
-    'Caaguazú': ['Coronel Oviedo', 'Caaguazú', 'Carayaó', 'Doctor Cecilio Báez', 'Doctor Juan Manuel Frutos', 'J. Eulogio Estigarribia', 'José Domingo Ocampos', 'La Pastora', 'Mcal. Francisco S. López', 'Nueva Londres', 'Raúl Arsenio Oviedo', 'Repatriación', 'San Joaquín', 'San José de los Arroyos', 'Simón Bolívar', 'Tembiaporá', 'Vaquería', 'Yhú'],
-    'Caazapá': ['Caazapá', 'Abaí', 'Buena Vista', 'Doctor Moisés S. Bertoni', 'Fulgencio Yegros', 'General Higinio Morínigo', 'Maciel', 'San Juan Nepomuceno', 'Tavaí', 'Yuty'],
-    'Itapúa': ['Encarnación', 'Alborada', 'Alto Verá', 'Bella Vista', 'Cambyretá', 'Capitán Meza', 'Capitán Miranda', 'Carmen del Paraná', 'Coronel Bogado', 'Edelira', 'Fram', 'General Artigas', 'General Delgado', 'Hohenau', 'Itapúa Poty', 'Jesús', 'La Paz', 'Mayor Otaño', 'Natalio', 'Nueva Alborada', 'Obligado', 'Pirapó', 'San Cosme y Damián', 'San Juan del Paraná', 'San Pedro del Paraná', 'Tomás Romero Pereira', 'Trinidad', 'Yatytay'],
-    'Misiones': ['San Juan Bautista', 'Ayolas', 'San Ignacio', 'Santa Rosa', 'Santiago', 'San Miguel', 'San Patricio', 'Santa María', 'Yabebyry', 'Villa Florida'],
-    'Paraguarí': ['Paraguarí', 'Acahay', 'Caapucú', 'Carapeguá', 'Escobar', 'Gral. Bernardino Caballero', 'La Colmena', 'Mbuyapey', 'Pirayú', 'Quyquyhó', 'San Roque González', 'Sapucai', 'Tebicuarymí', 'Yaguarón', 'Ybycuí', 'Ybytimí'],
-    'Alto Paraná': ['Ciudad del Este', 'Domingo Martínez de Irala', 'Dr. Juan León Mallorquín', 'Hernandarias', 'Iruña', 'Itakyry', 'Los Cedrales', 'Mbaracayú', 'Minga Guazú', 'Minga Porã', 'Naranjal', 'Presidente Franco', 'San Alberto', 'San Cristóbal', 'Santa Fe del Paraná', 'Santa Rita', 'Santa Rosa del Monday'],
-    'Ñeembucú': ['Pilar', 'Alberdi', 'Cerrito', 'Desmochados', 'Gral. José E. Díaz', 'Guazú Cuá', 'Humaitá', 'Isla Umbú', 'Laureles', 'Mayor Martínez', 'Paso de Patria', 'San Juan Bautista de Ñeembucú', 'Tacuaras', 'Villa Franca', 'Villa Oliva'],
-    'Amambay': ['Pedro Juan Caballero', 'Bella Vista Norte', 'Capitán Bado', 'Karapaí', 'Zanja Pytã'],
-    'Canindeyú': ['Salto del Guairá', 'Corpus Christi', 'Curuguaty', 'Gral. Francisco Caballero Álvarez', 'Itanará', 'Katueté', 'La Paloma', 'Nueva Esperanza', 'Villa Ygatimí', 'Yasy Cañy', 'Yby Pytã'],
-    'Presidente Hayes': ['Villa Hayes', 'Benjamín Aceval', 'General Bruguez', 'José Falcón', 'Nanawa', 'Pozo Colorado', 'Puerto Pinasco', 'Teniente Esteban Martínez'],
-    'Boquerón': ['Filadelfia', 'Mariscal Estigarribia', 'Loma Plata'],
-    'Alto Paraguay': ['Fuerte Olimpo', 'Bahía Negra', 'Carmelo Peralta', 'Puerto Casado']
-  };
-
   locations: LocationsResponse[] = [];
   cities: citiesResponse[] = [];
   documentTypes: DocumentType[] = [];
   enableRegisterClient: boolean = false;
   genders: Gender[] = [];
+  contactTypes: ContactType[] = [];
   enableRegisterRuc: boolean = false;
 
   constructor(private fb: FormBuilder, private router: Router, private peopleService: PeopleService) {
@@ -67,7 +45,6 @@ export class PeopleRegisterComponent implements OnInit {
       }),
       ubicaciones: this.fb.array([this.crearUbicacion()]),
       contactos: this.fb.array([this.crearContacto()]),
-      redesSociales: this.fb.array([this.crearRedSocial()]),
       facturacion: this.fb.array([this.crearDatoFacturacion()])
 
     });
@@ -104,6 +81,15 @@ export class PeopleRegisterComponent implements OnInit {
       (error) => {
         console.error('Error al obtener los generos:', error);
       });
+    this.peopleService.getAllContactTypes().subscribe(
+      (data) => {
+        this.contactTypes = data;
+        console.log('Tipos de contactos:', this.contactTypes);
+      },
+      (error) => {
+        console.error('Error al obtener los tipos de contactos:', error);
+      }
+    );
   }
 
   // Método para volver a la lista de people
@@ -288,7 +274,8 @@ removerContacto(index: number): void {
 crearContacto(): FormGroup {
   return this.fb.group({
     tipoContacto: ['', Validators.required],
-    contacto: ['', Validators.required],
+    nombreContacto: ['', Validators.required],
+    datoDeContacto: ['', Validators.required],
     contactoPrincipal: [true],
     estadoContacto: ['Activo', Validators.required] // Valor por defecto "Activo"
   });
@@ -304,30 +291,6 @@ validarContactoPrincipal(index: number): void {
 
 get contactos(): FormArray {
   return this.clienteForm.get('contactos') as FormArray;
-}
-
-
-//---------------------------------------------------------
-//REDES SOCIALES
-agregarRedSocial(): void {
-  this.redesSociales.push(this.crearRedSocial());
-}
-
-removerRedSocial(index: number): void {
-  this.redesSociales.removeAt(index);
-}
-
-crearRedSocial(): FormGroup {
-  return this.fb.group({
-    tipoRedSocial: ['', Validators.required],
-    usuario: ['', Validators.required],
-    enlace: [''],
-    estadoRedSocial: ['Activo', Validators.required] // "Activo" por defecto
-  });
-}
-
-get redesSociales(): FormArray {
-  return this.clienteForm.get('redesSociales') as FormArray;
 }
 
   //---------------------------------------------------------
@@ -352,15 +315,6 @@ get redesSociales(): FormArray {
 
 
 //---------------------------------------------------------
-  submitTEst() {
-    console.log('Datos del cliente:', this.clienteForm.value);
-    
-    if (this.clienteForm.valid) {
-      
-    } else {
-      console.error('El formulario no es válido.');
-    }
-  }
 
   get datosBasicosControl(): FormGroup {
     return this.clienteForm.get('datosBasicos') as FormGroup;
@@ -414,10 +368,6 @@ get redesSociales(): FormArray {
         date_of_birth: new Date().toISOString(), description: 'New user', is_active: true, created_date: new Date().toISOString(), 
         updated_date: new Date().toISOString(), age_group_id: 1,gender_id:0, type_of_diner_id:1, created_user_id: 1, updated_user_id: 1};
 
-      let client: Client = { type: this.datosBasicosControl.get('estado')!.value, 
-        name:this.datosBasicosControl.get('nombres')!.value + '_' + this.datosBasicosControl.get('apellidos')!.value,
-        description: 'New user', is_confirmated: true, created_date: new Date().toISOString(), 
-        updated_date: new Date().toISOString(), is_active: true, created_user_id: 1, people_id: 1, updated_user_id: 1};
 
       let all_locations : any[] = [];
       let location: Locations;
@@ -452,8 +402,8 @@ get redesSociales(): FormArray {
       let contact: Contacts;
       this.contactos.controls.forEach((control, i) => {
         contact = {
-          name: control.get('tipoContacto')!.value,
-          contact_data: control.get('contacto')!.value,
+          name: control.get('nombreContacto')!.value,
+          contact_data: control.get('datoDeContacto')!.value,
           verificated_token: '',
           is_verified: true,
           is_main_contact: control.get('contactoPrincipal')!.value,
@@ -462,31 +412,12 @@ get redesSociales(): FormArray {
           updated_date: new Date().toISOString(),
           is_active: true,
           table_name: '',
-          contact_type_id: 1,
+          contact_type_id: control.get('tipoContacto')!.value,
           created_user_id: 1,
           updated_user_id: 1
         };
         all_contacts.push(contact);
-      });
-      this.redesSociales.controls.forEach((control, i) => {
-        contact = {
-          name: control.get('tipoRedSocial')!.value,
-          contact_data: control.get('usuario')!.value,
-          verificated_token: '',
-          is_verified: true,
-          is_main_contact: false,
-          description: control.get('enlace')!.value,
-          created_date: new Date().toISOString(),
-          updated_date: new Date().toISOString(),
-          is_active: true,
-          table_name: '',
-          contact_type_id: 2,
-          created_user_id: 1,
-          updated_user_id: 1
-        };  
-        all_contacts.push(contact);
-      });
-      
+      });     
       
       let all_client_invoice : any[] = [];
       let client_invoice: BusinessInvoiceData;
@@ -506,7 +437,7 @@ get redesSociales(): FormArray {
         all_client_invoice.push(client_invoice);
       });
       
-        this.peopleService.RegisterClientsAllForm(client, people, all_locations,all_contacts,all_client_invoice).subscribe(
+        this.peopleService.RegisterClientsAllForm(people, all_locations,all_contacts,all_client_invoice).subscribe(
           response => {
             console.log('People y persona creados', response);
             this.router.navigate(['/clients']);
