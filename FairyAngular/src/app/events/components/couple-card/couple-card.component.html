@@ -1,82 +1,124 @@
-<div class="card">
+<style>
+  .card-compact {
+    font-size: 0.72rem;
+  }
+
+  .card-compact .form-group {
+    margin-bottom: 0.2rem;
+  }
+
+  .card-compact input,
+  .card-compact select {
+    font-size: 0.72rem;
+    padding: 0.15rem 0.4rem;
+    height: calc(1.2em + 0.4rem);
+  }
+
+  .card-compact label {
+    margin-bottom: 0;
+    font-weight: 500;
+  }
+
+  .card-compact .badge {
+    font-size: 0.68rem;
+    padding: 0.2rem 0.5rem;
+  }
+
+  .card-compact h5 {
+    font-size: 0.95rem;
+    margin-bottom: 0.4rem;
+  }
+
+  .card-compact .card-body {
+    padding: 0.5rem 0.75rem;
+  }
+
+  .card-compact .card-header {
+    padding: 0.4rem 0.75rem;
+  }
+</style>
+
+<div class="card card-compact mb-2">
   <div class="card-header">
-    <h4>Pareja 1</h4>
+    <h5 class="mb-0">Pareja 1</h5>
   </div>
-  <div class="card-body p-3">
-    <div class="row">
-      <div class="col-6">
-        <div class="form-group row">
-          <label for="col-2 col-form-label"> Nombres </label>
-          <div class="col-10">
-            <input type="text" class="form-control" />
+  <div class="card-body">
+    <form>
+      <div class="row">
+        <!-- Columna izquierda -->
+        <div class="col-md-6">
+          <div class="form-group row">
+            <label class="col-4 col-form-label">Nombres</label>
+            <div class="col-8">
+              <input type="text" class="form-control form-control-sm">
+            </div>
+          </div>
+          <div class="form-group row">
+            <label class="col-4 col-form-label">Fecha Nac.</label>
+            <div class="col-8">
+              <input type="date" class="form-control form-control-sm">
+            </div>
+          </div>
+          <div class="form-group row">
+            <label class="col-4 col-form-label">Tratamiento</label>
+            <div class="col-8">
+              <select class="form-control form-control-sm">
+                <option>Sr.</option>
+                <option>Sra.</option>
+              </select>
+            </div>
+          </div>
+          <div class="form-group row">
+            <label class="col-4 col-form-label">Rol</label>
+            <div class="col-8">
+              <select class="form-control form-control-sm">
+                <option>Novio</option>
+                <option>Novia</option>
+              </select>
+            </div>
+          </div>
+          <div class="form-group row">
+            <label class="col-4 col-form-label">Religión</label>
+            <div class="col-8">
+              <input type="text" class="form-control form-control-sm" value="Católica">
+            </div>
           </div>
         </div>
-        <div class="form-group row">
-          <label for="col-2 col-form-label"> Fecha de Nacimiento </label>
-          <div class="col-10">
-            <input type="date" class="form-control" />
+
+        <!-- Columna derecha -->
+        <div class="col-md-6">
+          <div class="form-group row">
+            <label class="col-4 col-form-label">Apellidos</label>
+            <div class="col-8">
+              <input type="text" class="form-control form-control-sm">
+            </div>
           </div>
-        </div>
-        <div class="form-group row">
-          <label for="col-2 col-form-label"> Tratamiento </label>
-          <div class="col-10">
-            <select class="form-control">
-              <option value="1">1</option>
-              <option value="2">2</option>
-            </select>
+          <div class="form-group row">
+            <label class="col-4 col-form-label">Edad</label>
+            <div class="col-8">
+              <input type="number" class="form-control form-control-sm">
+            </div>
           </div>
-        </div>
-        <div class="form-group row">
-          <label for="col-2 col-form-label"> Rol </label>
-          <div class="col-10">
-            <select class="form-control">
-              <option value="1">1</option>
-              <option value="2">2</option>
-            </select>
+          <div class="form-group row">
+            <label class="col-4 col-form-label">Teléfono</label>
+            <div class="col-8">
+              <input type="tel" class="form-control form-control-sm">
+            </div>
           </div>
-        </div>
-        <div class="form-group row">
-          <label for="col-2 col-form-label"> Religion </label>
-          <div class="col-10">
-            <select class="form-control">
-              <option value="1">1</option>
-              <option value="2">2</option>
-            </select>
+          <div class="form-group row">
+            <label class="col-4 col-form-label">Correo</label>
+            <div class="col-8">
+              <input type="email" class="form-control form-control-sm">
+            </div>
+          </div>
+          <div class="form-group row">
+            <label class="col-4 col-form-label">Disponibilidad</label>
+            <div class="col-8 d-flex align-items-center">
+              <span class="badge badge-success">✔ Disponible</span>
+            </div>
           </div>
         </div>
       </div>
-      <div class="col-6">
-        <div class="form-group row">
-          <label for="col-2 col-form-label"> Apellidos </label>
-          <div class="col-10">
-            <input type="text" class="form-control" />
-          </div>
-        </div>
-        <div class="form-group row">
-          <label for="col-2 col-form-label"> Edad </label>
-          <div class="col-10">
-            <input type="number" class="form-control" />
-          </div>
-        </div>
-        <div class="form-group row">
-          <label for="col-2 col-form-label"> Telefono </label>
-          <div class="col-10">
-            <input type="tel" class="form-control" />
-          </div>
-        </div>
-        <div class="form-group row">
-          <label for="col-2 col-form-label"> Correo Electronico </label>
-          <div class="col-10">
-            <input type="email" class="form-control" />
-          </div>
-        </div>
-        <div class="form-group row">
-          <label for="col-2 col-form-label"> Disponibilidad </label>
-          <div class="col-10">
-            <span class="badge badge-success">Disponible</span>
-          </div>
-        </div>
-      </div>
-    </div>
+    </form>
   </div>
 </div>
