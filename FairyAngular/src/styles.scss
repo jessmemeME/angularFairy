@@ -1,0 +1,70 @@
+@use '@angular/material' as mat;
+
+// 🎨 Definí tus propios colores
+$my-primary: mat.define-palette(mat.$pink-palette, 400);
+$my-accent: mat.define-palette(mat.$green-palette, A200);
+$my-warn: mat.define-palette(mat.$red-palette);
+
+// 🧱 Construí el tema personalizado
+$my-theme: mat.define-light-theme((
+  color: (
+    primary: $my-primary,
+    accent: $my-accent,
+    warn: $my-warn
+  ),
+  typography: mat.define-typography-config(),
+  density: 0
+));
+
+// ⚙️ Aplicá el tema
+@include mat.core();
+@include mat.all-component-themes($my-theme);
+
+
+
+
+//---------------------
+
+// 🌸 Rosa personalizado: #CB8587
+$cb8587-palette: (
+  50: #fceaea,
+  100: #f6d7d9,
+  200: #edbfc0,
+  300: #e1a1a3,
+  400: #d88690,
+  500: #cb8587,
+  600: #bf7778,
+  700: #b06a6b,
+  800: #a05c5d,
+  900: #88494a,
+  contrast: (
+    50: #000,
+    100: #000,
+    200: #000,
+    300: #000,
+    400: #000,
+    500: #fff,
+    600: #fff,
+    700: #fff,
+    800: #fff,
+    900: #fff
+  )
+);
+
+// ✅ Aplicar como color principal
+$my-primary: mat.define-palette($cb8587-palette, 500);
+$my-accent: mat.define-palette(mat.$green-palette, A200);
+$my-warn: mat.define-palette(mat.$red-palette);
+
+$my-theme: mat.define-light-theme((
+  color: (
+    primary: $my-primary,
+    accent: $my-accent,
+    warn: $my-warn
+  ),
+  typography: mat.define-typography-config(),
+  density: 0
+));
+
+@include mat.core();
+@include mat.all-component-themes($my-theme);
