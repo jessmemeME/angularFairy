@@ -21,6 +21,7 @@ import {MatButtonModule} from '@angular/material/button';
 import { GuestFormComponent } from './components/guest-form/guest-form.component';
 import { TentativePlaceFormComponent } from './components/tentative-place-form/tentative-place-form.component';
 import { FinanceFormComponent } from './components/finance-form/finance-form.component';
+import { WantedStyleComponent } from './components/wanted-style/wanted-style.component';
 
 
 @NgModule({
@@ -28,7 +29,7 @@ import { FinanceFormComponent } from './components/finance-form/finance-form.com
     
   
     EventsComponent, 
-    CreateEventComponent, BriefComponent, CoupleCardComponent, TimeAvailabilityModalComponent, InitialMeetingComponent, PlanificationComponent, BudgetsComponent, MovementsComponent, GuestListComponent, BriefHeaderComponent, GuestFormComponent, TentativePlaceFormComponent, FinanceFormComponent,
+    CreateEventComponent, BriefComponent, CoupleCardComponent, TimeAvailabilityModalComponent, InitialMeetingComponent, PlanificationComponent, BudgetsComponent, MovementsComponent, GuestListComponent, BriefHeaderComponent, GuestFormComponent, TentativePlaceFormComponent, FinanceFormComponent, WantedStyleComponent,
   ],
   imports: [
     CommonModule,
