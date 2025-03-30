@@ -3,3 +3,17 @@
     overflow-y: auto;  /* 🔥 Habilita el scroll vertical si se supera el tamaño */
     border: 1px solid #ddd; /* Opcional: Agregar un borde para visualización */
   }
+
+.card-compact, card-body {
+    font-size: 0.78rem;
+     /* border: none;
+     box-shadow: none;*/
+ }
+ 
+.card-compact .card-header {
+     padding: 0.4rem 0.75rem;
+     background-color: #CB8587; /* Rosa bebé */
+     color: #ffffff; /* <-- texto blanco */
+     box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1); /* Sombra suave */
+ }
+ 
