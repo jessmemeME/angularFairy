@@ -1,5 +1,5 @@
 .card-compact, card-body {
-    font-size: 0.60rem;
+    font-size: 0.80rem;
     border: none;
     box-shadow: none;
 }
@@ -10,3 +10,16 @@
     color: #ffffff; /* <-- texto blanco */
     box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1); /* Sombra suave */
 }
+
+
+  .card-header h3 {
+    font-size: 1.2rem;
+    font-weight: bold;
+  }
+  
+  .card-header input[type="date"] {
+    height: 28px;
+    font-size: 0.8rem;
+    padding: 0.15rem 0.5rem;
+  }
+  
