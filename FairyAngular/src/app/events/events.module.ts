@@ -1,6 +1,6 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { EventsComponent } from './components/events/events.component';
 import { RouteModule } from './route/route/route.module';
 import { CreateEventComponent } from './components/create-event/create-event.component';
@@ -14,18 +14,31 @@ import { MovementsComponent } from './components/movements/movements.component';
 import { GuestListComponent } from './components/guest-list/guest-list.component';
 import { BriefHeaderComponent } from './components/brief-header/brief-header.component';
 
+import {MatInputModule} from '@angular/material/input';
+import {MatFormFieldModule} from '@angular/material/form-field';
+import {MatStepperModule} from '@angular/material/stepper';
+import {MatButtonModule} from '@angular/material/button';
+import { GuestFormComponent } from './components/guest-form/guest-form.component';
+import { TentativePlaceFormComponent } from './components/tentative-place-form/tentative-place-form.component';
+import { FinanceFormComponent } from './components/finance-form/finance-form.component';
+
 
 @NgModule({
   declarations: [
     
   
     EventsComponent, 
-    CreateEventComponent, BriefComponent, CoupleCardComponent, TimeAvailabilityModalComponent, InitialMeetingComponent, PlanificationComponent, BudgetsComponent, MovementsComponent, GuestListComponent, BriefHeaderComponent,
+    CreateEventComponent, BriefComponent, CoupleCardComponent, TimeAvailabilityModalComponent, InitialMeetingComponent, PlanificationComponent, BudgetsComponent, MovementsComponent, GuestListComponent, BriefHeaderComponent, GuestFormComponent, TentativePlaceFormComponent, FinanceFormComponent,
   ],
   imports: [
     CommonModule,
     FormsModule,
     RouteModule,
+    ReactiveFormsModule,
+    MatInputModule,
+    MatFormFieldModule,
+    MatStepperModule,
+    MatButtonModule,
   ]
 })
 export class EventsModule { }

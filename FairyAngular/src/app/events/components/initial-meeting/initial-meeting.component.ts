@@ -1,9 +1,9 @@
-import { Component } from '@angular/core';
+import { Component, inject } from '@angular/core';
 
 @Component({
   selector: 'app-initial-meeting',
   templateUrl: './initial-meeting.component.html',
-  styleUrl: './initial-meeting.component.css'
+  styleUrl: './initial-meeting.component.css',
 })
 export class InitialMeetingComponent {
 
