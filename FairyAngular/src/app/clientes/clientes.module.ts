@@ -24,6 +24,7 @@ import { MatNativeDateModule } from '@angular/material/core';
 import { MatTableModule } from '@angular/material/table';
 import { MatIconModule } from '@angular/material/icon';
 import { PeopleModule } from '../people/people.module';
+import { MatDialogModule } from '@angular/material/dialog';
 
 
 @NgModule({
@@ -51,7 +52,8 @@ import { PeopleModule } from '../people/people.module';
     MatCheckboxModule,
     MatTableModule, // Para usar mat-table
     MatIconModule,  // Para usar mat-icon
-    PeopleModule
+    PeopleModule,
+    MatDialogModule
   ]
 })
 export class ClientesModule { }
