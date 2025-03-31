@@ -38,7 +38,7 @@ export class PeopleService {
   }
 
   getPeopleByDocumentNumber(documentNumber:string,documentType:number):Observable<any>{
-    return this.http.get<any>(`${this.apiUrl}/People/PeobleByDocumentNumber?document_number=${documentNumber}&document_type_id=1${documentType}`);
+    return this.http.get<any>(`${this.apiUrl}/People/PeobleByDocumentNumber?document_number=${documentNumber}&document_type_id=${documentType}`);
   }
   
   getAllGender():Observable<any>{

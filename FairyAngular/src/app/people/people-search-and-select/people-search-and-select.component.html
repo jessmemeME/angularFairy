@@ -1,0 +1,40 @@
+<h2 mat-dialog-title>Buscar o Registrar Persona</h2>
+<div mat-dialog-content>
+    <form [formGroup]="datosBusqueda" class="d-flex flex-column gap-3">
+
+        <mat-form-field appearance="outline">
+            <mat-label>Tipo de Documento</mat-label>
+            <mat-select formControlName="tipoDocumento">
+                <mat-option *ngFor="let docT of documentTypes" [value]="docT.id">
+                    {{ docT.name }}
+                </mat-option>
+            </mat-select>
+        </mat-form-field>
+
+        <mat-form-field appearance="outline">
+            <mat-label>Número de Documento</mat-label>
+            <input matInput formControlName="numeroDocumento" />
+        </mat-form-field>
+
+        <div class="d-flex justify-content-end mt-2">
+            <button mat-raised-button color="primary" (click)="buscarPersona()" [disabled]="datosBusqueda.invalid">
+              Buscar
+            </button>
+        </div>
+<!-- 
+        Si no se encuentra -->
+        <div *ngIf="buscado && !personaEncontrada">
+            <p class="mt-3">No se encontró la persona. Registrala abajo:</p>
+            <app-people-register (onRegisterSuccess)="seleccionarPersona($event)"></app-people-register>
+        </div> 
+
+        <!-- Si se encuentra -->
+        <div *ngIf="personaEncontrada" class="mt-3">
+            <p>Persona encontrada: {{ personaEncontrada.first_name }} {{ personaEncontrada.last_name }}</p>
+            <button mat-raised-button color="accent" (click)="seleccionarPersona(personaEncontrada)">
+                Seleccionar
+            </button>
+        </div>
+
+    </form>
+</div>

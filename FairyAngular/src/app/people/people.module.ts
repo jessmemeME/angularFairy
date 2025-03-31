@@ -17,20 +17,26 @@ import { MatGridListModule } from '@angular/material/grid-list';  // Importar Ma
 import { MatOptionModule } from '@angular/material/core';
 import { MatCardModule } from '@angular/material/card'; // Importa MatCardModule
 import { MatCheckboxModule } from '@angular/material/checkbox';
+import { MatDialogModule } from '@angular/material/dialog';
 
 //CALENDARIO
 import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatNativeDateModule } from '@angular/material/core';
 import { MatTableModule } from '@angular/material/table';
 import { MatIconModule } from '@angular/material/icon';
+import { PeopleModalComponent } from './people-modal/people-modal.component';
+import { PeopleSearchAndSelectComponent } from './people-search-and-select/people-search-and-select.component';
 
 
 @NgModule({
   declarations: [
     //PeopleSearchComponent,
     PeopleRegisterComponent,
+    PeopleModalComponent,
     //PeopleMainComponent,
     //PeopleEditComponent
+    PeopleModalComponent,
+    PeopleSearchAndSelectComponent
   ],
   imports: [
     CommonModule,
@@ -50,7 +56,8 @@ import { MatIconModule } from '@angular/material/icon';
     MatCheckboxModule,
     MatTableModule, // Para usar mat-table
     MatIconModule,  // Para usar mat-icon
+    MatDialogModule
   ],
-  exports: [PeopleRegisterComponent]
+  exports: [PeopleRegisterComponent,PeopleModalComponent]
 })
 export class PeopleModule { }

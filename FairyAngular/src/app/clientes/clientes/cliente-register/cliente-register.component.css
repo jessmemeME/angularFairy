@@ -23,3 +23,7 @@
   .full-width {
     grid-column: span 3; /* Ocupa las 3 columnas para algunos campos */
   }
+
+  .full-screen-modal .mat-dialog-container {
+    padding: 24px;
+  }

@@ -1,0 +1,11 @@
+
+
+<h2 mat-dialog-title>Buscar o Registrar Persona</h2>
+<mat-dialog-content>
+  <app-people-search-and-select (onPersonaSeleccionada)="seleccionarPersona($event)"></app-people-search-and-select>
+</mat-dialog-content>
+
+
+<div mat-dialog-actions align="end">
+    <button mat-button (click)="cerrar()">Cerrar</button>
+</div>
