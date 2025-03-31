@@ -64,6 +64,20 @@ body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
 /*------------------------------*/
 
 /* Cambiar color global de .btn-primary */
+.bg-primary {
+  background-color: #CB8587 !important; /* rosa fuerte */
+  color: #fff !important;
+}
+
+.text-primary {
+  color: #CB8587 !important; /* rosa fuerte */
+}
+
+.border-primary {
+  border-color: #CB8587 !important; /* rosa fuerte */
+}
+
+/*------------------------------*/
 .btn-primary {
     background-color: #CB8587 !important; /* rosa fuerte */
     border-color: #CB8587 !important;
