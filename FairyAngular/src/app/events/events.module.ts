@@ -22,6 +22,8 @@ import { GuestFormComponent } from './components/guest-form/guest-form.component
 import { TentativePlaceFormComponent } from './components/tentative-place-form/tentative-place-form.component';
 import { FinanceFormComponent } from './components/finance-form/finance-form.component';
 import { WantedStyleComponent } from './components/wanted-style/wanted-style.component';
+import { ExpectationComponent } from './components/expectation/expectation.component';
+import { DetailExpectationComponent } from './components/detail-expectation/detail-expectation.component';
 
 
 @NgModule({
@@ -29,7 +31,7 @@ import { WantedStyleComponent } from './components/wanted-style/wanted-style.com
     
   
     EventsComponent, 
-    CreateEventComponent, BriefComponent, CoupleCardComponent, TimeAvailabilityModalComponent, InitialMeetingComponent, PlanificationComponent, BudgetsComponent, MovementsComponent, GuestListComponent, BriefHeaderComponent, GuestFormComponent, TentativePlaceFormComponent, FinanceFormComponent, WantedStyleComponent,
+    CreateEventComponent, BriefComponent, CoupleCardComponent, TimeAvailabilityModalComponent, InitialMeetingComponent, PlanificationComponent, BudgetsComponent, MovementsComponent, GuestListComponent, BriefHeaderComponent, GuestFormComponent, TentativePlaceFormComponent, FinanceFormComponent, WantedStyleComponent, ExpectationComponent, DetailExpectationComponent,
   ],
   imports: [
     CommonModule,

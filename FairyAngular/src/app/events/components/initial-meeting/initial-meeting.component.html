@@ -28,7 +28,7 @@
             data-bs-parent="#accordionExample"
           >
             <div class="accordion-body">
-                <app-guest-form></app-guest-form>
+              <app-guest-form></app-guest-form>
             </div>
           </div>
         </div>
@@ -57,7 +57,7 @@
             data-bs-parent="#accordionExample"
           >
             <div class="accordion-body">
-                <app-tentative-place-form></app-tentative-place-form>
+              <app-tentative-place-form></app-tentative-place-form>
             </div>
           </div>
         </div>
@@ -86,8 +86,7 @@
             data-bs-parent="#accordionExample"
           >
             <div class="accordion-body">
-             <app-finance-form></app-finance-form>
-
+              <app-finance-form></app-finance-form>
             </div>
           </div>
         </div>
@@ -96,17 +95,54 @@
             <button class="btn btn-sm btn-outline-primary">Cancelar</button>
           </div>
           <div class="ms-auto">
-            <button class="btn btn-sm btn-outline-primary mx-2">Guardar y Cerrar</button>
-            <button class="btn btn-sm btn-outline-primary mx-2">Siguiente</button>
+            <button class="btn btn-sm btn-outline-primary mx-2">
+              Guardar y Cerrar
+            </button>
+            <button class="btn btn-sm btn-outline-primary mx-2">
+              Siguiente
+            </button>
           </div>
         </div>
       </div>
     </mat-step>
     <mat-step label="Estilo deseado - Segmentos y Estilos de Boda">
       <app-wanted-style></app-wanted-style>
+      <div class="d-flex mt-2">
+        <div class="me-2">
+          <button class="btn btn-sm btn-outline-primary">Cancelar</button>
+        </div>
+        <div class="ms-auto">
+          <button class="btn btn-sm btn-outline-primary mx-2">
+            Guardar y Cerrar
+          </button>
+          <button class="btn btn-sm btn-outline-primary mx-2">Siguiente</button>
+        </div>
+      </div>
     </mat-step>
-    <mat-step label="Expectativas, Ideas y Deseos Especiales"></mat-step>
-    <mat-step label="Cermonias"></mat-step>
+    <mat-step label="Expectativas, Ideas y Deseos Especiales">
+      <app-expectation></app-expectation>
+      <div class="d-flex mt-2">
+        <div class="me-2">
+          <button class="btn btn-sm btn-outline-primary">Cancelar</button>
+        </div>
+        <div class="ms-auto">
+          <button class="btn btn-sm btn-outline-primary mx-2">
+            Guardar y Cerrar
+          </button>
+          <button class="btn btn-sm btn-outline-primary mx-2">Siguiente</button>
+        </div>
+      </div>
+    </mat-step>
+    <mat-step label="Cermonias">
+      <div class="d-flex mt-2">
+        <div class="me-2">
+          <button class="btn btn-sm btn-outline-primary">Cancelar</button>
+        </div>
+        <div class="ms-auto">
+          <button class="btn btn-sm btn-outline-primary mx-2">Guardar y Cerrar</button>
+          <button class="btn btn-sm btn-outline-primary mx-2">Siguiente</button>
+        </div>
+      </div>
+    </mat-step>
   </mat-stepper>
 </section>
-
