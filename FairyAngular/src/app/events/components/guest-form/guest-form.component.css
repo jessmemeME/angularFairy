@@ -1,0 +1,31 @@
+.formulario-invitados {
+    font-size: 0.85rem; /* o 13px para achicar todo */
+  }
+  
+  .formulario-invitados h3 {
+    font-size: 1.1rem;
+    font-weight: bold;
+  }
+  
+  .formulario-invitados h4 {
+    font-size: 1rem;
+    margin-top: 0.5rem;
+  }
+  
+  .formulario-invitados label {
+    font-size: 0.85rem;
+    margin-bottom: 0.25rem;
+  }
+  
+  .formulario-invitados .form-control,
+  .formulario-invitados .form-check-input {
+    font-size: 0.85rem;
+    padding: 0.25rem 0.5rem;
+    /*height: calc(1.4em + 0.5rem);  menos alto*/
+  }
+  
+  .formulario-invitados .form-check-label {
+    font-size: 0.82rem;
+    margin-left: 0.35rem;
+  }
+  
