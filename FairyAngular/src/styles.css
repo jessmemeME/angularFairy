@@ -50,13 +50,18 @@ body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
 :root {
     --primary-rosa: #cd8483; /* Define tu color primario aquí */
   }
-
+  
+  .btn-primary {
+    background-color: var(--primary-rosa) !important;
+    border-color: var(--primary-rosa) !important;
+  }
+  
   
 
 html, body { height: 100%; }
 body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
 
-
+/*------------------------------*/
 
 /* Cambiar color global de .btn-primary */
 .btn-primary {
@@ -101,7 +106,9 @@ body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
     color: #CB8587 !important;
   }
     
+/*------------------------------------------------------------------------------------------------------------------------*/
 
+/*------------------------------------------------------------------------------------------------------------------------*/
 .btn-warning {
   background-color: #f6c57b !important;  /* ejemplo: dorado suave */
   border-color: #f6c57b !important;
@@ -115,8 +122,10 @@ body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
   border-color: #e0ae61 !important;
   color: #000 !important;
 }
+/*------------------------------------------------------------------------------------------------------------------------*/
 
 
+/*------------------------------------------------------------------------------------------------------------------------*/
 .accordion-button {
   background-color: #fce4ec; /* rosa bebé por defecto */
   color: #CB8587;
@@ -139,7 +148,7 @@ body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
 
 /* Cuando está cerrado */
 .accordion-button.collapsed {
-  background-color: #fce4ec;
+  background-color: #fff3f6;
   color: #CB8587;
 }
 
@@ -151,7 +160,9 @@ body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
   border: none;
 }
 
+/*------------------------------------------------------------------------------------------------------------------------*/
 
+/*------------------------------------------------------------------------------------------------------------------------*/
 .form-check-input {
   width: 1.1rem;
   height: 1.1rem;
@@ -201,20 +212,17 @@ body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
   border-color: #28a745;
   box-shadow: 0 0 2px rgba(40, 167, 69, 0.5);
 }
+/*------------------------------------------------------------------------------------------------------------------------*/
 
 
 
-
-/*------------------------------*/
-.badge-success {
-  background-color: #a4de02 !important; /* verde pistacho */
-  color: #fff !important;
-}
+/*------------------------------------------------------------------------------------------------------------------------*/
 
 .badge-success {
   background-color: #a4de02 !important;
-  color: #1b3e00 !important; /* verde oscuro */
-}
+  color: #1b3e00 !important; /* verde oscuro */ /* o #fff si querés más contraste */
+  }
+  
 
 .badge-success:hover {
   filter: brightness(0.95);

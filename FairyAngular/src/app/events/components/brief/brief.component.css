@@ -1,0 +1,31 @@
+.nav-tab-style {
+    display: flex;
+    gap: 0.25rem;
+    flex-wrap: wrap;
+    justify-content: start;
+    padding: 0.25rem;
+  }
+  
+  .tab-link {
+    padding: 0.5rem 1rem;
+    border: 1px solid #ccc;
+    border-radius: 10px 10px 0 0;
+    text-decoration: none;
+    background-color: white;
+    color: #CB8587;
+    font-weight: 500;
+    transition: all 0.2s ease;
+  }
+  
+  .tab-link:hover {
+    background-color: #f8f8f8;
+    color: #CB8587;
+    border-color: #CB8587;
+  }
+  
+  .tab-link.active {
+    background-color: #eaeaea;
+    border-bottom-color: transparent;
+    font-weight: bold;
+  }
+  
