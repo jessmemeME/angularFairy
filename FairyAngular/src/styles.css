@@ -250,8 +250,8 @@ body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
 
 .table-dark th,
 .table-dark td {
-  background-color: #fce4ec !important;
-  color: #CB8587 !important;
+  background-color: #CB8587 !important;
+  color: #fff !important;
   border-color: #f8bbd0 !important;     /* bordes más definidos*/
 }
 
