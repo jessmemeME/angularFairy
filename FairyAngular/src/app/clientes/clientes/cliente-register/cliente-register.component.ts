@@ -32,11 +32,10 @@ export class ClienteRegisterComponent implements OnInit {
   constructor(private fb: FormBuilder, private router: Router, private clientesService: ClientesService,private dialog: MatDialog) {
     this.clienteForm = this.fb.group({
       datosBasicos: this.fb.group({
-        nombres: ['', Validators.required],
-        apellidos: ['', Validators.required],
-        tipoDocumento: ['Cedula', Validators.required],
-        numeroDocumento: ['', Validators.required],
-        estado: ['Prospecto', Validators.required]  // Valor por defecto "Prospecto"
+        persona: ['', Validators.required],
+        personaLabel: [''],
+        estado: ['Prospecto', Validators.required],  // Valor por defecto "Prospecto"
+        tipoCliente: ['F', Validators.required],  // Valor por defecto "Cliente"
       })
     });
   }
@@ -140,6 +139,10 @@ export class ClienteRegisterComponent implements OnInit {
 
     dialogRef.afterClosed().subscribe((personaSeleccionada) => {
       if (personaSeleccionada) {
+        this.datosBasicosControl.patchValue({
+          persona: personaSeleccionada,
+          personaLabel: personaSeleccionada.document_number+ ' - '+ personaSeleccionada.first_name + ' ' + personaSeleccionada.last_name
+        });
         console.log('Persona seleccionada:', personaSeleccionada);
         // this.miFormulario.patchValue({
         //   people_id: personaSeleccionada.id

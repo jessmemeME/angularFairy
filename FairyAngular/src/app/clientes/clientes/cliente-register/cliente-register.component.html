@@ -1,80 +1,49 @@
 <mat-horizontal-stepper [linear]="true" #stepper>
   <!-- Paso 1: Datos Básicos -->
-  <mat-step [stepControl]="datosBasicosControl">
+  <mat-step [stepControl]="datosBasicosControl">/
     <form [formGroup]="datosBasicosControl">
       <mat-card>
         <mat-card-header>
-          <mat-card-title>Datos Básicos</mat-card-title>
+          <mat-card-title>Registrar Cliente</mat-card-title>
         </mat-card-header>
         <mat-card-content>
+
           <mat-form-field appearance="outline">
-            <mat-label>Tipo de Documento</mat-label>
-            <mat-select formControlName="tipoDocumento" required [disabled]="enableRegisterClient">
-              <mat-option *ngFor="let docT of documentTypes" [value]="docT.id">{{docT.name}}</mat-option>
+            <mat-label>Estado</mat-label>
+            <mat-select formControlName="estado" required>
+              <mat-option value="Prospecto">Prospecto</mat-option>
+              <mat-option value="Cliente Activo">Cliente Activo</mat-option>
+              <mat-option value="Cliente Inactivo">Cliente Inactivo</mat-option>
             </mat-select>
             <mat-error
-              *ngIf="datosBasicosControl.get('tipoDocumento')?.hasError('required')"
+              *ngIf="datosBasicosControl.get('estado')?.hasError('required')"
             >
-              El tipo de documento es obligatorio
+              Selecciona un estado
             </mat-error>
           </mat-form-field>
+          
+          <!--tipo de cliente-->
           <mat-form-field appearance="outline">
-            <mat-label>Número de Documento</mat-label>
-            <input matInput formControlName="numeroDocumento" required [disabled]="enableRegisterClient" readonly="{{enableRegisterClient}}"/>
+            <mat-label>Tipo de Cliente</mat-label>
+            <mat-select formControlName="tipoCliente" required>
+              <mat-option value="F">Persona Fisica</mat-option>
+              <mat-option value="J">Persona Jurídica</mat-option>
+            </mat-select>
             <mat-error
-              *ngIf="datosBasicosControl.get('numeroDocumento')?.hasError('required')"
+              *ngIf="datosBasicosControl.get('tipoCliente')?.hasError('required')"
             >
-              El número de documento es obligatorio
+              Selecciona un tipo de cliente
             </mat-error>
           </mat-form-field>
-          <mat-card-actions>
-            <button
-              type="button"
-              mat-raised-button
-              (click)="verificarDocumento()"
-              color="primary"
-              [disabled]="enableRegisterClient"
-            >
-              Verificar Documento
-            </button>
-          </mat-card-actions>
-          <div *ngIf="enableRegisterClient">
             <mat-form-field appearance="outline">
-              <mat-label>Nombres</mat-label>
-              <input matInput formControlName="nombres" required />
-              <mat-error
-                *ngIf="datosBasicosControl.get('nombres')?.hasError('required')"
-              >
-                El nombre es obligatorio
-              </mat-error>
-            </mat-form-field>
-            <mat-form-field appearance="outline">
-              <mat-label>Apellidos</mat-label>
-              <input matInput formControlName="apellidos" required />
+              <mat-label>Persona</mat-label>
+              <input matInput formControlName="personaLabel" required required [disabled]="true" readonly="true"/>
               <mat-error
                 *ngIf="datosBasicosControl.get('apellidos')?.hasError('required')"
               >
                 El apellido es obligatorio
               </mat-error>
-            </mat-form-field>
-            
-            <mat-form-field appearance="outline">
-              <mat-label>Estado</mat-label>
-              <mat-select formControlName="estado" required>
-                <mat-option value="Prospecto">Prospecto</mat-option>
-                <mat-option value="Cliente Activo">Cliente Activo</mat-option>
-                <mat-option value="Cliente Inactivo">Cliente Inactivo</mat-option>
-              </mat-select>
-              <mat-error
-                *ngIf="datosBasicosControl.get('estado')?.hasError('required')"
-              >
-                Selecciona un estado
-              </mat-error>
-            </mat-form-field>
-          </div>
-        
-
-          
+            </mat-form-field>          
         </mat-card-content>
         <mat-card-actions>
           <button mat-raised-button color="primary" (click)="abrirPeopleModal()">

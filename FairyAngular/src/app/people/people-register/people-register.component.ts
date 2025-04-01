@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { FormBuilder, FormGroup, FormArray, Validators, FormControl } from '@angular/forms';
 import { MatStepper } from '@angular/material/stepper';
 import { Router } from '@angular/router';  // Importa el servicio Router
@@ -18,6 +18,10 @@ import { BusinessInvoiceData } from '../../../models/bussiness.models';
   styleUrls: ['./people-register.component.css']
 })
 export class PeopleRegisterComponent implements OnInit {
+
+  @Output() onRegisterSuccess = new EventEmitter<any>();
+  @Input() desdeBusqueda: boolean = false;
+  
   clienteForm!: FormGroup;
   showEspecificarOtro: boolean = false;
   locations: LocationsResponse[] = [];
@@ -440,7 +444,16 @@ get contactos(): FormArray {
         this.peopleService.RegisterClientsAllForm(people, all_locations,all_contacts,all_client_invoice).subscribe(
           response => {
             console.log('People y persona creados', response);
-            this.router.navigate(['/clients']);
+            console.log('Response:', response);
+            if (this.desdeBusqueda) {
+             
+              console.log('Response:', response);
+              people.id = response.peopleId;
+              this.onRegisterSuccess.emit(people);
+            }else{
+              this.router.navigate(['/clients']);
+            }          
+            
           },
           error => {
             console.error('Error al crear el cliente y persona', error);
