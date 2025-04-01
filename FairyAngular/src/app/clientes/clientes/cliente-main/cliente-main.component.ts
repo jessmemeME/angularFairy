@@ -58,6 +58,7 @@ export class ClienteMainComponent implements OnInit {
 
   // Función para redirigir a la pantalla de modificación
 editarCliente(cliente: any): void {
+  return;
   console.log('Editar cliente:', cliente);
   this.router.navigate(['/clients/editar', cliente.nro]);  // Pasar el ID del cliente en la URL
 }

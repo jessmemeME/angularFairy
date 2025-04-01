@@ -1,73 +1,88 @@
 <mat-horizontal-stepper [linear]="true" #stepper>
-  <!-- Paso 1: Datos Básicos -->
-  <mat-step [stepControl]="datosBasicosControl">/
+  <mat-step [stepControl]="datosBasicosControl">
     <form [formGroup]="datosBasicosControl">
       <mat-card>
         <mat-card-header>
-          <mat-card-title>Registrar Cliente</mat-card-title>
+          <mat-card-title>Crear Cliente</mat-card-title>
         </mat-card-header>
-        <mat-card-content>
 
-          <mat-form-field appearance="outline">
-            <mat-label>Estado</mat-label>
-            <mat-select formControlName="estado" required>
-              <mat-option value="Prospecto">Prospecto</mat-option>
-              <mat-option value="Cliente Activo">Cliente Activo</mat-option>
-              <mat-option value="Cliente Inactivo">Cliente Inactivo</mat-option>
-            </mat-select>
-            <mat-error
-              *ngIf="datosBasicosControl.get('estado')?.hasError('required')"
-            >
-              Selecciona un estado
-            </mat-error>
-          </mat-form-field>
-          
-          <!--tipo de cliente-->
-          <mat-form-field appearance="outline">
-            <mat-label>Tipo de Cliente</mat-label>
-            <mat-select formControlName="tipoCliente" required>
-              <mat-option value="F">Persona Fisica</mat-option>
-              <mat-option value="J">Persona Jurídica</mat-option>
-            </mat-select>
-            <mat-error
-              *ngIf="datosBasicosControl.get('tipoCliente')?.hasError('required')"
-            >
-              Selecciona un tipo de cliente
-            </mat-error>
-          </mat-form-field>
-            <mat-form-field appearance="outline">
-              <mat-label>Persona</mat-label>
-              <input matInput formControlName="personaLabel" required required [disabled]="true" readonly="true"/>
-              <mat-error
-                *ngIf="datosBasicosControl.get('apellidos')?.hasError('required')"
-              >
-                El apellido es obligatorio
-              </mat-error>
-            </mat-form-field>          
+        <mat-card-content>
+          <div class="grid-container">
+            <!-- Avatar -->
+            <div class="avatar-container">
+              <mat-icon class="avatar-icon">account_circle</mat-icon>
+            </div>
+
+            <!-- Campos -->
+            <div class="form-grid">
+              <!-- Tipo de Persona -->
+              <mat-form-field appearance="outline">
+                <mat-label>Tipo de Persona</mat-label>
+                <mat-select formControlName="tipoCliente" required>
+                  <mat-option value="F">Persona Física</mat-option>
+                  <mat-option value="J">Persona Jurídica</mat-option>
+                </mat-select>
+              </mat-form-field>
+
+              <!-- Estado -->
+              <mat-form-field appearance="outline">
+                <mat-label>Estado</mat-label>
+                <mat-select formControlName="estado" required>
+                  <mat-option value="Prospecto">Prospecto</mat-option>
+                  <mat-option value="Cliente Activo">Cliente Activo</mat-option>
+                  <mat-option value="Cliente Inactivo">Cliente Inactivo</mat-option>
+                </mat-select>
+              </mat-form-field>
+
+              <!-- Persona con ícono de búsqueda al lado -->
+              <div class="persona-row full-width">
+                <mat-form-field appearance="outline" class="flex-grow">
+                  <mat-label>Persona</mat-label>
+                  <input matInput formControlName="personaLabel" readonly />
+                </mat-form-field>
+
+                <button mat-icon-button color="primary" (click)="abrirPeopleModal()" class="search-btn">
+                  <mat-icon>search</mat-icon>
+                </button>
+              </div>
+              
+              <!-- Fecha de Incorporación -->
+              <mat-form-field appearance="outline">
+                <mat-label>Fecha de Incorporación</mat-label>
+                <input
+                  matInput matInput 
+                  value="{{datosBasicosControl.get('fechaIncorporacion')?.value | date:'dd/MM/yyyy'}}"
+                  readonly
+                />
+                <!--input matInput [matDatepicker]="picker" formControlName="fechaIncorporacion" required />
+                <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+                <mat-datepicker #picker></mat-datepicker-->
+              </mat-form-field>
+              <!-- Descripción -->
+              <mat-form-field appearance="outline" class="full-width">
+                <mat-label>Descripción</mat-label>
+                <textarea matInput formControlName="descripcion" rows="3"></textarea>
+              </mat-form-field>
+
+              <!-- Relación con el negocio -->
+              <mat-form-field appearance="outline">
+                <mat-label>Relación con el negocio</mat-label>
+                <mat-select formControlName="relacion">
+                  <mat-option value="cliente">Cliente</mat-option>
+                  <mat-option value="proveedor">Proveedor</mat-option>
+                  <mat-option value="otro">Otro</mat-option>
+                </mat-select>
+              </mat-form-field>
+            </div>
+          </div>
         </mat-card-content>
+
         <mat-card-actions>
-          <button mat-raised-button color="primary" (click)="abrirPeopleModal()">
-            Buscar / Registrar Persona
-          </button>
-        </mat-card-actions>
-        <mat-card-actions>
-          <button
-            mat-raised-button
-            (click)="saveProgress()"
-            color="primary"
-            [disabled]="datosBasicosControl.invalid"
-          >
-            Guardar
-          </button>
+          <button mat-button color="warn" (click)="goBack()">Cancelar</button>
+          <span class="spacer"></span>
+          <button mat-raised-button color="primary" (click)="saveProgress()" [disabled]="datosBasicosControl.invalid">Guardar</button>
         </mat-card-actions>
       </mat-card>
     </form>
   </mat-step>
 </mat-horizontal-stepper>
-
-
-
-<!-- MODAL -->
-<!-- <app-people-modal (onPersonaSeleccionada)="asignarPersona($event)"></app-people-modal> -->
-<!-- Agrega el botón atrás -->
-<button mat-raised-button color="warn" (click)="goBack()">Atrás</button>

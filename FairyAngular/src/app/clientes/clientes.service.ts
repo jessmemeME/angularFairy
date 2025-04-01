@@ -12,6 +12,21 @@ export class ClientesService {
   private apiUrl = 'http://localhost:5229';
   
     constructor(private http: HttpClient) { }
+
+
+    RegisterClients(client:Client):Observable<any>{
+      console.log(client);
+    
+
+      const headers = new HttpHeaders({
+        'content-type': 'application/json',
+        'Access-Control-Allow-Origin': 'http://localhost:4200',
+        'Access-Control-Allow-Methods': 'POST, GET, OPTIONS, PUT, DELETE',
+        'Access-Control-Allow-Headers': 'Content-Type, Access-Control-Allow-Headers, Authorization, X-Requested-With'
+      });
+      const body=client;
+      return this.http.post<any>(`${this.apiUrl}/Clients/RegisterClients`, body, { headers: headers}).pipe();
+    }
   
     RegisterClientsAllForm(client:Client, people:People,locations:any[],contacts:any[],client_invoice:any[]):Observable<any>{
       console.log(client);
@@ -26,19 +41,8 @@ export class ClientesService {
         'Access-Control-Allow-Methods': 'POST, GET, OPTIONS, PUT, DELETE',
         'Access-Control-Allow-Headers': 'Content-Type, Access-Control-Allow-Headers, Authorization, X-Requested-With'
       });
-
-
-      // return this.http.post<People>(`${this.apiUrl}/People/RegisterPeople`, people,{ headers: headers}).pipe(
-      //   concatMap((peopleCreated) => {
-      //     console.log('que retorna? '+peopleCreated);
-      //     // Una vez que la persona se ha creado, asignamos el ID de la persona al cliente
-      //     client.people_id = peopleCreated.id; // Suponiendo que 'id' es el campo que se retorna
-      //     // Luego, creamos el cliente con la persona recién creada
-      //     return this.http.post<Clients>(`${this.apiUrl}/Clients/RegisterClients`, client,{ headers: headers});
-      //   })
-      // );
       const body=JSON.stringify({ClientsClient:client,BasicInfoPeople:people,Contacts:contacts,Locations:locations,BusinessInvoiceData:client_invoice});
-      return this.http.post<any>(`${this.apiUrl}/Clients/RegisterClientsAllForm`, body, { headers: headers}).pipe();
+      return this.http.post<any>(`${this.apiUrl}/Clients/RegisterClients`, body, { headers: headers}).pipe();
     }
 
     /*postData(data:Clients ): Observable<any> {

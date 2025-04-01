@@ -1,29 +1,84 @@
+/* Espaciado general */
 .container {
-    padding: 20px;
-  }
-  
-  mat-grid-list {
-    width: 100%;
-  }
-  
-  mat-form-field {
-    width: 100%;
-  }
-/*TRES COLUMNAS*/
-  .grid-container {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr); /* Tres columnas iguales */
-    gap: 16px; /* Espaciado entre elementos */
-  }
+  padding: 20px;
+}
 
-  .grid-item {
-    width: 100%;
-  }
+mat-form-field {
+  width: 100%;
+}
 
-  .full-width {
-    grid-column: span 3; /* Ocupa las 3 columnas para algunos campos */
-  }
+/* Estructura principal: Avatar + Campos */
+.grid-container {
+  display: grid;
+  grid-template-columns: 1fr 2fr; /* Avatar 1 parte, Campos 2 partes */
+  gap: 24px;
+  align-items: flex-start;
+}
 
-  .full-screen-modal .mat-dialog-container {
-    padding: 24px;
-  }
+/* Avatar */
+.avatar-container {
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  min-width: 150px;
+  max-width: 150px;
+}
+
+.avatar-icon {
+  font-size: 120px;
+  color: #ccc;
+}
+
+/* Campos del formulario en 2 columnas */
+.form-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 16px;
+}
+
+/* Para los elementos que deben ocupar todo el ancho (2 columnas) */
+.full-width {
+  grid-column: span 2;
+}
+
+/* Ajustes para el modal en pantalla completa */
+.full-screen-modal .mat-dialog-container {
+  padding: 24px;
+}
+
+/* Botones al pie del formulario */
+.mat-card-actions {
+  display: flex;
+  justify-content: space-between;
+  padding-top: 16px;
+}
+
+/* Botón a la izquierda */
+.mat-card-actions button:first-child {
+  margin-right: auto;
+}
+
+/* Ícono de búsqueda al lado del campo persona */
+button[mat-icon-button] {
+  align-self: center;
+  margin-left: 8px;
+}
+
+/* Espaciador flexible si se requiere */
+.spacer {
+  flex: 1 1 auto;
+}
+.persona-row {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.persona-row .flex-grow {
+  flex: 1;
+}
+
+.search-btn {
+  height: 56px; /* altura del mat-form-field */
+  margin-top: 4px;
+}

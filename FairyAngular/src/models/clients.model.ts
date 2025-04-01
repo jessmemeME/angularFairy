@@ -16,6 +16,7 @@ export interface Client {
 	created_user_id?: number; // ID del usuario que creó el cliente
 	people_id?: number; // ID de la persona asociada al cliente
 	updated_user_id?: number; // ID del usuario que actualizó el cliente
+	type_people?: string; // Tipo de persona (natural o jurídica)
 	/*
 	 TABLE_NAME = 'clients_client'
 	 */

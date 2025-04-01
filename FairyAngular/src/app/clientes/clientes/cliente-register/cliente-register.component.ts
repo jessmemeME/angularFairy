@@ -15,12 +15,28 @@ import { PeopleModule } from '../../../people/people.module';
 import { PeopleRegisterComponent } from '../../../people/people-register/people-register.component';
 import { PeopleModalComponent } from '../../../people/people-modal/people-modal.component';
 import { MatDialog } from '@angular/material/dialog';
+import { MAT_DATE_FORMATS } from '@angular/material/core';
+import { MAT_DATE_LOCALE } from '@angular/material/core';
 
+export const CUSTOM_DATE_FORMATS = {
+  parse: {
+    dateInput: 'DD/MM/YYYY',
+  },
+  display: {
+    dateInput: 'dd/MM/yyyy',
+    monthYearLabel: 'MMM yyyy',
+    dateA11yLabel: 'dd/MM/yyyy',
+    monthYearA11yLabel: 'MMMM yyyy',
+  },
+};
 
 @Component({
   selector: 'app-cliente-register',
   templateUrl: './cliente-register.component.html',
-  styleUrls: ['./cliente-register.component.css']
+  styleUrls: ['./cliente-register.component.css'],
+  providers: [
+    { provide: MAT_DATE_LOCALE, useValue: 'es-ES' }
+  ]
 })
 export class ClienteRegisterComponent implements OnInit {
   clienteForm!: FormGroup;
@@ -36,6 +52,10 @@ export class ClienteRegisterComponent implements OnInit {
         personaLabel: [''],
         estado: ['Prospecto', Validators.required],  // Valor por defecto "Prospecto"
         tipoCliente: ['F', Validators.required],  // Valor por defecto "Cliente"
+        fechaIncorporacion: [new Date().toISOString(), Validators.required],  // Valor por defecto fecha actual
+        fechaIncorporacion2: [(new Date().getDay() + '/' + new Date().getMonth() + '/' + new Date().getFullYear()), Validators.required],  // Valor por defecto fecha actual
+        descripcion: ['',Validators.required],
+        relacion: ['',Validators.required],
       })
     });
   }
@@ -67,20 +87,63 @@ export class ClienteRegisterComponent implements OnInit {
     return this.clienteForm.get('datosPersonales') as FormGroup;
   }
 
-  verificarDocumento(): void {
-    const numeroDocumento = this.datosBasicosControl.get('numeroDocumento')!.value;
-    const tipoDocumento = this.datosBasicosControl.get('tipoDocumento')!.value;
-    console.log('Verificar documento:', numeroDocumento, tipoDocumento);
-    this.clientesService.getPeopleByDocumentNumber(numeroDocumento, tipoDocumento).subscribe(
-      (response) => {
-        console.log('Documento verificado:', response);
-        if (response.length == 0) {
-          this.enableRegisterClient = true;
-        }
-      },
-      (error) => {
-        console.error('Error al verificar el documento:', error);
-      });
+  formatDateInput(event: Event): void {
+    const inputElement = event.target as HTMLInputElement;
+    let value = inputElement.value;
+  
+    // Limitar el número de caracteres a 10
+    value = value.slice(0, 10).replace(/\D/g, '');
+  
+    // Insertar los separadores "/"
+    if (value.length > 2 && value.length <= 4) {
+      value = value.slice(0, 2) + '/' + value.slice(2);
+    } else if (value.length > 4) {
+      value = value.slice(0, 2) + '/' + value.slice(2, 4) + '/' + value.slice(4);
+    }
+  
+    inputElement.value = value;
+  
+    this.clienteForm.get('datosPersonales.fechaNacimiento')?.setValue(value, { emitEvent: false });
+  }
+  
+
+  validarFormatoFecha(control: FormControl): { [key: string]: boolean } | null {
+    const value = control.value;
+    const regex = /^(0[1-9]|[12][0-9]|3[01])\/(0[1-9]|1[0-2])\/\d{4}$/;
+    if (value && !regex.test(value)) {
+      return { formatoInvalido: true };
+    }
+    return null;
+  }
+
+  validarFormatoFechaCorrecto(fecha: string): boolean {
+    const regex = /^(0[1-9]|[12][0-9]|3[01])\/(0[1-9]|1[0-2])\/\d{4}$/;
+    
+    // Verifica si cumple con el formato DD/MM/AAAA
+    if (!regex.test(fecha)) {
+      return false;
+    }
+  
+    // Extrae el día, mes y año
+    const [dia, mes, anio] = fecha.split('/').map(Number);
+  
+    // Verifica que el año esté entre 0000 y el año actual
+    const anioActual = new Date().getFullYear();
+    if (anio < 0 || anio > anioActual) {
+      return false;
+    }
+  
+    // Verifica que el día y el mes sean válidos, teniendo en cuenta los meses y años bisiestos
+    const fechaValida = new Date(anio, mes - 1, dia);
+    if (
+      fechaValida.getDate() !== dia ||
+      fechaValida.getMonth() + 1 !== mes || 
+      fechaValida.getFullYear() !== anio
+    ) {
+      return false;
+    }
+  
+    return true;
   }
 
   saveProgress(): void {
@@ -88,32 +151,28 @@ export class ClienteRegisterComponent implements OnInit {
     console.log('Datos guardados:', this.datosBasicosControl.valid);
     if (this.datosBasicosControl.valid) {
       console.log('que es esto');
-      let people: People = { first_name: this.datosBasicosControl.get('nombres')!.value, 
-        last_name: this.datosBasicosControl.get('apellidos')!.value, 
-        document_number: this.datosBasicosControl.get('numeroDocumento')!.value,
-        document_type_id: this.datosBasicosControl.get('tipoDocumento')!.value,
-        photo_people: 'No', 
-        date_of_birth: new Date().toISOString(), description: 'New user', is_active: true, created_date: new Date().toISOString(), 
-        updated_date: new Date().toISOString(), age_group_id: 1,gender_id:0, type_of_diner_id:1, created_user_id: 1, updated_user_id: 1};
+     
 
       let client: Client = { type: this.datosBasicosControl.get('estado')!.value, 
-        name:this.datosBasicosControl.get('nombres')!.value + '_' + this.datosBasicosControl.get('apellidos')!.value,
-        description: 'New user', is_confirmated: true, created_date: new Date().toISOString(), 
-        updated_date: new Date().toISOString(), is_active: true, created_user_id: 1, people_id: 1, updated_user_id: 1};
+        name:this.datosBasicosControl.get('persona')!.value.first_name + '_' + this.datosBasicosControl.get('persona')!.value.last_name,
+        description: this.datosBasicosControl.get('descripcion')!.value,
+        type_people: this.datosBasicosControl.get('tipoCliente')!.value,
+        is_confirmated: true, created_date: new Date().toISOString(), 
+        updated_date: new Date().toISOString(), is_active: true, created_user_id: 1, people_id: this.datosBasicosControl.get('persona')!.value.id, updated_user_id: 1};
 
       let all_locations : any[] = [];
       let location: Locations;
-      
-      
-        // this.clientesService.RegisterClientsAllForm(client, people, all_locations,all_contacts,all_client_invoice).subscribe(
-        //   response => {
-        //     console.log('Cliente y persona creados', response);
-        //     this.router.navigate(['/clients']);
-        //   },
-        //   error => {
-        //     console.error('Error al crear el cliente y persona', error);
-        //   }
-        // );
+      console.log('client', client);
+      //RegisterClients
+        this.clientesService.RegisterClients(client).subscribe(
+          response => {
+            console.log('Cliente y persona creados', response);
+            this.router.navigate(['/clients']);
+          },
+          error => {
+            console.error('Error al crear el cliente y persona', error);
+          }
+        );
 
       
     }else{
