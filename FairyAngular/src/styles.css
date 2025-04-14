@@ -242,4 +242,39 @@ body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
   filter: brightness(0.95);
 }
 
-/*------------------------------*/
+/*--------------TABLE DARK----------------*/
+.table-dark {
+  background-color: #fce4ec !important; /*  rosa bebé */
+  color: #CB8587 !important;            /*  texto rosa fuerte*/
+}
+
+.table-dark th,
+.table-dark td {
+  background-color: #CB8587 !important;
+  color: #fff !important;
+  border-color: #f8bbd0 !important;     /* bordes más definidos*/
+}
+
+.table-dark thead th {
+  background-color: #f8bbd0 !important; /* tono más intenso para encabezado*/
+  color: #CB8587 !important;
+  border-color: #e8a5b3 !important;
+}
+
+.table-dark tbody tr:hover {
+  background-color: #fcdbe4 !important; /* hover más suave*/
+}
+
+
+.thead-dark {
+  background-color: #f8bbd0 !important; /* rosa intermedio */
+  color: #CB8587 !important;            /* texto rosa fuerte */
+}
+
+.thead-dark th {
+  background-color: #CB8587 !important; /* igual al contenedor */
+  color: #fff !important;
+  border-color: #CB8587 !important;     /* borde sutil */
+  font-weight: 600;
+}
+/*----------------------------------------------*/
