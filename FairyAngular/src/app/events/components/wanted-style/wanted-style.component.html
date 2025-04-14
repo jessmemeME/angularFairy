@@ -1,6 +1,6 @@
 <div class="table-responsive">
     <table class="table mt-2">
-        <thead class="table-dark">
+        <thead class="table table-primary">
           <tr>
             <th>Según</th>
             <th>Segmento</th>
@@ -10,31 +10,38 @@
           </tr>
         </thead>
         <tbody>
-          <tr>
-            <td>El Nivel de Formalidad</td>
+          <tr *ngFor="let category of categories">
+            <!-- Nombre de la categoría -->
+            <td>{{ category.name }}</td>
+          
+            <!-- Select de segmentos -->
             <td>
               <select class="form-select">
-                <option selected>Seleccionar...</option>
-                <option value="1">Casual</option>
-                <option value="2">Semi-formal</option>
-                <option value="3">Formal</option>
+                <option selected disabled>Seleccionar...</option>
+                <option *ngFor="let segment of category.segments" [value]="segment.id">
+                  {{ segment.name }}
+                </option>
               </select>
             </td>
+          
+            <!-- Select de estilos (usando el primer segmento como ejemplo) -->
             <td>
-              <select class="form-select">
-                  <option selected>Seleccionar...</option>
-                  <option value="1">Casual</option>
-                  <option value="2">Semi-formal</option>
-                  <option value="3">Formal</option>
-                </select>
+              <select class="form-select" [disabled]="!category.segments.length || !category.segments[0].styles.length">
+                <option selected disabled>Seleccionar...</option>
+                <option *ngFor="let style of category.segments[0]?.styles" [value]="style.id">
+                  {{ style.name }}
+                </option>
+              </select>
             </td>
+          
+            <!-- Descripción -->
             <td>
-              <p >
-                  Ceremonia elegante con protocolos tradicionales. Predomina el blanco, negro y dorado, vestidos largos y etiqueta formal.
-              </p>
+              <p>{{ category.description }}</p>
             </td>
+          
+            <!-- Input de texto libre -->
             <td>
-              <input type="text"  class="form-control"/>
+              <input type="text" class="form-control" />
             </td>
           </tr>
         </tbody>
