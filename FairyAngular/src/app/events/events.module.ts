@@ -25,6 +25,7 @@ import { WantedStyleComponent } from './components/wanted-style/wanted-style.com
 import { ExpectationComponent } from './components/expectation/expectation.component';
 import { DetailExpectationComponent } from './components/detail-expectation/detail-expectation.component';
 import { CeremonyComponent } from './components/ceremony/ceremony.component';
+import { EventsIdeasModalComponent } from './components/events-ideas-modal/events-ideas-modal.component';
 
 
 @NgModule({
@@ -32,7 +33,7 @@ import { CeremonyComponent } from './components/ceremony/ceremony.component';
     
   
     EventsComponent, 
-    CreateEventComponent, BriefComponent, CoupleCardComponent, TimeAvailabilityModalComponent, InitialMeetingComponent, PlanificationComponent, BudgetsComponent, MovementsComponent, GuestListComponent, BriefHeaderComponent, GuestFormComponent, TentativePlaceFormComponent, FinanceFormComponent, WantedStyleComponent, ExpectationComponent, DetailExpectationComponent, CeremonyComponent,
+    CreateEventComponent, BriefComponent, CoupleCardComponent, TimeAvailabilityModalComponent, InitialMeetingComponent, PlanificationComponent, BudgetsComponent, MovementsComponent, GuestListComponent, BriefHeaderComponent, GuestFormComponent, TentativePlaceFormComponent, FinanceFormComponent, WantedStyleComponent, ExpectationComponent, DetailExpectationComponent, CeremonyComponent, EventsIdeasModalComponent,
   ],
   imports: [
     CommonModule,

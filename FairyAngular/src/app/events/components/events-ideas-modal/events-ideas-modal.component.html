@@ -1,0 +1,68 @@
+<!-- Modal -->
+<div 
+  class="modal fade"
+  [ngClass]="{ 'show d-block': isModalOpen }"
+  tabindex="-1"
+  role="dialog"
+>
+  <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable modal-lg">
+    <div class="modal-content">
+
+      <!-- Header -->
+      <div class="modal-header">
+        <div class="modal-title">
+          <h2><b>Seleccionar las opciones que desea incluir en su evento</b></h2>
+        </div>
+      </div>
+
+      <!-- Body -->
+      <div class="modal-body">
+        <div class="card">
+          <div class="card-body">
+            <table class="table table-responsive">
+              <thead>
+                <tr>
+                  <th>Seleccionado</th>
+                  <th>Idea</th>
+                </tr>
+              </thead>
+              <tbody>
+                <ng-container *ngIf="ideas.length > 0">
+                  <tr *ngFor="let idea of ideas; let i = index">
+                    <td>
+                      <div class="form-check">
+                        <input class="form-check-input" type="checkbox" [id]="'check' + i">
+                      </div>
+                    </td>
+                    <td>{{ idea.name }}</td>
+                  </tr>
+                </ng-container>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+
+      <!-- Footer -->
+      <div class="modal-footer">
+        <div class="d-flex justify-content-between w-100">
+          <button
+            type="button"
+            class="btn btn-secondary mx-2"
+            (click)="onCloseClick()"
+          >
+            Cerrar
+          </button>
+          <button type="button" class="btn btn-primary">Guardar</button>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+<!-- 🔥 Manual backdrop -->
+<div 
+  class="modal-backdrop fade show"
+  *ngIf="isModalOpen"
+></div>
