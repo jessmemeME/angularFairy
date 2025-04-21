@@ -148,4 +148,5 @@ export interface People {
   type_of_diner_id?: number; // ID del tipo de comensal
   created_user_id?: number; // ID del usuario que creó la persona
   updated_user_id?: number; // ID del usuario que actualizo
+  religion_id?: number; // ID de la religión de la persona
 }

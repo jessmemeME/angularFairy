@@ -3,8 +3,7 @@ import { FormBuilder, FormGroup, FormArray, Validators, FormControl } from '@ang
 import { MatStepper } from '@angular/material/stepper';
 import { Router } from '@angular/router';  // Importa el servicio Router
 import { Client} from '../../../models/clients.model';//llamamos a nuestra interface
-import { Gender, People } from '../../../models/basic-info.model';
-import { DocumentType } from '../../../models/basic-info.model';
+import { Gender, People,TypeOfDiner,Religion,DocumentType } from '../../../models/basic-info.model';
 import { PeopleService } from '../people.service';
 import { first } from 'rxjs';
 import { citiesResponse, Locations, LocationsResponse } from '../../../models/locations.models';
@@ -30,6 +29,8 @@ export class PeopleRegisterComponent implements OnInit {
   enableRegisterClient: boolean = false;
   genders: Gender[] = [];
   contactTypes: ContactType[] = [];
+  tipoComensales: TypeOfDiner[] = [];
+  religions: Religion[] = [];
   enableRegisterRuc: boolean = false;
 
   constructor(private fb: FormBuilder, private router: Router, private peopleService: PeopleService) {
@@ -43,7 +44,8 @@ export class PeopleRegisterComponent implements OnInit {
       }),
       datosPersonales: this.fb.group({
         genero: ['', Validators.required],
-        especificarOtro: [''],
+        tipoComensal: ['', Validators.required],
+        religion: ['', Validators.required],
         fechaNacimiento: ['', [Validators.required, this.validarFormatoFecha]], // Validador de formato personalizado
         edad: new FormControl({ value: '', disabled: true }, Validators.required)
       }),
@@ -92,6 +94,24 @@ export class PeopleRegisterComponent implements OnInit {
       },
       (error) => {
         console.error('Error al obtener los tipos de contactos:', error);
+      }
+    );
+    this.peopleService.getAllTypeOfDinner().subscribe(
+      (data) => {
+        this.tipoComensales = data;
+        console.log('Tipos de comensales:', this.tipoComensales);
+      },
+      (error) => {
+        console.error('Error al obtener los tipos de comensales:', error);
+      }
+    );
+    this.peopleService.getAllReligion().subscribe(
+      (data) => {
+        this.religions = data;
+        console.log('Religiones:', this.religions);
+      },
+      (error) => {
+        console.error('Error al obtener las religiones:', error);
       }
     );
   }
@@ -370,7 +390,11 @@ get contactos(): FormArray {
         document_type_id: this.datosBasicosControl.get('tipoDocumento')!.value,
         photo_people: 'No', 
         date_of_birth: new Date().toISOString(), description: 'New user', is_active: true, created_date: new Date().toISOString(), 
-        updated_date: new Date().toISOString(), age_group_id: 1,gender_id:0, type_of_diner_id:1, created_user_id: 1, updated_user_id: 1};
+        updated_date: new Date().toISOString(), age_group_id: 1,
+        gender_id: this.datosPersonalesControl.get('genero')!.value,
+        type_of_diner_id: this.datosPersonalesControl.get('tipoComensal')!.value,
+        religion_id: this.datosPersonalesControl.get('religion')!.value,
+        created_user_id: 1, updated_user_id: 1};
 
 
       let all_locations : any[] = [];

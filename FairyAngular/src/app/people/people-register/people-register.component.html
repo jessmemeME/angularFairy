@@ -125,6 +125,30 @@
             <mat-label>Edad</mat-label>
             <input matInput formControlName="edad" />
           </mat-form-field>
+          <!--Tipo comensal-->
+          <mat-form-field appearance="outline">
+            <mat-label>Tipo Comensal</mat-label>
+            <mat-select formControlName="tipoComensal" required>
+              <mat-option *ngFor="let tipoComensal of tipoComensales" [value]="tipoComensal.id">{{tipoComensal.name}}</mat-option>
+            </mat-select>
+            <mat-error
+              *ngIf="datosPersonalesControl.get('tipoComensal')?.hasError('required')"
+            >
+              El tipo de comensal es obligatorio
+            </mat-error>
+          </mat-form-field>
+          <!-- reglion-->
+          <mat-form-field appearance="outline">
+            <mat-label>Religión</mat-label>
+            <mat-select formControlName="religion" required>
+              <mat-option *ngFor="let religion of religions" [value]="religion.id">{{religion.name}}</mat-option>
+            </mat-select>
+            <mat-error
+              *ngIf="datosPersonalesControl.get('religion')?.hasError('required')"
+            >
+              La religión es obligatoria
+            </mat-error>
+          </mat-form-field>
         </mat-card-content>
         <mat-card-actions>
           <button mat-raised-button matStepperPrevious color="primary">

@@ -51,4 +51,12 @@ export class PeopleService {
   getAllContactTypes():Observable<any>{ 
     return this.http.get<any>(`${this.apiUrl}/BasicInfo/listAllContactType`);
   }
+  //typeofDiner
+  getAllTypeOfDinner():Observable<any>{ 
+    return this.http.get<any>(`${this.apiUrl}/BasicInfo/ListAllTypeOfDiners`);
+  }
+  //religion
+  getAllReligion():Observable<any>{ 
+    return this.http.get<any>(`${this.apiUrl}/BasicInfo/ListAllReligions`);
+  }
 }
