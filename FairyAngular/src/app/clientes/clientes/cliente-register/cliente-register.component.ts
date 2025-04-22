@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, FormArray, Validators, FormControl } from '@angular/forms';
 import { MatStepper } from '@angular/material/stepper';
-import { Router } from '@angular/router';  // Importa el servicio Router
+import { Router, ActivatedRoute } from '@angular/router';  // Importa el servicio Router
 import { Client} from '../../../../models/clients.model';//llamamos a nuestra interface
 import { Gender, People } from '../../../../models/basic-info.model';
 import { DocumentType } from '../../../../models/basic-info.model';
@@ -17,6 +17,7 @@ import { PeopleModalComponent } from '../../../people/people-modal/people-modal.
 import { MatDialog } from '@angular/material/dialog';
 import { MAT_DATE_FORMATS } from '@angular/material/core';
 import { MAT_DATE_LOCALE } from '@angular/material/core';
+import { cl } from '@fullcalendar/core/internal-common';
 
 export const CUSTOM_DATE_FORMATS = {
   parse: {
@@ -45,7 +46,7 @@ export class ClienteRegisterComponent implements OnInit {
   documentTypes: DocumentType[] = [];
   enableRegisterClient: boolean = false;
 
-  constructor(private fb: FormBuilder, private router: Router, private clientesService: ClientesService,private dialog: MatDialog) {
+  constructor(private fb: FormBuilder, private router: Router, private route: ActivatedRoute,private clientesService: ClientesService,private dialog: MatDialog) {
     this.clienteForm = this.fb.group({
       datosBasicos: this.fb.group({
         persona: ['', Validators.required],
@@ -61,8 +62,6 @@ export class ClienteRegisterComponent implements OnInit {
   }
 
   ngOnInit(): void {
-   
-
     this.clientesService.getDocumentTypes().subscribe(
       (data) => {
         this.documentTypes = data;
@@ -72,11 +71,56 @@ export class ClienteRegisterComponent implements OnInit {
         console.error('Error al obtener los tipos de documentos:', error);
       }
     );
+    const clientId = Number(this.route.snapshot.paramMap.get('clientId'));
+    if (clientId) {
+      console.log('ID del cliente:', clientId);
+      //significa que es edicion
+      this.loadClientData(clientId);
+    }
   }
 
   // Método para volver a la lista de clientes
   goBack(): void {
     this.router.navigate(['/clients']);  // Redirige a la página principal de clientes
+  }
+
+  private loadClientData(clientId: number): void {
+    this.clientesService.getClientDetails(clientId).subscribe(
+      /*type: this.datosBasicosControl.get('estado')!.value, 
+        name:this.datosBasicosControl.get('persona')!.value.first_name + '_' + this.datosBasicosControl.get('persona')!.value.last_name,
+        description: this.datosBasicosControl.get('descripcion')!.value,
+        type_people: this.datosBasicosControl.get('tipoCliente')!.value,
+        is_confirmated: true, created_date: new Date().toISOString(), 
+        updated_date: new Date().toISOString(), is_active: true, created_user_id: 1, people_id: this.datosBasicosControl.get('persona')!.value.id, updated_user_id: 1};*/
+      (data: any) => {
+        console.log('Datos del cliente:', data);
+        console.log('Datos del BasicInfoPeople:', data.BasicInfoPeople);
+        // Se espera que 'data' contenga: ClientsClient, BasicInfoPeople, Locations, Contacts y BusinessInvoiceData
+        // Completar sección de Datos Básicos
+        this.clienteForm.patchValue({
+          datosBasicos: {
+            persona: data.basicInfoPeople,
+            personaLabel: data.basicInfoPeople.document_number + ' - ' + data.basicInfoPeople.first_name + ' ' + data.basicInfoPeople.last_name,
+            estado: data.clientsClient.type,
+            tipoCliente: data.clientsClient.type_people,
+            fechaIncorporacion: data.clientsClient.created_date,
+            //fechaIncorporacion2: this.formatearFecha(data.clientsClient.created_date),
+            descripcion: data.clientsClient.description,
+            relacion: data.clientsClient.relation
+          },
+        });
+
+        // Limpiar y reconstruir el FormArray de Ubicaciones
+        
+        
+
+        // Procesar los contactos: separamos contactos normales y redes sociales según contact_type_id
+       
+
+        
+      },
+      (error) => console.error('Error al cargar los datos del cliente:', error)
+    );
   }
 
   get datosBasicosControl(): FormGroup {
@@ -164,6 +208,8 @@ export class ClienteRegisterComponent implements OnInit {
       let location: Locations;
       console.log('client', client);
       //RegisterClients
+      const clientId = Number(this.route.snapshot.paramMap.get('clientId'));
+      if (!clientId) {
         this.clientesService.RegisterClients(client).subscribe(
           response => {
             console.log('Cliente y persona creados', response);
@@ -173,6 +219,19 @@ export class ClienteRegisterComponent implements OnInit {
             console.error('Error al crear el cliente y persona', error);
           }
         );
+      }
+      else{
+        client.id = clientId;
+        this.clientesService.UpdateClients(client).subscribe(
+          response => {
+            console.log('Cliente y persona actualizados', response);
+            this.router.navigate(['/clients']);
+          },
+          error => {
+            console.error('Error al actualizar el cliente y persona', error);
+          }
+        );
+      }
 
       
     }else{

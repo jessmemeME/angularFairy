@@ -45,6 +45,21 @@ export class ClientesService {
       return this.http.post<any>(`${this.apiUrl}/Clients/RegisterClients`, body, { headers: headers}).pipe();
     }
 
+    ///update cliente
+    UpdateClients(client:Client):Observable<any>{
+      console.log(client);
+    
+
+      const headers = new HttpHeaders({
+        'content-type': 'application/json',
+        'Access-Control-Allow-Origin': 'http://localhost:4200',
+        'Access-Control-Allow-Methods': 'POST, GET, OPTIONS, PUT, DELETE',
+        'Access-Control-Allow-Headers': 'Content-Type, Access-Control-Allow-Headers, Authorization, X-Requested-With'
+      });
+      const body=client;
+      return this.http.post<any>(`${this.apiUrl}/Clients/UpdateClients`, body, { headers: headers}).pipe();
+    }
+
     /*postData(data:Clients ): Observable<any> {
         const headers = new HttpHeaders({
           'content-type': 'application/json',
